@@ -2,7 +2,7 @@
 import {getServerSession} from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import { NextPage } from 'next'
-import { LogOutButton, LoginButton } from './components/auth/auth'
+import { LogOutButton, LoginButton, RegisterButton } from './components/auth/auth'
 
 const HomePage:NextPage = async() => {
 
@@ -12,6 +12,7 @@ const HomePage:NextPage = async() => {
     <h1>{JSON.stringify(session)}</h1>
     <LoginButton/>
     <LogOutButton/>
+    <RegisterButton/>
     </>
   )
 }
