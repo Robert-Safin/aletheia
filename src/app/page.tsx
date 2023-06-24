@@ -9,6 +9,7 @@ const HomePage:NextPage = async() => {
   const session = await getServerSession(authOptions)
   return (
     <>
+    <h1>user server session :</h1>
     <h1>{JSON.stringify(session)}</h1>
     <LoginButton/>
     <LogOutButton/>

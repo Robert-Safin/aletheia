@@ -6,7 +6,7 @@
 }
 
 .form input {
-@apply text-white p-1 rounded-md
+@apply text-black p-1 rounded-md
 }
 
 .form button {
