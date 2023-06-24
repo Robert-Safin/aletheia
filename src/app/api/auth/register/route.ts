@@ -1,7 +1,7 @@
 
 
-const handler = async(req:Request) => {
+// const handler = async(req:Request) => {
 
-}
+// }
 
-export{ handler as GET}
+// export  { handler as GET}
