@@ -3,11 +3,12 @@ import styles from './FormSubmitButton.module.css'
 
 interface Props{
   title:string
+  isDisabled:boolean
 }
 
 const FormSubmitButton:FC<Props> = (props) => {
   return (
-    <button className={styles.button} type="submit">{props.title}</button>
+    <button className={styles.button} type="submit" disabled={props.isDisabled}>{props.title}</button>
   )
 }
 

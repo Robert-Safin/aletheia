@@ -1,0 +1,6 @@
+.popup {
+@apply absolute bottom-0 right-0 m-8 bg-blue-400 h-12  border border-red-500
+}
+.message {
+@apply text-white p-2
+}
