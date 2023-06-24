@@ -2,7 +2,10 @@
 import {getServerSession} from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import { NextPage } from 'next'
-import { LogOutButton, LoginButton, RegisterButton } from './components/auth/auth'
+import LoginButton from './components/authButtons/LogInButton'
+import LogOutButton from './components/authButtons/LogOutButton'
+import RegisterButton from './components/authButtons/RegisterButton'
+
 
 const HomePage:NextPage = async() => {
 
