@@ -1,17 +1,18 @@
-import { FC } from "react";
+import { FC, forwardRef, Ref } from "react";
 import styles from './FormInput.module.css'
 
-
 interface Props {
-type:string
-name:string
+type: string
+name: string
 placeholder: string | undefined
 }
 
-const FormInput:FC<Props> = (props) => {
+const FormInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
   return (
-    <input className={styles.input} type={props.type} name={props.name} placeholder={props.placeholder}/>
+    <input ref={ref} className={styles.input} type={props.type} name={props.name} placeholder={props.placeholder}/>
   )
-}
+})
 
-export default FormInput
+FormInput.displayName = 'FormInput';
+
+export default FormInput;
