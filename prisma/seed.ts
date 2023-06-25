@@ -74,7 +74,7 @@ async function main() {
       name: "Old Mans",
       categories : 'bar,restaurant',
       address : 'Jl. Pantai Batu Bolong No.117X, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80351',
-      averageRating : 0,
+      averageRating : 3,
       ownerId: John.id,
       photo: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687667189/Aletheia/old-mans-canggu_bj0w5f.jpg',
     }
@@ -114,6 +114,33 @@ async function main() {
   });
 
   console.log('created venue:', WarungGouthe);
+
+
+
+  let LaCalita = await prisma.venue.create({
+    data: {
+      name: "La Calita",
+      categories : 'Mexican,restaurant',
+      address : 'Jl. Pantai Batu Bolong No.68, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
+      averageRating : 5,
+      ownerId: Alex.id,
+      photo: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687715247/Aletheia/lacalita-mexican-bali-canggu_pelspr.jpg'
+    }
+  })
+  LaCalita = await prisma.venue.update({
+    where: { id: LaCalita.id },
+    data: {
+      latitude: (await convertAddressToCoordinates(LaCalita.address)).latitude,
+      longitude: (await convertAddressToCoordinates(LaCalita.address)).longitude,
+      formattedAddress: (await convertAddressToCoordinates(LaCalita.address)).formattedAddress
+    },
+  });
+
+  console.log('created venue:', LaCalita);
+
+
+
+
 }
 
 
