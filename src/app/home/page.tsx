@@ -10,6 +10,7 @@ import {BsCalendarEvent, BsCalendar2EventFill} from 'react-icons/bs'
 import { useState } from "react";
 import useCustomClientSession from "../lib/useCustomClientSession";
 import MissingClientSession from "../components/missingClientSession/MissingClientSession";
+import LoadingSession from "../components/loading/LoadingSession";
 
 
 const HomePage = () => {
@@ -17,7 +18,7 @@ const HomePage = () => {
 
   if (session.status === 'loading') {
     return (
-      <></>
+      <LoadingSession/>
     )
   }
 
