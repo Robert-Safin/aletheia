@@ -8,16 +8,18 @@ const googleMapsClient = createClient({
   key: process.env.GOOGLE_MAPS_API_KEY!,
 });
 
-export const convertAddressToCoordinates = async (address: string): Promise<{latitude: number, longitude: number}> => {
+export const convertAddressToCoordinates = async (address: string): Promise<{latitude: number, longitude: number, formattedAddress:string}> => {
   return new Promise((resolve, reject) => {
     googleMapsClient.geocode({ address }, (err, response) => {
       if (err) {
         reject(err);
       } else if (response.json.results.length > 0) {
         const location = response.json.results[0].geometry.location;
+        const formattedAddress = response.json.results[0].formatted_address;
         resolve({
           latitude: location.lat,
           longitude: location.lng,
+          formattedAddress: formattedAddress,
         });
       } else {
         reject(new Error('No results found'));
@@ -81,10 +83,11 @@ async function main() {
     where: { id: OldMans.id },
     data: {
       latitude: (await convertAddressToCoordinates(OldMans.address)).latitude,
-      longitude: (await convertAddressToCoordinates(OldMans.address)).longitude
+      longitude: (await convertAddressToCoordinates(OldMans.address)).longitude,
+      formattedAddress: (await convertAddressToCoordinates(OldMans.address)).formattedAddress
+
     },
   });
-
 
   console.log('created venue:', OldMans);
 
@@ -105,16 +108,12 @@ async function main() {
     where: { id: WarungGouthe.id },
     data: {
       latitude: (await convertAddressToCoordinates(WarungGouthe.address)).latitude,
-      longitude: (await convertAddressToCoordinates(WarungGouthe.address)).longitude
+      longitude: (await convertAddressToCoordinates(WarungGouthe.address)).longitude,
+      formattedAddress: (await convertAddressToCoordinates(WarungGouthe.address)).formattedAddress
     },
   });
 
-
-
   console.log('created venue:', WarungGouthe);
-
-
-
 }
 
 

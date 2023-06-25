@@ -1,0 +1,8 @@
+
+.mainHeader {
+@apply text-2xl my-4
+}
+
+.subHeader {
+@apply text-xl my-4
+}

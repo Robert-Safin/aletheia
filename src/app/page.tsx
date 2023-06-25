@@ -5,28 +5,31 @@ import { NextPage } from 'next'
 import LoginButton from './components/authButtons/LogInButton'
 import LogOutButton from './components/authButtons/LogOutButton'
 import RegisterButton from './components/authButtons/RegisterButton'
-import { CustomSession } from './lib/CustomSession'
-import getCurrentUserModel from './lib/getCurrentUserModel'
-import customSession from './lib/getSession'
-
-
+import useCustomServerSession from './lib/useCustomServerSession'
+import MainHeader from './components/headers/MainHeader'
+import Container from './components/containers/Container'
 
 
 
 const HomePage:NextPage = async() => {
-  const session = await customSession()
-  const currentUser = await getCurrentUserModel(Number(session.user.id))
-  console.log();
+  const session = await useCustomServerSession()
 
+  let username
+  if (session) {
+    username = session.user!.name
+  } else {
+    username = 'Guest'
+  }
 
   return (
-    <>
-    <h1>user server session :</h1>
-    <h1>{JSON.stringify(currentUser)}</h1>
+    <Container>
+    <MainHeader title='Landing Page'/>
+    <p>Browsing as {username}</p>
+
     <LoginButton/>
     <LogOutButton/>
     <RegisterButton/>
-    </>
+    </Container>
   )
 }
 

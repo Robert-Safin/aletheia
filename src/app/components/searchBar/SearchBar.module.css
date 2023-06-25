@@ -1,0 +1,13 @@
+.container {
+@apply flex items-center bg-gray rounded-md p-1
+}
+.icon {
+@apply text-lg text-black mr-2
+}
+.input {
+@apply text-lg w-full bg-gray
+}
+
+.input::placeholder {
+@apply text-black
+}

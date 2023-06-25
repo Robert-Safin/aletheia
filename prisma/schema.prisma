@@ -30,6 +30,7 @@ model Venue {
   name String  @unique
   categories String
   address String
+  formattedAddress String @default("")
   averageRating Float
   photo String @default("https://res.cloudinary.com/dxgkclowd/image/upload/v1687667294/Aletheia/placeholder-flat-multicolor-icon-vector_jqvcso.jpg")
   longitude Float @default(0)

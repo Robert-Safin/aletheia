@@ -1,0 +1,7 @@
+.categoryHeader {
+@apply flex items-center
+}
+
+.categoryIcon {
+@apply text-xl mr-2
+}
