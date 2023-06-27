@@ -9,7 +9,9 @@
 .name {
 @apply text-sm font-semibold
 }
-
+.distance {
+@apply text-xs my-1
+}
 .starIcon {
 @apply text-xs text-yellow-400
 }
