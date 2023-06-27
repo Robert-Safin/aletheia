@@ -2,12 +2,12 @@
 import {getServerSession} from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import { NextPage } from 'next'
-import LoginButton from './components/authButtons/LogInButton'
-import LogOutButton from './components/authButtons/LogOutButton'
-import RegisterButton from './components/authButtons/RegisterButton'
-import useCustomServerSession from './lib/useCustomServerSession'
-import MainHeader from './components/headers/MainHeader'
-import Container from './components/containers/Container'
+import LoginButton from '../components/authButtons/LogInButton'
+import LogOutButton from '../components/authButtons/LogOutButton'
+import RegisterButton from '../components/authButtons/RegisterButton'
+import useCustomServerSession from '../lib/useCustomServerSession'
+import MainHeader from '../components/headers/MainHeader'
+import Container from '../components/containers/Container'
 import Link from 'next/link'
 
 

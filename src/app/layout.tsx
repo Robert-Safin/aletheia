@@ -1,7 +1,7 @@
 import "./globals.css";
 import Provider from "./providers";
 import styles from "./layout.module.css";
-import Navbar from "./components/navbar/Navbar";
+import Navbar from "../components/navbar/Navbar";
 
 export const metadata = {
   title: "Create Next App",

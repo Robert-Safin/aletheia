@@ -3,7 +3,7 @@ import { FC } from "react";
 import styles from "./NavBar.module.css";
 import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
 import { LiaMapSolid } from "react-icons/lia";
-import useCustomClientSession from "@/app/lib/useCustomClientSession";
+import useCustomClientSession from "@/lib/useCustomClientSession";
 import MissingClientSession from "../missingClientSession/MissingClientSession";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
