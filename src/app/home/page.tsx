@@ -119,14 +119,12 @@ const HomePage: FC = (props) => {
 
       <div className={styles.categoryHeader}>
         <BiWalk className={styles.categoryIcon} />
-        <SubHeader title="Top Places Near You" />
+        <SubHeader title="Places Near You" />
       </div>
 
       <CardContainer>
-        {venuesOrderedByDistance.map((venue) => (
-
+        {venuesOrderedByDistance.map(venue => (
           <VenueCard key={venue.id} venue={venue} userLatitude={location.latitude} userLongitude={location.longitude}/>
-
         ))
         }
       </CardContainer>
