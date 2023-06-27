@@ -4,5 +4,6 @@ export interface CustomServerSession {
     id : string
     email : string
     name : string
+    isVenueOwner : boolean
   } | null;
 }

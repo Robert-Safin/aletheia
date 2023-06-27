@@ -32,6 +32,13 @@ export const authOptions: NextAuthOptions = {
           }
         })
 
+        const userHasVenues = await prisma.venue.findMany({
+          where: {
+            ownerId : user?.id
+          }
+        })
+
+
         if (!user) {
           return null
         }
@@ -45,6 +52,7 @@ export const authOptions: NextAuthOptions = {
           id: String(user.id),
           email: user.email,
           name: user.name,
+          isVenueOwner: userHasVenues.length > 0,
         }
       },
 
@@ -61,6 +69,7 @@ export const authOptions: NextAuthOptions = {
         user: {
           ...session.user,
           id: token.id,
+          isVenueOwner: token.isVenueOwner,
         }
       }
 
@@ -71,6 +80,7 @@ export const authOptions: NextAuthOptions = {
         return {
           ...token,
           id: u.id,
+          isVenueOwner: u.isVenueOwner,
         }
       }
 
