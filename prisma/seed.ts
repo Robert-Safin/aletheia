@@ -75,6 +75,7 @@ async function main() {
     data: {
       name: "Old Mans",
       categories : 'bar,restaurant',
+      about: "Old Man’s is a beer garden and surf club with sea views. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It’s a popular place for expats and tourists alike.",
       address : 'Jl. Pantai Batu Bolong No.117X, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80351',
       averageRating : 3,
       ownerId: John.id,
@@ -101,6 +102,7 @@ async function main() {
     data: {
       name: "Warung Gouthe",
       categories : 'warung,restaurant',
+      about : "Warung Gouthe is a French restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
       address : 'Jl. Pantai Berawa No.7A, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
       averageRating : 0,
       ownerId: Alex.id,
@@ -125,6 +127,7 @@ async function main() {
     data: {
       name: "La Calita",
       categories : 'Mexican,restaurant',
+      about: "La Calita is a Mexican restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
       address : 'Jl. Pantai Batu Bolong No.68, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
       averageRating : 5,
       ownerId: Alex.id,

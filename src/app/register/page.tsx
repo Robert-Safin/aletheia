@@ -3,11 +3,11 @@ import { PrismaClient } from "@prisma/client";
 import styles from "./page.module.css";
 import { hash } from "bcrypt";
 import { redirect } from "next/navigation";
-import FormLabel from "../components/forms/FormLabel";
-import FormInput from "../components/forms/FormInput";
-import FormSubmitButton from "../components/forms/FormSubmitButton";
+import FormLabel from "../../components/forms/FormLabel";
+import FormInput from "../../components/forms/FormInput";
+import FormSubmitButton from "../../components/forms/FormSubmitButton";
 import { FormEvent, useRef, useState } from "react";
-import RegistrationPopup from "../components/popups/RegistrationPopup";
+import RegistrationPopup from "../../components/popups/RegistrationPopup";
 
 export interface UserRegistrationForm {
   email: string

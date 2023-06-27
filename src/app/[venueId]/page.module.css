@@ -1,0 +1,26 @@
+.headerWithIcon {
+  @apply flex items-center
+}
+
+.icon {
+  @apply text-xl mr-2
+}
+
+
+.photo {
+  @apply object-cover w-96 h-96 rounded-xl
+}
+
+
+.startsAndReview {
+  @apply flex items-center py-4
+}
+.stars {
+  @apply flex
+}
+.starIcon {
+  @apply text-yellow-500 text-2xl
+}
+.reviews {
+  @apply ml-4 font-thin
+}

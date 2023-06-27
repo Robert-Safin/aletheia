@@ -1,8 +1,10 @@
+'use client'
 import { FC } from "react";
 import styles from "./VenueCard.module.css";
 import { Venue } from "@prisma/client";
 import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
+import Link from "next/link";
 
 interface Props {
   venue: Venue;
@@ -10,7 +12,7 @@ interface Props {
   userLongitude: number;
 }
 
-const getRating = (averageRating: number) => {
+  export const getRating = (averageRating: number) => {
   let stars: any = [];
   for (let i = 0; i < averageRating; i++) {
     stars.push(<AiFillStar className={styles.starIcon}/>);
@@ -49,7 +51,7 @@ function toRadians(degrees:number) {
 
 
 const VenueCard: FC<Props> = (props) => {
-  const starts = getRating(props.venue.averageRating);
+  const stars = getRating(props.venue.averageRating);
 
   const unformattedDistanceFromUser = calculateDistance(props.userLatitude, props.userLongitude, props.venue.latitude, props.venue.longitude);
   const metresDistanceFromUser = Math.round(unformattedDistanceFromUser);
@@ -63,6 +65,7 @@ const VenueCard: FC<Props> = (props) => {
 
   return (
     <div className={styles.container}>
+      <Link href={`/${props.venue.id}`}>
       <Image
         className={styles.photo}
         src={props.venue.photo}
@@ -70,9 +73,10 @@ const VenueCard: FC<Props> = (props) => {
         width={1000}
         height={1000}
       />
+      </Link>
       <h1 className={styles.name}>{props.venue.name}</h1>
         <p className={styles.distance}>{distance} away</p>
-      <div className={styles.rating}>{starts}</div>
+      <div className={styles.rating}>{stars}</div>
     </div>
   );
 };
