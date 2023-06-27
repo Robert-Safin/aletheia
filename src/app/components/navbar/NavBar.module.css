@@ -1,0 +1,10 @@
+.container {
+  @apply fixed bottom-0 w-full border-t border-white
+}
+
+.icons {
+  @apply flex justify-evenly
+}
+.icon {
+@apply text-2xl text-white my-4
+}
