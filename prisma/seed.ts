@@ -8,7 +8,7 @@ const googleMapsClient = createClient({
   key: process.env.GOOGLE_MAPS_API_KEY!,
 });
 
-export const convertAddressToCoordinates = async (address: string): Promise<{latitude: number, longitude: number, formattedAddress:string}> => {
+export const convertAddressToCoordinates = async (address: string): Promise<{latitude: number, longitude: number, formattedAddress:string, city:string}> => {
   return new Promise((resolve, reject) => {
     googleMapsClient.geocode({ address }, (err, response) => {
       if (err) {
@@ -16,10 +16,12 @@ export const convertAddressToCoordinates = async (address: string): Promise<{lat
       } else if (response.json.results.length > 0) {
         const location = response.json.results[0].geometry.location;
         const formattedAddress = response.json.results[0].formatted_address;
+        const city = response.json.results[0].address_components[3].long_name;
         resolve({
           latitude: location.lat,
           longitude: location.lng,
           formattedAddress: formattedAddress,
+          city: city
         });
       } else {
         reject(new Error('No results found'));
@@ -84,7 +86,8 @@ async function main() {
     data: {
       latitude: (await convertAddressToCoordinates(OldMans.address)).latitude,
       longitude: (await convertAddressToCoordinates(OldMans.address)).longitude,
-      formattedAddress: (await convertAddressToCoordinates(OldMans.address)).formattedAddress
+      formattedAddress: (await convertAddressToCoordinates(OldMans.address)).formattedAddress,
+      city: (await convertAddressToCoordinates(OldMans.address)).city
 
     },
   });
@@ -109,7 +112,8 @@ async function main() {
     data: {
       latitude: (await convertAddressToCoordinates(WarungGouthe.address)).latitude,
       longitude: (await convertAddressToCoordinates(WarungGouthe.address)).longitude,
-      formattedAddress: (await convertAddressToCoordinates(WarungGouthe.address)).formattedAddress
+      formattedAddress: (await convertAddressToCoordinates(WarungGouthe.address)).formattedAddress,
+      city: (await convertAddressToCoordinates(WarungGouthe.address)).city
     },
   });
 
@@ -132,7 +136,8 @@ async function main() {
     data: {
       latitude: (await convertAddressToCoordinates(LaCalita.address)).latitude,
       longitude: (await convertAddressToCoordinates(LaCalita.address)).longitude,
-      formattedAddress: (await convertAddressToCoordinates(LaCalita.address)).formattedAddress
+      formattedAddress: (await convertAddressToCoordinates(LaCalita.address)).formattedAddress,
+      city: (await convertAddressToCoordinates(LaCalita.address)).city
     },
   });
 
