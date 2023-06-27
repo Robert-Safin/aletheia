@@ -26,7 +26,7 @@ const getVenue = async (id: number) => {
   return venue;
 };
 
-export const getRating = (averageRating: number) => {
+  const getRating = (averageRating: number) => {
   let stars: any = [];
   for (let i = 0; i < averageRating; i++) {
     stars.push(<AiFillStar className={styles.starIcon} />);
