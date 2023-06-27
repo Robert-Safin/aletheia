@@ -23,11 +23,17 @@ const Navbar: FC = (props) => {
             <LiaMapSolid className={styles.icon} />
           </Link>
 
-          {session ? <Link href={`/profile`}>
+          {session.status === 'authenticated' && <Link href={`/profile`}>
             <AiOutlineUser className={styles.icon} />
-          </Link> : <Link href={`/register`}>
-            <AiOutlineUser className={styles.icon} />
+            <p>session true</p>
           </Link> }
+
+          {session.status === "unauthenticated" && <Link href={`/register`}>
+            <AiOutlineUser className={styles.icon} />
+            <p>session false</p>
+          </Link> }
+
+
 
         </div>
       </div>
