@@ -6,6 +6,8 @@ import { AiFillStar } from "react-icons/ai";
 
 interface Props {
   venue: Venue;
+  userLatitude: number;
+  userLongitude: number;
 }
 
 const getRating = (averageRating: number) => {
@@ -19,8 +21,46 @@ const getRating = (averageRating: number) => {
   return stars;
 };
 
+
+function calculateDistance(userLatitude:number, userLongitude:number, venueLatitude:number, venueLongitude:number) {
+  const earthRadius = 6371e3;
+  const userLatRadians = toRadians(userLatitude);
+  const venueLatRadians = toRadians(venueLatitude);
+  const latDiffRadians = toRadians(venueLatitude - userLatitude);
+  const lonDiffRadians = toRadians(venueLongitude - userLongitude);
+
+  const a = Math.sin(latDiffRadians / 2) * Math.sin(latDiffRadians / 2) +
+    Math.cos(userLatRadians) * Math.cos(venueLatRadians) *
+    Math.sin(lonDiffRadians / 2) * Math.sin(lonDiffRadians / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = earthRadius * c;
+
+  return distance;
+}
+
+function toRadians(degrees:number) {
+  return degrees * (Math.PI / 180);
+}
+
+
+
+
+
+
+
 const VenueCard: FC<Props> = (props) => {
   const starts = getRating(props.venue.averageRating);
+
+  const unformattedDistanceFromUser = calculateDistance(props.userLatitude, props.userLongitude, props.venue.latitude, props.venue.longitude);
+  const metresDistanceFromUser = Math.round(unformattedDistanceFromUser);
+  let distance
+  if (metresDistanceFromUser > 1000) {
+    const kmDistanceFromUser =  Math.round(unformattedDistanceFromUser / 1000);
+    distance = `${kmDistanceFromUser}km`;
+  } else {
+    distance = `${metresDistanceFromUser}m`;
+  }
+
   return (
     <div className={styles.container}>
       <Image
@@ -31,7 +71,7 @@ const VenueCard: FC<Props> = (props) => {
         height={1000}
       />
       <h1 className={styles.name}>{props.venue.name}</h1>
-
+        <p className={styles.distance}>{distance} away</p>
       <div className={styles.rating}>{starts}</div>
     </div>
   );

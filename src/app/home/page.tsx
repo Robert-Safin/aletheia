@@ -17,7 +17,7 @@ import { Venue } from "@prisma/client";
 const HomePage: FC = (props) => {
   const session = useCustomClientSession();
 
-  const [location, setLocation] = useState({latitude: 0,longitude: 0,});
+  const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
 
   const [venuesNearUser, setVenuesNearUser] = useState([] as Venue[]);
 
@@ -49,7 +49,7 @@ const HomePage: FC = (props) => {
           }),
         });
         const data = await response.json();
-        setVenuesNearUser(data.venuesNearUser)
+        setVenuesNearUser(data.venuesNearUser);
       }
     };
 
@@ -64,10 +64,6 @@ const HomePage: FC = (props) => {
     <Container>
       <MainHeader title="Welcome Home" />
       <SearchBar />
-
-      {location.latitude}
-      <br />
-      {location.longitude}
 
       <div className={styles.categoryHeader}>
         <MdLocalOffer className={styles.categoryIcon} />
@@ -95,10 +91,10 @@ const HomePage: FC = (props) => {
       </div>
 
       <CardContainer>
-          {venuesNearUser.map(venue =>
-          <VenueCard key={venue.id} venue={venue}/>
-          )}
-        </CardContainer>
+        {venuesNearUser.map((venue) => (
+          <VenueCard key={venue.id} venue={venue} userLatitude={location.latitude} userLongitude={location.longitude}/>
+        ))}
+      </CardContainer>
     </Container>
   );
 };

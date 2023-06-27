@@ -1,5 +1,5 @@
 import { createClient } from "@google/maps";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -9,29 +9,37 @@ const googleMapsClient = createClient({
 
 export async function POST(request: Request) {
   const body = await request.json();
+
+  //handle no body
+  if (!body) {
+    return new Response(JSON.stringify({ message: "no body", failure: 1 }));
+  }
   const latitude = body.latitude;
   const longitude = body.longitude;
 
+  const radiusOfSearch = 0.05;
 
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.GOOGLE_MAPS_API_KEY!}`
-  const response = await fetch(url);
-  const data = await response.json();
+  const minLatitude = latitude - radiusOfSearch
+  const maxLatitude = latitude + radiusOfSearch
 
-  const city = data.results[0].address_components[3].long_name
+  const minLongitude = longitude - radiusOfSearch
+  const maxLongitude = longitude + radiusOfSearch
 
-  // hande api failre
-  if (!city) {
-    return new Response(JSON.stringify({ message: "api failure", failure: 1 }));
-  }
-
-
-  const prisma = new PrismaClient();
 
   const venuesNearUser = await prisma.venue.findMany({
     where: {
-      city: city
+      latitude: {
+        gte: minLatitude,
+        lte: maxLatitude
+      },
+      longitude: {
+        gte: minLongitude,
+        lte: maxLongitude
+      }
     }
   })
+  prisma.$disconnect();
+
 
   if (venuesNearUser.length === 0) {
     return new Response(JSON.stringify({ message: "no venues found", failure: 2 }));
@@ -44,22 +52,3 @@ export async function POST(request: Request) {
 
 
 }
-
-// const getCity = googleMapsClient.reverseGeocode({latlng: [latitude, longitude],},
-//     async (error, response) => {
-//       if (error) {
-//         return new Response(JSON.stringify({ message: "api error", failure: 1 }));
-//       }
-//       if (!error) {
-//         const city =  response.json.results[0].address_components[2].long_name;
-//         if (!city) {
-//           return new Response(
-//             JSON.stringify({ message: "no city name found", failure: 2 })
-//           );
-//         }
-//         return new Response(
-//           JSON.stringify({ city: city, failure: 0 })
-//         );
-//       }
-//     }
-//     );
