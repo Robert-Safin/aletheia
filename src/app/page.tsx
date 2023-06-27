@@ -8,6 +8,7 @@ import RegisterButton from './components/authButtons/RegisterButton'
 import useCustomServerSession from './lib/useCustomServerSession'
 import MainHeader from './components/headers/MainHeader'
 import Container from './components/containers/Container'
+import Link from 'next/link'
 
 
 
@@ -25,6 +26,7 @@ const HomePage:NextPage = async() => {
     <Container>
     <MainHeader title='Landing Page'/>
     <p>Browsing as {username}</p>
+    <Link href={`/home`}>Home page</Link>
 
     <LoginButton/>
     <LogOutButton/>
