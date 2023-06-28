@@ -1,17 +1,36 @@
-"use client";
 import { FC } from "react";
 import styles from "./NavBar.module.css";
-import { AiOutlineHome} from "react-icons/ai";
+import { AiOutlineHome } from "react-icons/ai";
 import { CiSettings } from "react-icons/ci";
 import { LiaMapSolid } from "react-icons/lia";
-import useCustomClientSession from "@/lib/useCustomClientSession";
-import { useRouter } from "next/navigation";
+
 import Link from "next/link";
 import { IoBusinessOutline } from "react-icons/io5";
+import useCustomServerSession from "@/lib/useCustomServerSession";
+import getCurrentUserModel from "@/lib/getCurrentUserModel";
+import { PrismaClient } from "@prisma/client";
 
-const Navbar: FC = (props) => {
-  const session = useCustomClientSession();
-  const router = useRouter();
+const userIsOwner = async (id:number) => {
+  const prisma = new PrismaClient();
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  prisma.$disconnect()
+  return user?.isVenueOwner;
+}
+
+const Navbar: FC = async (props) => {
+
+  const session = await useCustomServerSession();
+  let isOwner
+  if (!session) {
+    isOwner = false;
+  } else {
+    isOwner = await userIsOwner(Number(session.user?.id));
+  }
 
   return (
     <>
@@ -28,17 +47,15 @@ const Navbar: FC = (props) => {
             <CiSettings className={styles.icon} />
           </Link>
 
+          {isOwner && (
+              <Link href={`/management`}>
+              <IoBusinessOutline className={styles.icon} />
+            </Link>
+          )}
 
-
-         {session.data?.user?.isVenueOwner && <Link href={`/management`}>
-            <IoBusinessOutline className={styles.icon} />
-          </Link>}
-
-          <Link href={'/'}>
+          <Link href={"/"}>
             <h1 className={styles.icon}>root</h1>
           </Link>
-
-
         </div>
       </div>
     </>
