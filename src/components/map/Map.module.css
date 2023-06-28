@@ -1,0 +1,8 @@
+
+.venueName {
+ @apply text-black
+}
+
+.venueAbout {
+   @apply text-black
+}

@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import useCustomServerSession from "@/lib/useCustomServerSession";
 import LoginButton from "@/components/authButtons/LogInButton";
 import RegisterVenueButton from "@/components/venueOwnersComponents/RegisterVenueButton";
+import MainHeader from "@/components/headers/MainHeader";
 
 const getOwnersVenues = async (id: number) => {
   const prisma = new PrismaClient();
@@ -42,12 +43,17 @@ const ManagementPage = async () => {
 
   return (
     <Container>
-      <h1>Management Page</h1>
+      <MainHeader title="Management Page"/>
       {venues.map((venue) => (
         <div className={styles.venue} key={venue.id}>
           <h2>{venue.name}</h2>
         </div>
       ))}
+
+      <MainHeader title="Register another venue"/>
+      <RegisterVenueButton/>
+
+
     </Container>
   );
 };

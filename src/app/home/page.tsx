@@ -15,7 +15,6 @@ import LoadingSession from "../../components/loading/LoadingSession";
 import { Venue } from "@prisma/client";
 
 
-
 function calculateDistance(userLatitude:number, userLongitude:number, venueLatitude:number, venueLongitude:number) {
   const earthRadius = 6371e3;
   const userLatRadians = toRadians(userLatitude);
@@ -45,6 +44,7 @@ const HomePage: FC = (props) => {
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
 
   const [venuesNearUser, setVenuesNearUser] = useState([] as Venue[]);
+
 
   useEffect(() => {
     const getLocation = () => {
@@ -123,10 +123,14 @@ const HomePage: FC = (props) => {
       </div>
 
       <CardContainer>
-        {venuesOrderedByDistance.map(venue => (
+
+
+        {venuesOrderedByDistance && venuesOrderedByDistance.map(venue => (
           <VenueCard key={venue.id} venue={venue} userLatitude={location.latitude} userLongitude={location.longitude}/>
         ))
         }
+
+
       </CardContainer>
     </Container>
   );

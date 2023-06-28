@@ -1,7 +1,8 @@
 "use client";
 import { FC } from "react";
 import styles from "./NavBar.module.css";
-import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineHome} from "react-icons/ai";
+import { CiSettings } from "react-icons/ci";
 import { LiaMapSolid } from "react-icons/lia";
 import useCustomClientSession from "@/lib/useCustomClientSession";
 import { useRouter } from "next/navigation";
@@ -23,18 +24,21 @@ const Navbar: FC = (props) => {
             <LiaMapSolid className={styles.icon} />
           </Link>
 
-          {session.status === 'authenticated' && <Link href={`/profile`}>
-            <AiOutlineUser className={styles.icon} />
+          {session.status === 'authenticated' && <Link href={`/settings`}>
+            <CiSettings className={styles.icon} />
           </Link> }
 
           {session.status === "unauthenticated" && <Link href={`/register`}>
-            <AiOutlineUser className={styles.icon} />
+            <CiSettings className={styles.icon} />
           </Link> }
 
-          <Link href={`/management`}>
+         {session.data?.user?.isVenueOwner && <Link href={`/management`}>
             <IoBusinessOutline className={styles.icon} />
-          </Link>
+          </Link>}
 
+          <Link href={'/'}>
+            <h1 className={styles.icon}>root</h1>
+          </Link>
 
 
         </div>
