@@ -1,13 +1,12 @@
 "use client";
 
 import Container from "@/components/containers/Container";
-import styles from "./RegisterVenueForm.module.css"
+import styles from "./RegisterVenueForm.module.css";
 import MainHeader from "@/components/headers/MainHeader";
 import FormLabel from "@/components/forms/FormLabel";
 import FormInput from "@/components/forms/FormInput";
 import { FormEvent, useRef, useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+
 import useCustomClientSession from "@/lib/useCustomClientSession";
 import MissingClientSession from "@/components/missingClientSession/MissingClientSession";
 import LoadingSession from "@/components/loading/LoadingSession";
@@ -23,7 +22,6 @@ export interface VenueRegistrationForm {
 }
 
 const RegisterVenueForm = () => {
-  const [quill, setQuill] = useState("");
   const session = useCustomClientSession();
   const [isDisabled, setIsDisabled] = useState(false);
   const [popup, setPopup] = useState(false);
@@ -31,6 +29,7 @@ const RegisterVenueForm = () => {
 
   const nameRef = useRef<HTMLInputElement>(null);
   const categoryRef = useRef<HTMLInputElement>(null);
+  const aboutRef = useRef<HTMLInputElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
   const photoRef = useRef<HTMLInputElement>(null);
 
@@ -42,51 +41,30 @@ const RegisterVenueForm = () => {
     return <MissingClientSession />;
   }
 
-  const modules = {
-    toolbar: [
-      ["bold", "italic", "underline"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ size: ["small", false, "large", "huge"] }],
-      [{ align: [] }],
-      ["link"],
-      ["clean"],
-      //['blockquote', 'code-block'],
-      //[{ 'header': 1 }, { 'header': 2 }],
-      //[{ 'script': 'sub'}, { 'script': 'super' }],
-      //[{ 'indent': '-1'}, { 'indent': '+1' }],
-      //[{ 'direction': 'rtl' }],
-      //[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      //[{ 'color': [] }, { 'background': [] }],
-      //[{ 'font': [] }],
-    ],
-  };
-
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setIsDisabled(true);
 
-  const file = photoRef.current!.files![0];
-  const validImageTypes = ["image/jpeg", "image/png", "image/webp"];
+    const file = photoRef.current!.files![0];
+    const validImageTypes = ["image/jpeg", "image/png", "image/webp"];
 
-  if (!validImageTypes.includes(file.type)) {
-    // The file is not an accepted image type
-    setPopupMessage("Please upload .jpeg/.png/.webp files only");
-    setPopup(true);
-    setTimeout(() => {
-      setPopup(false);
-    }, 2000);
-    setIsDisabled(false);
-    return; // Don't submit the form
-  }
+    if (!validImageTypes.includes(file.type)) {
+      setPopupMessage("Please upload .jpeg/.png/.webp files only");
+      setPopup(true);
+      setTimeout(() => {
+        setPopup(false);
+      }, 2000);
+      setIsDisabled(false);
+      return; // Don't submit the form
+    }
 
     const formData: VenueRegistrationForm = {
       name: nameRef.current!.value.trim(),
       category: categoryRef.current!.value.trim(),
-      about: quill.trim(),
+      about: aboutRef.current!.value.trim(),
       address: addressRef.current!.value.trim(),
-      photo: photoRef.current!.files![0]
+      photo: photoRef.current!.files![0],
     };
-
 
     setIsDisabled(false);
 
@@ -113,7 +91,7 @@ const RegisterVenueForm = () => {
   };
 
   return (
-    <Container>
+    <>
       <MainHeader title="Register Venue" />
 
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -126,14 +104,19 @@ const RegisterVenueForm = () => {
         />
 
         <FormLabel title="Category" htmlFor="category" />
-        <FormInput name="category" type="text" placeholder="Category" ref={categoryRef}/>
+        <FormInput
+          name="category"
+          type="text"
+          placeholder="Category"
+          ref={categoryRef}
+        />
 
         <FormLabel title="About Venue" htmlFor="" />
-        <ReactQuill
-          value={quill}
-          onChange={setQuill}
-          modules={modules}
-          className={styles.quill}
+        <FormInput
+          name="about"
+          type="text"
+          placeholder="About"
+          ref={aboutRef}
         />
 
         <FormLabel title="Address" htmlFor="address" />
@@ -150,12 +133,14 @@ const RegisterVenueForm = () => {
           className={styles.photoInput}
           ref={photoRef}
         />
-        <label htmlFor="file" className={styles.photoLabel}>Upload a photo</label>
+        <label htmlFor="file" className={styles.photoLabel}>
+          Upload a photo
+        </label>
 
         <FormSubmitButton title="Register" isDisabled={isDisabled} />
       </form>
       {popup && <RegistrationPopup message={popupMessage} />}
-    </Container>
+    </>
   );
 };
 
