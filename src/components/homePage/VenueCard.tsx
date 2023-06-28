@@ -1,4 +1,3 @@
-'use client'
 import { FC } from "react";
 import styles from "./VenueCard.module.css";
 import { Venue } from "@prisma/client";
