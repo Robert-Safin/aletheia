@@ -1,12 +1,12 @@
 import { FC } from "react";
-import styles from './RegistrationPopup.module.css'
+import styles from './ErrorPopup.module.css'
 
 interface Props {
   message : string
 }
 
 
-const RegistrationPopup:FC<Props> = (props) => {
+const ErrorPopup:FC<Props> = (props) => {
   return (
     <div className={styles.popup}>
       <p className={styles.message}>{props.message}</p>
@@ -14,4 +14,4 @@ const RegistrationPopup:FC<Props> = (props) => {
   )
 }
 
-export default RegistrationPopup
+export default ErrorPopup

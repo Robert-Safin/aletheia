@@ -52,7 +52,7 @@ export const authOptions: NextAuthOptions = {
           id: String(user.id),
           email: user.email,
           name: user.name,
-          isVenueOwner: userHasVenues.length > 0,
+          isVenueOwner: user.isVenueOwner
         }
       },
 

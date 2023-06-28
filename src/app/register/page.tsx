@@ -7,7 +7,7 @@ import FormLabel from "../../components/forms/FormLabel";
 import FormInput from "../../components/forms/FormInput";
 import FormSubmitButton from "../../components/forms/FormSubmitButton";
 import { FormEvent, useRef, useState } from "react";
-import RegistrationPopup from "../../components/popups/RegistrationPopup";
+import RegistrationPopup from "../../components/popups/ErrorPopup";
 
 export interface UserRegistrationForm {
   email: string

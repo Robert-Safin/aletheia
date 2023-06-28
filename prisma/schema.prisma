@@ -27,14 +27,14 @@ model User {
 
 model Venue {
   id   Int     @id @default(autoincrement())
-  name String  @unique
-  categories String
-  about String @db.VarChar(1000) @default("")
+  name String
+  categories String @default("")
+  about String @db.VarChar(1000)
   address String
   formattedAddress String @default("")
   city String @default("")
   averageRating Float @default(0)
-  photo String @default("https://res.cloudinary.com/dxgkclowd/image/upload/v1687667294/Aletheia/placeholder-flat-multicolor-icon-vector_jqvcso.jpg")
+  photo String
   longitude Float @default(0)
   latitude Float @default(0)
   createAt DateTime @default(now())

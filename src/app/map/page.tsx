@@ -10,7 +10,6 @@ const MapPage = () => {
 
     <Container>
       <Map/>
-
     </Container>
   );
 }

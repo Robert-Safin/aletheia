@@ -3,11 +3,11 @@
 }
 
 .photo {
-@apply object-cover w-32 h-32 rounded-lg
+@apply object-cover w-36 h-36 rounded-lg
 }
 
 .name {
-@apply text-sm font-semibold
+@apply text-sm font-semibold w-36 line-clamp-1
 }
 .distance {
 @apply text-xs my-1

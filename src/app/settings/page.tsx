@@ -5,8 +5,15 @@ import useCustomServerSession from "@/lib/useCustomServerSession";
 import { FC } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
+import MissingClientSession from "@/components/missingClientSession/MissingClientSession";
 
 const SettingsPage: FC = async (props) => {
+  const session = await useCustomServerSession();
+  if (!session) {
+    return (
+      <MissingClientSession/>
+    )
+  }
   return (
     <Container>
       <div className={styles.group}>

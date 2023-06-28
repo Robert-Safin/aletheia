@@ -1,6 +1,5 @@
 "use client";
 
-import Container from "@/components/containers/Container";
 import styles from "./RegisterVenueForm.module.css";
 import MainHeader from "@/components/headers/MainHeader";
 import FormLabel from "@/components/forms/FormLabel";
@@ -11,7 +10,8 @@ import useCustomClientSession from "@/lib/useCustomClientSession";
 import MissingClientSession from "@/components/missingClientSession/MissingClientSession";
 import LoadingSession from "@/components/loading/LoadingSession";
 import FormSubmitButton from "@/components/forms/FormSubmitButton";
-import RegistrationPopup from "@/components/popups/RegistrationPopup";
+import ErrorPopup from "@/components/popups/ErrorPopup";
+import { useRouter } from "next/navigation";
 
 export interface VenueRegistrationForm {
   name: string;
@@ -22,6 +22,7 @@ export interface VenueRegistrationForm {
 }
 
 const RegisterVenueForm = () => {
+  const router = useRouter();
   const session = useCustomClientSession();
   const [isDisabled, setIsDisabled] = useState(false);
   const [popup, setPopup] = useState(false);
@@ -48,6 +49,15 @@ const RegisterVenueForm = () => {
     const file = photoRef.current!.files![0];
     const validImageTypes = ["image/jpeg", "image/png", "image/webp"];
 
+    if (!file) {
+      setPopupMessage("Please attach a photo");
+      setPopup(true);
+      setTimeout(() => {
+        setPopup(false);
+      }, 2000);
+      setIsDisabled(false);
+      return;
+    }
     if (!validImageTypes.includes(file.type)) {
       setPopupMessage("Please upload .jpeg/.png/.webp files only");
       setPopup(true);
@@ -55,39 +65,65 @@ const RegisterVenueForm = () => {
         setPopup(false);
       }, 2000);
       setIsDisabled(false);
-      return; // Don't submit the form
+      return;
     }
+
+    const formDataCloudinary = new FormData();
+    formDataCloudinary.append('file', file);
+    formDataCloudinary .append('upload_preset', 'aletheia');
+
+    const responseCloudinary = await fetch(`https://api.cloudinary.com/v1_1/dxgkclowd/upload`, {
+      method: 'POST',
+      body: formDataCloudinary,
+    });
+
+
+
+    const cloudinaryResponseData = await responseCloudinary.json();
+    console.log(cloudinaryResponseData);
+
+    const secureUrl = cloudinaryResponseData.secure_url;
+
+
+
+
+
 
     const formData: VenueRegistrationForm = {
       name: nameRef.current!.value.trim(),
       category: categoryRef.current!.value.trim(),
       about: aboutRef.current!.value.trim(),
       address: addressRef.current!.value.trim(),
-      photo: photoRef.current!.files![0],
+      photo: secureUrl,
     };
 
-    setIsDisabled(false);
 
-    // const response = await fetch('api/auth/register', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(formData)
-    // })
 
-    // const serverResponse = await response.json()
-    // const serverFailure = serverResponse.failure
-    // const serverMessage = serverResponse.message
+    const response = await fetch('/api/register-venue', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
 
-    // if (serverFailure >= 1) {
-    //   setFormIsSubmitted(false)
-    //   setPopup(true)
-    //   setTimeout(() => {
-    //     setPopup(false)
-    //   }, 2000);
-    //   setPopupMessage(serverMessage)
-    // }
+    const serverResponse = await response.json()
+    const serverFailure = serverResponse.failure
+    const serverMessage = serverResponse.message
+
+
+    if (serverFailure >= 1) {
+      setIsDisabled(false)
+      setPopup(true)
+      setTimeout(() => {
+        setPopup(false)
+      }, 2000);
+      setPopupMessage(serverMessage)
+    } else {
+      router.push('/management')
+    }
+
+
   };
 
   return (
@@ -139,7 +175,7 @@ const RegisterVenueForm = () => {
 
         <FormSubmitButton title="Register" isDisabled={isDisabled} />
       </form>
-      {popup && <RegistrationPopup message={popupMessage} />}
+      {popup && <ErrorPopup message={popupMessage} />}
     </>
   );
 };

@@ -13,12 +13,27 @@ const getOwnersVenues = async (id: number) => {
       ownerId: id,
     },
   });
+
   prisma.$disconnect();
   return venues;
 };
 
+
+const getCurrentUser = async (id: number) => {
+  const prisma = new PrismaClient();
+  const user = await prisma.user.findUnique({
+    where: {
+      id: id,
+    },
+  });
+
+  prisma.$disconnect();
+  return user;
+}
+
 const ManagementPage = async () => {
   const session = await useCustomServerSession();
+  const user = await getCurrentUser(Number(session.user!.id));
 
   if (!session) {
     return (
@@ -29,7 +44,7 @@ const ManagementPage = async () => {
     )
   }
 
-  if (!session.user?.isVenueOwner) {
+  if (!user?.isVenueOwner) {
     return (
       <Container>
         <h1>User {session.user?.name} does not have venues</h1>
@@ -39,7 +54,7 @@ const ManagementPage = async () => {
     )
   }
 
-  const venues = await getOwnersVenues(Number(session.user.id));
+  const venues = await getOwnersVenues(Number(session.user!.id));
 
   return (
     <Container>
