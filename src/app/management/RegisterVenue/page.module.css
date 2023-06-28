@@ -1,0 +1,21 @@
+.form {
+  @apply flex flex-col;
+}
+.quill {
+  @apply bg-white text-black
+}
+
+
+
+.quill svg {
+  @apply text-red-600
+}
+
+.photoLabel {
+  @apply mt-4
+}
+
+
+.photoInput {
+  @apply hidden
+}
