@@ -112,14 +112,6 @@ export async function POST(request: Request) {
     },
   });
 
-  const user = await prisma.user.update({
-    where: {
-      id: Number(userId),
-    },
-    data: {
-      isVenueOwner: true,
-    },
-  });
 
 
   prisma.$disconnect();
