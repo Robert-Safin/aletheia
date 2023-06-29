@@ -5,6 +5,7 @@ import useCustomServerSession from "@/lib/useCustomServerSession";
 import LoginButton from "@/components/authButtons/LogInButton";
 import RegisterVenueButton from "@/components/venueOwnersComponents/RegisterVenueButton";
 import MainHeader from "@/components/headers/MainHeader";
+import VenueManagementCard from "@/components/management/venueManagementCard/VenueManagementCard";
 
 const getOwnersVenues = async (id: number) => {
   const prisma = new PrismaClient();
@@ -18,7 +19,6 @@ const getOwnersVenues = async (id: number) => {
   return venues;
 };
 
-
 const getCurrentUser = async (id: number) => {
   const prisma = new PrismaClient();
   const user = await prisma.user.findUnique({
@@ -29,7 +29,7 @@ const getCurrentUser = async (id: number) => {
 
   prisma.$disconnect();
   return user;
-}
+};
 
 const ManagementPage = async () => {
   const session = await useCustomServerSession();
@@ -39,9 +39,9 @@ const ManagementPage = async () => {
     return (
       <Container>
         <h1>Not logged in</h1>
-        <LoginButton/>
+        <LoginButton />
       </Container>
-    )
+    );
   }
 
   const venues = await getOwnersVenues(Number(session.user!.id));
@@ -51,25 +51,20 @@ const ManagementPage = async () => {
       <Container>
         <h1>User {session.user?.name} does not have venues</h1>
         <p>Register you venue on Aletheia</p>
-        <RegisterVenueButton/>
+        <RegisterVenueButton />
       </Container>
-    )
+    );
   }
-
 
   return (
     <Container>
-      <MainHeader title="Management Page"/>
+      <MainHeader title="Management Page" />
       {venues.map((venue) => (
-        <div className={styles.venue} key={venue.id}>
-          <h2>{venue.name}</h2>
-        </div>
+        <VenueManagementCard key={venue.id} venue={venue} />
       ))}
 
-      <MainHeader title="Register another venue"/>
-      <RegisterVenueButton/>
-
-
+      <MainHeader title="Register another venue" />
+      <RegisterVenueButton />
     </Container>
   );
 };
