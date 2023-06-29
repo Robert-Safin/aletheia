@@ -1,5 +1,5 @@
 import type { NextAuthOptions } from "next-auth";
-import NextAuth from "next-auth"
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
 import { compare } from "bcrypt";
@@ -21,75 +21,65 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-
-
-        if (!credentials?.email || !credentials.password ) {
-          return null
+        if (!credentials?.email || !credentials.password) {
+          return null;
         }
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials.email
-          }
-        })
+            email: credentials.email,
+          },
+        });
 
         const userHasVenues = await prisma.venue.findMany({
           where: {
-            ownerId : user?.id
-          }
-        })
-
+            ownerId: user?.id,
+          },
+        });
 
         if (!user) {
-          return null
+          return null;
         }
 
-        const passwordIsValid = await compare(credentials.password, user.password)
+        const passwordIsValid = await compare(
+          credentials.password,
+          user.password
+        );
         if (!passwordIsValid) {
-          return null
+          return null;
         }
 
         return {
           id: String(user.id),
           email: user.email,
           name: user.name,
-          isVenueOwner: user.isVenueOwner
-        }
+        };
       },
-
-
-
-
-
     }),
   ],
   callbacks: {
-    session: ({session,token}) => {
+    session: ({ session, token }) => {
       return {
         ...session,
         user: {
           ...session.user,
           id: token.id,
-          isVenueOwner: token.isVenueOwner,
-        }
-      }
-
+        },
+      };
     },
-    jwt: ({token,user}) => {
-      if(user) {
-        const u = user as unknown as any
+    jwt: ({ token, user }) => {
+      if (user) {
+        const u = user as unknown as any;
         return {
           ...token,
           id: u.id,
-          isVenueOwner: u.isVenueOwner,
-        }
+        };
       }
 
-      return token
-
-    }
-  }
+      return token;
+    },
+  },
 };
 
-const handler = NextAuth(authOptions)
+const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };
