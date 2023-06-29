@@ -7,7 +7,6 @@ import { LiaMapSolid } from "react-icons/lia";
 import Link from "next/link";
 import { IoBusinessOutline } from "react-icons/io5";
 import useCustomServerSession from "@/lib/useCustomServerSession";
-import getCurrentUserModel from "@/lib/getCurrentUserModel";
 import { PrismaClient } from "@prisma/client";
 
 const userHasVenues = async (id:number) => {

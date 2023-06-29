@@ -36,7 +36,7 @@ const Map = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (location.latitude !== 0 && location.longitude !== 0) {
-        const response = await fetch("/api/populate-home-page", {
+        const response = await fetch("/api/get-venues", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

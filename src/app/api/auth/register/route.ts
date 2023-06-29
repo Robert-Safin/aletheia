@@ -1,7 +1,5 @@
-import NextAuth from "next-auth";
 import { PrismaClient } from "@prisma/client";
 import { hash } from "bcrypt";
-import { NextRequest, NextResponse } from "next/server";
 import { UserRegistrationForm } from "@/app/register/page";
 const prisma = new PrismaClient();
 
@@ -69,6 +67,7 @@ export async function POST(request: Request) {
     },
   });
   if (existingEmail) {
+    prisma.$disconnect();
     return new Response(
       JSON.stringify({ message: "email already exists", failure: 8 })
     );
@@ -81,6 +80,7 @@ export async function POST(request: Request) {
     },
   });
   if (existingUsername) {
+    prisma.$disconnect();
     return new Response(
       JSON.stringify({ message: "username taken", failure: 9 })
     );
@@ -93,6 +93,7 @@ export async function POST(request: Request) {
       password: await hash(String(password), 12),
     },
   });
+  prisma.$disconnect();
 
   // handle db failure
   if (!newUser) {

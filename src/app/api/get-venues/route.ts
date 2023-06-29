@@ -9,6 +9,7 @@ export async function POST(request: Request) {
 
   //handle no body
   if (!body) {
+    prisma.$disconnect();
     return new Response(JSON.stringify({ message: "no body", failure: 1 }));
   }
   const latitude = body.latitude;
