@@ -42,7 +42,8 @@ async function main() {
     create: {
       email: "rob@gmail.com",
       name: "robertsafin",
-      password : await hash('banana',12)
+      password : await hash('banana',12),
+      isAdmin : true,
     }
   })
   console.log('created user:', Rob);
@@ -54,7 +55,8 @@ async function main() {
     data: {
       email: "john@gmail.com",
       name: "bigjohn",
-      password : await hash('pineapple',12)
+      password : await hash('pineapple',12),
+      isAdmin : false,
     }
   })
   console.log('created user:', John);
@@ -63,7 +65,8 @@ async function main() {
     data: {
       email: "alex@gmail.com",
       name: "alex",
-      password : await hash('watermelon',12)
+      password : await hash('watermelon',12),
+      isAdmin : false,
     }
   })
   console.log('created user:', Alex);
@@ -75,10 +78,10 @@ async function main() {
     data: {
       name: "Old Mans",
       categories : 'bar,restaurant',
-      about: "Old Man’s is a beer garden and surf club with sea views. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It’s a popular place for expats and tourists alike.",
+      about: "Old Man's is a beer garden and surf club with sea views. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It’s a popular place for expats and tourists alike.",
       address : 'Jl. Pantai Batu Bolong No.117X, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80351',
       averageRating : 3,
-      ownerId: John.id,
+      ownerId: Alex.id,
       photo: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687667189/Aletheia/old-mans-canggu_bj0w5f.jpg',
     }
   })
@@ -88,7 +91,8 @@ async function main() {
       latitude: (await convertAddressToCoordinates(OldMans.address)).latitude,
       longitude: (await convertAddressToCoordinates(OldMans.address)).longitude,
       formattedAddress: (await convertAddressToCoordinates(OldMans.address)).formattedAddress,
-      city: (await convertAddressToCoordinates(OldMans.address)).city
+      city: (await convertAddressToCoordinates(OldMans.address)).city,
+      isVerified : true
 
     },
   });
@@ -115,7 +119,8 @@ async function main() {
       latitude: (await convertAddressToCoordinates(WarungGouthe.address)).latitude,
       longitude: (await convertAddressToCoordinates(WarungGouthe.address)).longitude,
       formattedAddress: (await convertAddressToCoordinates(WarungGouthe.address)).formattedAddress,
-      city: (await convertAddressToCoordinates(WarungGouthe.address)).city
+      city: (await convertAddressToCoordinates(WarungGouthe.address)).city,
+      isVerified : true
     },
   });
 
@@ -140,11 +145,64 @@ async function main() {
       latitude: (await convertAddressToCoordinates(LaCalita.address)).latitude,
       longitude: (await convertAddressToCoordinates(LaCalita.address)).longitude,
       formattedAddress: (await convertAddressToCoordinates(LaCalita.address)).formattedAddress,
-      city: (await convertAddressToCoordinates(LaCalita.address)).city
+      city: (await convertAddressToCoordinates(LaCalita.address)).city,
+      isVerified : true
     },
   });
 
   console.log('created venue:', LaCalita);
+
+
+  let Kenji = await prisma.venue.create({
+    data: {
+      name: "Kenji (Menya Kenji) Canggu",
+      categories : 'Japanese,restaurant',
+      about:"Kenji is a Japanese restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
+      address : 'Jl. Pantai Berawa No.13B, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
+      averageRating : 3,
+      ownerId: Alex.id,
+      photo: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687963122/Aletheia/eqxonu6fl6eo2pipvbnp.png'
+    }
+  })
+  Kenji = await prisma.venue.update({
+    where: { id: Kenji.id },
+    data: {
+      latitude: (await convertAddressToCoordinates(Kenji.address)).latitude,
+      longitude: (await convertAddressToCoordinates(Kenji.address)).longitude,
+      formattedAddress: (await convertAddressToCoordinates(Kenji.address)).formattedAddress,
+      city: (await convertAddressToCoordinates(Kenji.address)).city,
+      isVerified : false
+    },
+  });
+
+  console.log('created venue:', Kenji);
+
+
+
+  let Culinaria1918 = await prisma.venue.create({
+    data: {
+      name: "1918 Culinaria (Georgian Food)",
+      categories : 'Georgian,restaurant',
+      about:"1918 Culinaria is a Georgian restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
+      address : 'Jl. Canggu Padang Linjong No.38a, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80351',
+      averageRating : 5,
+      ownerId: Alex.id,
+      photo: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1688012854/Aletheia/georgian-cuisine_slqsuh.jpg'
+    }
+  })
+  Culinaria1918 = await prisma.venue.update({
+    where: { id: Culinaria1918.id },
+    data: {
+      latitude: (await convertAddressToCoordinates(Culinaria1918.address)).latitude,
+      longitude: (await convertAddressToCoordinates(Culinaria1918.address)).longitude,
+      formattedAddress: (await convertAddressToCoordinates(Culinaria1918.address)).formattedAddress,
+      city: (await convertAddressToCoordinates(Culinaria1918.address)).city,
+      isVerified : false
+    },
+  });
+
+  console.log('created venue:', Culinaria1918);
+
 
 
 

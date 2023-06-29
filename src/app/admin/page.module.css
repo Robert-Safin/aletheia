@@ -1,0 +1,11 @@
+.tableContainer {
+  @apply w-full flex flex-col
+}
+
+.tableHeader {
+  @apply w-full flex justify-between
+}
+
+.header {
+  @apply text-sm border-b border-white w-40 overflow-auto
+}

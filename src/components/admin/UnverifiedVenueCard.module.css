@@ -1,0 +1,11 @@
+.container {
+  @apply w-full flex flex-row justify-between my-4
+}
+
+.cell {
+  @apply w-40 text-xs overflow-auto h-16
+}
+
+.button {
+  @apply w-40 h-8 bg-action rounded-lg text-xs
+}

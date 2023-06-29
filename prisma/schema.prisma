@@ -17,7 +17,7 @@ model User {
   email String  @unique
   password String
   name  String @unique
-  isVenueOwner Boolean @default(false)
+  isAdmin Boolean @default(false)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
@@ -37,6 +37,7 @@ model Venue {
   photo String
   longitude Float @default(0)
   latitude Float @default(0)
+  isVerified Boolean @default(false)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
