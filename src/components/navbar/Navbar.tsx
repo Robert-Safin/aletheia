@@ -10,16 +10,22 @@ import useCustomServerSession from "@/lib/useCustomServerSession";
 import getCurrentUserModel from "@/lib/getCurrentUserModel";
 import { PrismaClient } from "@prisma/client";
 
-const userIsOwner = async (id:number) => {
+const userHasVenues = async (id:number) => {
   const prisma = new PrismaClient();
 
-  const user = await prisma.user.findUnique({
+  const venue = await prisma.venue.findFirst({
     where: {
-      id: id,
+      ownerId: id,
     },
   });
+
   prisma.$disconnect()
-  return user?.isVenueOwner;
+  if (venue) {
+    return true
+  } else {
+    return false
+  }
+
 }
 
 const Navbar: FC = async (props) => {
@@ -29,8 +35,11 @@ const Navbar: FC = async (props) => {
   if (!session) {
     isOwner = false;
   } else {
-    isOwner = await userIsOwner(Number(session.user?.id));
+    isOwner = await userHasVenues(Number(session.user?.id));
   }
+
+
+
 
   return (
     <>

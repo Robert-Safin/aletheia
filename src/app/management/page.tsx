@@ -44,7 +44,9 @@ const ManagementPage = async () => {
     )
   }
 
-  if (!user?.isVenueOwner) {
+  const venues = await getOwnersVenues(Number(session.user!.id));
+
+  if (venues.length === 0) {
     return (
       <Container>
         <h1>User {session.user?.name} does not have venues</h1>
@@ -54,7 +56,6 @@ const ManagementPage = async () => {
     )
   }
 
-  const venues = await getOwnersVenues(Number(session.user!.id));
 
   return (
     <Container>
