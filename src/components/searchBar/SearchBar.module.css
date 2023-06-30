@@ -1,3 +1,10 @@
+.form {
+@apply flex flex-col
+}
+
+
+
+
 .container {
 @apply flex items-center bg-gray rounded-md p-1
 }
@@ -8,6 +15,10 @@
 @apply text-lg w-full bg-gray
 }
 
-.input::placeholder {
-@apply text-black
+.whenOption {
+  @apply flex justify-between items-start
+}
+
+.whenButton {
+  @apply py-1 px-3 bg-zinc-600 rounded-lg
 }
