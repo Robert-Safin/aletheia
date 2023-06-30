@@ -52,7 +52,7 @@ const VenueShowPage: FC<Props> = async (props) => {
 
       <Image
         className={styles.photo}
-        src={venue!.photo}
+        src={venue!.mainPhoto}
         alt={venue!.name}
         width={1000}
         height={1000}
