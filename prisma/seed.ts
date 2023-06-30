@@ -81,7 +81,7 @@ async function main() {
       address : 'Jl. Pantai Batu Bolong No.117X, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80351',
       averageRating : 3,
       ownerId: Alex.id,
-      photo: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687667189/Aletheia/old-mans-canggu_bj0w5f.jpg',
+      mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687667189/Aletheia/old-mans-canggu_bj0w5f.jpg',
     }
   })
   OldMans = await prisma.venue.update({
@@ -108,7 +108,7 @@ async function main() {
       address : 'Jl. Pantai Berawa No.7A, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
       averageRating : 0,
       ownerId: Alex.id,
-      photo: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687667181/Aletheia/bali-restaurant-must-visit-warung-gouthe-french-delicious-healthy-food-02_ghhjku.jpg'
+      mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687667181/Aletheia/bali-restaurant-must-visit-warung-gouthe-french-delicious-healthy-food-02_ghhjku.jpg'
     }
   })
   WarungGouthe = await prisma.venue.update({
@@ -133,7 +133,7 @@ async function main() {
       address : 'Jl. Pantai Batu Bolong No.68, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
       averageRating : 5,
       ownerId: Alex.id,
-      photo: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687715247/Aletheia/lacalita-mexican-bali-canggu_pelspr.jpg'
+      mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687715247/Aletheia/lacalita-mexican-bali-canggu_pelspr.jpg'
     }
   })
   LaCalita = await prisma.venue.update({
@@ -157,7 +157,7 @@ async function main() {
       address : 'Jl. Pantai Berawa No.13B, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
       averageRating : 3,
       ownerId: Alex.id,
-      photo: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687963122/Aletheia/eqxonu6fl6eo2pipvbnp.png'
+      mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687963122/Aletheia/eqxonu6fl6eo2pipvbnp.png'
     }
   })
   Kenji = await prisma.venue.update({
@@ -182,7 +182,7 @@ async function main() {
       address : 'Jl. Canggu Padang Linjong No.38a, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80351',
       averageRating : 5,
       ownerId: Alex.id,
-      photo: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1688012854/Aletheia/georgian-cuisine_slqsuh.jpg'
+      mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1688012854/Aletheia/georgian-cuisine_slqsuh.jpg'
     }
   })
   Culinaria1918 = await prisma.venue.update({

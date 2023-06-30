@@ -13,11 +13,10 @@ const UnverifiedVenueCard: FC<Props> = (props) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.cell}>{props.venue.name}</h1>
-      <h1 className={styles.cell}>{props.venue.categories}</h1>
       <h1 className={styles.cell}>{props.venue.about}</h1>
       <h1 className={styles.cell}>{props.venue.formattedAddress}</h1>
       <h1 className={styles.cell}>{props.venue.city}</h1>
-      <h1 className={styles.cell}>{props.venue.photo}</h1>
+      <h1 className={styles.cell}>{props.venue.mainPhoto}</h1>
       <button
         className={styles.button}
         onClick={() => props.handleVerify(props.venue.id)}

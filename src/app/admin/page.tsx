@@ -68,7 +68,6 @@ const AdminPage: React.FC = async () => {
           <div className={styles.tableContainer}>
             <div className={styles.tableHeader}>
               <h1 className={styles.header}>Name</h1>
-              <h1 className={styles.header}>Categories</h1>
               <h1 className={styles.header}>About</h1>
               <h1 className={styles.header}>F.Address</h1>
               <h1 className={styles.header}>City</h1>

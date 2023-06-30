@@ -19,7 +19,7 @@ const VenueManagementCard:FC<Props> = (props) => {
   return (
     <>
     <div className={styles.container}>
-      <Image src={props.venue.photo} alt={props.venue.name} width={1000} height={1000}/>
+      <Image src={props.venue.mainPhoto} alt={props.venue.name} width={1000} height={1000}/>
       <h1 className={styles.name}>{props.venue.name}</h1>
 
       <div className={styles.ratingAndReviews}>

@@ -67,7 +67,7 @@ const VenueCard: FC<Props> = (props) => {
       <Link href={`/${props.venue.id}`}>
       <Image
         className={styles.photo}
-        src={props.venue.photo}
+        src={props.venue.mainPhoto}
         alt={`photo of ${props.venue.name}`}
         width={1000}
         height={1000}

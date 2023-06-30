@@ -33,7 +33,7 @@ model Venue {
   formattedAddress String @default("")
   city String @default("")
   averageRating Float @default(0)
-  photo String
+  mainPhoto String
   longitude Float @default(0)
   latitude Float @default(0)
   isVerified Boolean @default(false)
