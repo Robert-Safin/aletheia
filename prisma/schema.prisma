@@ -28,7 +28,6 @@ model User {
 model Venue {
   id   Int     @id @default(autoincrement())
   name String
-  categories String @default("")
   about String @db.VarChar(1000)
   address String
   formattedAddress String @default("")

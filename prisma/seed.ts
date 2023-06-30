@@ -77,7 +77,6 @@ async function main() {
   let OldMans = await prisma.venue.create({
     data: {
       name: "Old Mans",
-      categories : 'bar,restaurant',
       about: "Old Man's is a beer garden and surf club with sea views. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It’s a popular place for expats and tourists alike.",
       address : 'Jl. Pantai Batu Bolong No.117X, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80351',
       averageRating : 3,
@@ -105,7 +104,6 @@ async function main() {
   let WarungGouthe = await prisma.venue.create({
     data: {
       name: "Warung Gouthe",
-      categories : 'warung,restaurant',
       about : "Warung Gouthe is a French restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
       address : 'Jl. Pantai Berawa No.7A, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
       averageRating : 0,
@@ -131,7 +129,6 @@ async function main() {
   let LaCalita = await prisma.venue.create({
     data: {
       name: "La Calita",
-      categories : 'Mexican,restaurant',
       about: "La Calita is a Mexican restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
       address : 'Jl. Pantai Batu Bolong No.68, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
       averageRating : 5,
@@ -156,7 +153,6 @@ async function main() {
   let Kenji = await prisma.venue.create({
     data: {
       name: "Kenji (Menya Kenji) Canggu",
-      categories : 'Japanese,restaurant',
       about:"Kenji is a Japanese restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
       address : 'Jl. Pantai Berawa No.13B, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
       averageRating : 3,
@@ -182,7 +178,6 @@ async function main() {
   let Culinaria1918 = await prisma.venue.create({
     data: {
       name: "1918 Culinaria (Georgian Food)",
-      categories : 'Georgian,restaurant',
       about:"1918 Culinaria is a Georgian restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
       address : 'Jl. Canggu Padang Linjong No.38a, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80351',
       averageRating : 5,
