@@ -1,14 +1,10 @@
 
-import {getServerSession} from 'next-auth'
-import { authOptions } from './api/auth/[...nextauth]/route'
+import styles from './page.module.css'
 import { NextPage } from 'next'
-import LoginButton from '../components/authButtons/LogInButton'
-import LogOutButton from '../components/authButtons/LogOutButton'
-import RegisterButton from '../components/authButtons/RegisterButton'
+
 import useCustomServerSession from '../lib/useCustomServerSession'
-import MainHeader from '../components/headers/MainHeader'
-import Container from '../components/containers/Container'
-import Link from 'next/link'
+
+import LogInLanding from '@/components/landing page/LogInLanding'
 
 
 
@@ -23,16 +19,21 @@ const HomePage:NextPage = async() => {
   }
 
   return (
-    <Container>
+    <div className={styles.container}>
+      <div className={styles.text}>
+      <h1 className={styles.title}>Aletheia</h1>
+      <p className={styles.goal}>Find the best bars near you and enjoy our special deals ;</p>
+      </div>
     {/* <p>Browsing as {username}</p>
     <Link href={`/home`}>Home page</Link>
     <LoginButton/>
     <LogOutButton/>
     <RegisterButton/> */}
+    <LogInLanding/>
 
 
 
-    </Container>
+    </div>
   )
 }
 
