@@ -71,6 +71,9 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
+    redirect: async ({ url, baseUrl }) => {
+      return baseUrl + '/home'
+    }
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

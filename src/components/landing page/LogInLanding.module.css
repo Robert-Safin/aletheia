@@ -1,0 +1,19 @@
+.container {
+  @apply bg-action p-5 rounded-t-md
+}
+
+.form {
+  @apply flex flex-col
+}
+
+.header {
+  @apply text-white text-xl text-center
+}
+
+.loginButton {
+  @apply py-2 px-3 bg-white text-action rounded-md mt-16
+}
+
+.signupButton {
+  @apply text-center mt-4 text-white
+}
