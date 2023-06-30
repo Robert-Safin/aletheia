@@ -100,14 +100,13 @@ export async function POST(request: Request) {
   const newVenue = await prisma.venue.create({
     data: {
       name: name,
-      categories: category,
       about: about,
       address: address,
       city: googleAddress.city,
       formattedAddress: googleAddress.formattedAddress,
       latitude: googleAddress.latitude,
       longitude: googleAddress.longitude,
-      photo: photoUrl,
+      mainPhoto: photoUrl,
       ownerId: Number(userId),
     },
   });
