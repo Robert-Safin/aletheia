@@ -5,6 +5,7 @@ import { FormEvent, useRef } from "react";
 import FormInput from "../forms/FormInput";
 import FormLabel from "../forms/FormLabel";
 import MainHeader from "../headers/MainHeader";
+import Link from "next/link";
 
 interface Credentials {
   username: string;
@@ -47,7 +48,9 @@ const LogInLanding = () => {
           name="password"
         />
         <button type="submit" className={styles.loginButton}>Log in</button>
+        <Link href={'/register'}>
         <p className={styles.signupButton}>Sign in</p>
+        </Link>
       </form>
     </div>
   );
