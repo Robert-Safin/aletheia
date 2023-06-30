@@ -29,6 +29,11 @@ model Venue {
   id   Int     @id @default(autoincrement())
   name String
   about String @db.VarChar(1000)
+  category1 String @default("")
+  category2 String @default("")
+  category3 String @default("")
+  category4 String @default("")
+  category5 String @default("")
   address String
   formattedAddress String @default("")
   city String @default("")

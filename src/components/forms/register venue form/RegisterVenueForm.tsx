@@ -15,7 +15,11 @@ import { useRouter } from "next/navigation";
 
 export interface VenueRegistrationForm {
   name: string;
-  category: string;
+  category1: string;
+  category2: string;
+  category3: string;
+  category4: string;
+  category5: string;
   about: string;
   address: string;
   photo: File;
@@ -29,7 +33,11 @@ const RegisterVenueForm = () => {
   const [popupMessage, setPopupMessage] = useState("");
 
   const nameRef = useRef<HTMLInputElement>(null);
-  const categoryRef = useRef<HTMLInputElement>(null);
+  const categoryRef1 = useRef<HTMLInputElement>(null);
+  const categoryRef2 = useRef<HTMLInputElement>(null);
+  const categoryRef3 = useRef<HTMLInputElement>(null);
+  const categoryRef4 = useRef<HTMLInputElement>(null);
+  const categoryRef5 = useRef<HTMLInputElement>(null);
   const aboutRef = useRef<HTMLInputElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
   const photoRef = useRef<HTMLInputElement>(null);
@@ -69,61 +77,56 @@ const RegisterVenueForm = () => {
     }
 
     const formDataCloudinary = new FormData();
-    formDataCloudinary.append('file', file);
-    formDataCloudinary .append('upload_preset', 'aletheia');
+    formDataCloudinary.append("file", file);
+    formDataCloudinary.append("upload_preset", "aletheia");
 
-    const responseCloudinary = await fetch(`https://api.cloudinary.com/v1_1/dxgkclowd/upload`, {
-      method: 'POST',
-      body: formDataCloudinary,
-    });
-
-
+    const responseCloudinary = await fetch(
+      `https://api.cloudinary.com/v1_1/dxgkclowd/upload`,
+      {
+        method: "POST",
+        body: formDataCloudinary,
+      }
+    );
 
     const cloudinaryResponseData = await responseCloudinary.json();
     console.log(cloudinaryResponseData);
 
     const secureUrl = cloudinaryResponseData.secure_url;
 
-
-
-
-
-
     const formData: VenueRegistrationForm = {
       name: nameRef.current!.value.trim(),
-      category: categoryRef.current!.value.trim(),
+      category1: categoryRef1.current!.value.trim(),
+      category2: categoryRef2.current!.value.trim(),
+      category3: categoryRef3.current!.value.trim(),
+      category4: categoryRef4.current!.value.trim(),
+      category5: categoryRef5.current!.value.trim(),
       about: aboutRef.current!.value.trim(),
       address: addressRef.current!.value.trim(),
       photo: secureUrl,
     };
 
-
-
-    const response = await fetch('/api/register-venue', {
-      method: 'POST',
+    const response = await fetch("/api/register-venue", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData)
-    })
+      body: JSON.stringify(formData),
+    });
 
-    const serverResponse = await response.json()
-    const serverFailure = serverResponse.failure
-    const serverMessage = serverResponse.message
-
+    const serverResponse = await response.json();
+    const serverFailure = serverResponse.failure;
+    const serverMessage = serverResponse.message;
 
     if (serverFailure >= 1) {
-      setIsDisabled(false)
-      setPopup(true)
+      setIsDisabled(false);
+      setPopup(true);
       setTimeout(() => {
-        setPopup(false)
+        setPopup(false);
       }, 2000);
-      setPopupMessage(serverMessage)
+      setPopupMessage(serverMessage);
     } else {
-      router.push('/management')
+      router.push("/management");
     }
-
-
   };
 
   return (
@@ -139,12 +142,40 @@ const RegisterVenueForm = () => {
           ref={nameRef}
         />
 
-        <FormLabel title="Category" htmlFor="category" />
+        <FormLabel title="Category 1" htmlFor="category1" />
         <FormInput
-          name="category"
+          name="category1"
           type="text"
-          placeholder="Category"
-          ref={categoryRef}
+          placeholder="Category 1"
+          ref={categoryRef1}
+        />
+        <FormLabel title="Category 2" htmlFor="category2" />
+        <FormInput
+          name="category2"
+          type="text"
+          placeholder="Category 2"
+          ref={categoryRef2}
+        />
+        <FormLabel title="Category 3" htmlFor="category3" />
+        <FormInput
+          name="category3"
+          type="text"
+          placeholder="Category 3"
+          ref={categoryRef3}
+        />
+        <FormLabel title="Category 4" htmlFor="category4" />
+        <FormInput
+          name="category4"
+          type="text"
+          placeholder="Category 4"
+          ref={categoryRef4}
+        />
+        <FormLabel title="Category 5" htmlFor="category5" />
+        <FormInput
+          name="category5"
+          type="text"
+          placeholder="Category 5"
+          ref={categoryRef5}
         />
 
         <FormLabel title="About Venue" htmlFor="" />

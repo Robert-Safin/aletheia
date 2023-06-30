@@ -17,7 +17,11 @@ export async function POST(request: Request) {
   }
 
   const name = body.name;
-  const category = body.category;
+  const category1 = body.category1;
+  const category2 = body.category2;
+  const category3 = body.category3;
+  const category4 = body.category4;
+  const category5 = body.category5;
   const about = body.about;
   const address = body.address;
   const photoUrl = body.photo as unknown as string
@@ -65,8 +69,8 @@ export async function POST(request: Request) {
 
 
   //handle long category
-  if (category.length > 50 ) {
-    return new Response(JSON.stringify({ message: "Venue categories cant be longer than 50", failure: 4 }))
+  if (category1.length > 20 || category2.length > 20 || category3.length > 20 || category4.length > 20 || category5.length > 20 ) {
+    return new Response(JSON.stringify({ message: "Venue categories cant be longer than 20", failure: 4 }))
   }
 
 
@@ -101,6 +105,11 @@ export async function POST(request: Request) {
     data: {
       name: name,
       about: about,
+      category1: category1,
+      category2: category2,
+      category3: category3,
+      category4: category4,
+      category5: category5,
       address: address,
       city: googleAddress.city,
       formattedAddress: googleAddress.formattedAddress,
