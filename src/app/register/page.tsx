@@ -66,16 +66,16 @@ const RegistrationForm = () => {
     <>
     <form onSubmit={handleSubmit} className={styles.form}>
       <FormLabel htmlFor="email" title="Email" />
-      <FormInput type="email" name="email" placeholder="bob@things.com" ref={emailRef}/>
+      <FormInput type="email" name="email" placeholder="bob@things.com" ref={emailRef} value={undefined}/>
 
       <FormLabel htmlFor="username" title="Username" />
-      <FormInput type="username" name="username" placeholder="username" ref={usernameRef}/>
+      <FormInput type="username" name="username" placeholder="username" ref={usernameRef} value={undefined}/>
 
       <FormLabel htmlFor="password" title="Password" />
-      <FormInput type="password" name="password" placeholder={undefined} ref={passwordRef}/>
+      <FormInput type="password" name="password" placeholder={undefined} ref={passwordRef} value={undefined}/>
 
       <FormLabel htmlFor="confirm password" title="Confirm Password" />
-      <FormInput type="password" name="confirm password" placeholder={undefined} ref={confirmPasswordRef}/>
+      <FormInput type="password" name="confirm password" placeholder={undefined} ref={confirmPasswordRef} value={undefined}/>
 
       <FormSubmitButton isDisabled={formIsSubmitted} title={formIsSubmitted ? 'Loading' : 'Register'} />
     </form>
