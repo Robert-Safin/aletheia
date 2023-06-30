@@ -140,6 +140,7 @@ const RegisterVenueForm = () => {
           type="text"
           placeholder="Bobs giant cock"
           ref={nameRef}
+          value={undefined}
         />
 
         <FormLabel title="Category 1" htmlFor="category1" />
@@ -148,6 +149,7 @@ const RegisterVenueForm = () => {
           type="text"
           placeholder="Category 1"
           ref={categoryRef1}
+          value={undefined}
         />
         <FormLabel title="Category 2" htmlFor="category2" />
         <FormInput
@@ -155,6 +157,7 @@ const RegisterVenueForm = () => {
           type="text"
           placeholder="Category 2"
           ref={categoryRef2}
+          value={undefined}
         />
         <FormLabel title="Category 3" htmlFor="category3" />
         <FormInput
@@ -162,6 +165,7 @@ const RegisterVenueForm = () => {
           type="text"
           placeholder="Category 3"
           ref={categoryRef3}
+          value={undefined}
         />
         <FormLabel title="Category 4" htmlFor="category4" />
         <FormInput
@@ -169,6 +173,7 @@ const RegisterVenueForm = () => {
           type="text"
           placeholder="Category 4"
           ref={categoryRef4}
+          value={undefined}
         />
         <FormLabel title="Category 5" htmlFor="category5" />
         <FormInput
@@ -176,6 +181,7 @@ const RegisterVenueForm = () => {
           type="text"
           placeholder="Category 5"
           ref={categoryRef5}
+          value={undefined}
         />
 
         <FormLabel title="About Venue" htmlFor="" />
@@ -184,6 +190,7 @@ const RegisterVenueForm = () => {
           type="text"
           placeholder="About"
           ref={aboutRef}
+          value={undefined}
         />
 
         <FormLabel title="Address" htmlFor="address" />
@@ -192,6 +199,7 @@ const RegisterVenueForm = () => {
           type="text"
           placeholder="Address"
           ref={addressRef}
+          value={undefined}
         />
 
         <input
