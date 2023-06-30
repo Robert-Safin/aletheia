@@ -5,6 +5,7 @@ interface Props {
 type: string
 name: string
 placeholder: string | undefined
+value : string | Date | undefined
 }
 
 const FormInput = forwardRef<HTMLInputElement, Props>((props, ref) => {

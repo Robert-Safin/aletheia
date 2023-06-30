@@ -24,13 +24,14 @@ const HomePage:NextPage = async() => {
 
   return (
     <Container>
-    <MainHeader title='Landing Page'/>
-    <p>Browsing as {username}</p>
+    {/* <p>Browsing as {username}</p>
     <Link href={`/home`}>Home page</Link>
-
     <LoginButton/>
     <LogOutButton/>
-    <RegisterButton/>
+    <RegisterButton/> */}
+
+
+
     </Container>
   )
 }
