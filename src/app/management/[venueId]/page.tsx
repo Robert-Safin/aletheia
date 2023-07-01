@@ -110,8 +110,6 @@ const MangementVenueShowPage: FC<Props> = async (props) => {
         <p className={styles.category}>{venue?.category1}</p>
         <p className={styles.category}>{venue?.category2}</p>
         <p className={styles.category}>{venue?.category3}</p>
-        <p className={styles.category}>{venue?.category4}</p>
-        <p className={styles.category}>{venue?.category5}</p>
       </div>
 
       <div className={styles.newButtons}>

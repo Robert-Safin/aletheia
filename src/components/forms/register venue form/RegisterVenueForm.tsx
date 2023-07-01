@@ -12,7 +12,7 @@ import LoadingSession from "@/components/loading/LoadingSession";
 import FormSubmitButton from "@/components/forms/FormSubmitButton";
 import ErrorPopup from "@/components/popups/ErrorPopup";
 import { useRouter } from "next/navigation";
-import {ImUpload} from "react-icons/im";
+import { ImUpload } from "react-icons/im";
 import SubHeader from "@/components/headers/SubHeader";
 import Image from "next/image";
 export interface VenueRegistrationForm {
@@ -20,8 +20,6 @@ export interface VenueRegistrationForm {
   category1: string;
   category2: string;
   category3: string;
-  category4: string;
-  category5: string;
   phone: string;
   website: string;
   about: string;
@@ -36,12 +34,11 @@ const RegisterVenueForm = () => {
   const [popup, setPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [photoInputValue, setPhotoInputValue] = useState(
-     <div className={styles.photoLabelInnerDiv}>
-    <ImUpload className={styles.icon}/>
-    <p>Upload</p>
-  </div>
+    <div className={styles.photoLabelInnerDiv}>
+      <ImUpload className={styles.icon} />
+      <p>Upload</p>
+    </div>
   );
-
 
   const nameRef = useRef<HTMLInputElement>(null);
   const categoryRef1 = useRef<HTMLInputElement>(null);
@@ -111,8 +108,6 @@ const RegisterVenueForm = () => {
       category1: categoryRef1.current!.value.trim(),
       category2: categoryRef2.current!.value.trim(),
       category3: categoryRef3.current!.value.trim(),
-      category4: categoryRef4.current!.value.trim(),
-      category5: categoryRef5.current!.value.trim(),
       phone: phoneRef.current!.value.trim(),
       website: websiteRef.current!.value.trim(),
       about: aboutRef.current!.value.trim(),
@@ -144,12 +139,22 @@ const RegisterVenueForm = () => {
     }
   };
   const handlePhotoChange = () => {
+    const validImageTypes = ["image/jpeg", "image/png", "image/webp"];
+    const file = photoRef.current!.files![0];
+
+    if (!validImageTypes.includes(file.type)) {
+      setPopupMessage("Please upload .jpeg/.png/.webp files only");
+      setPopup(true);
+      setTimeout(() => {
+        setPopup(false);
+      }, 2000);
+      return;
+    }
+
     setPhotoInputValue(
-      <div className={styles.photoLabelInnerDiv}>
-      {photoRef.current!.files![0].name}
-      </div>
-    )
-  }
+      <div className={styles.photoLabelInnerDiv}>{file.name}</div>
+    );
+  };
 
   return (
     <>
@@ -162,6 +167,15 @@ const RegisterVenueForm = () => {
           type="text"
           placeholder="Bobs giant cock"
           ref={nameRef}
+          value={undefined}
+        />
+        <FormLabel title="About Venue" htmlFor="" />
+        <textarea
+          className={styles.textArea}
+          rows={5}
+          name="about"
+          placeholder="About"
+          ref={aboutRef}
           value={undefined}
         />
 
@@ -189,20 +203,13 @@ const RegisterVenueForm = () => {
           ref={categoryRef3}
           value={undefined}
         />
-        <FormLabel title="Category 4" htmlFor="category4" />
+
+        <FormLabel title="Address" htmlFor="address" />
         <FormInput
-          name="category4"
+          name="address"
           type="text"
-          placeholder="Category 4"
-          ref={categoryRef4}
-          value={undefined}
-        />
-        <FormLabel title="Category 5" htmlFor="category5" />
-        <FormInput
-          name="category5"
-          type="text"
-          placeholder="Category 5"
-          ref={categoryRef5}
+          placeholder="Address"
+          ref={addressRef}
           value={undefined}
         />
 
@@ -215,32 +222,12 @@ const RegisterVenueForm = () => {
           value={undefined}
         />
 
-
         <FormLabel title="Website URL" htmlFor="website" />
         <FormInput
           name="website"
           type="text"
           placeholder="Website URL"
           ref={websiteRef}
-          value={undefined}
-        />
-
-        <FormLabel title="About Venue" htmlFor="" />
-        <textarea
-          className={styles.textArea}
-          rows={5}
-          name="about"
-          placeholder="About"
-          ref={aboutRef}
-          value={undefined}
-        />
-
-        <FormLabel title="Address" htmlFor="address" />
-        <FormInput
-          name="address"
-          type="text"
-          placeholder="Address"
-          ref={addressRef}
           value={undefined}
         />
 

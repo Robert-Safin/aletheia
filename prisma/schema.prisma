@@ -32,8 +32,6 @@ model Venue {
   category1 String @default("")
   category2 String @default("")
   category3 String @default("")
-  category4 String @default("")
-  category5 String @default("")
   phoneNumber String @default("")
   website String @default("")
   address String

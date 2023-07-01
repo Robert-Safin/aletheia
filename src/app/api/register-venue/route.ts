@@ -20,8 +20,6 @@ export async function POST(request: Request) {
   const category1 = body.category1;
   const category2 = body.category2;
   const category3 = body.category3;
-  const category4 = body.category4;
-  const category5 = body.category5;
   const phone = body.phone;
   const website = body.website;
   const about = body.about;
@@ -71,7 +69,7 @@ export async function POST(request: Request) {
 
 
   //handle long category
-  if (category1.length > 20 || category2.length > 20 || category3.length > 20 || category4.length > 20 || category5.length > 20 ) {
+  if (category1.length > 20 || category2.length > 20 || category3.length > 20 ) {
     return new Response(JSON.stringify({ message: "Venue categories cant be longer than 20", failure: 4 }))
   }
 
@@ -110,8 +108,6 @@ export async function POST(request: Request) {
       category1: category1,
       category2: category2,
       category3: category3,
-      category4: category4,
-      category5: category5,
       phoneNumber: phone,
       website: website,
       address: address,
