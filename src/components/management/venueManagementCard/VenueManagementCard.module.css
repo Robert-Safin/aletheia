@@ -1,0 +1,42 @@
+.container {
+  @apply mb-4
+}
+
+.photo {
+  @apply w-full h-72 object-cover rounded-xl
+}
+
+.name {
+  @apply my-2
+}
+
+.ratingAndReviews {
+  @apply flex items-center space-x-2 mb-2
+}
+
+.rating {
+  @apply flex
+}
+
+.reviews {
+  @apply font-light text-sm
+}
+
+.viewButton {
+  @apply w-full py-2 bg-action rounded-md tracking-widest
+}
+
+.eventsAndPromotions {
+  @apply flex space-x-4 mb-2
+}
+
+.iconAndCount {
+  @apply flex items-center space-x-1
+}
+
+.icon {
+  @apply w-4 h-4
+}
+.length {
+  @apply text-sm
+}

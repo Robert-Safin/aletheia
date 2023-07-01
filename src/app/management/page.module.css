@@ -1,0 +1,32 @@
+.welcomeContainer {
+  @apply w-full flex flex-col items-center
+}
+
+
+.welcome {
+  @apply text-2xl text-center mt-4
+}
+
+.username {
+  @apply text-5xl text-center mt-4
+}
+
+.date {
+  @apply text-center my-2
+}
+
+.venueCountContainer {
+  @apply flex justify-center space-x-8
+}
+
+.iconAndCount {
+  @apply flex items-center space-x-1
+}
+
+.icon {
+  @apply text-sm
+}
+
+.venueCount {
+  @apply  text-sm
+}

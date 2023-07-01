@@ -13,7 +13,7 @@
 @apply text-xs my-1
 }
 .starIcon {
-@apply text-xs text-yellow-400
+@apply text-xl
 }
 .rating {
 @apply flex text-xs

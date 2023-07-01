@@ -1,0 +1,17 @@
+.container {
+  @apply my-4
+}
+
+.photo {
+  @apply rounded-lg grayscale w-full object-cover h-72
+}
+.name {
+  @apply my-2
+}
+.iconAndStatus {
+  @apply flex space-x-2 items-center mb-2
+}
+
+.cancel {
+  @apply bg-gray w-full py-2 tracking-widest rounded-lg text-black
+}
