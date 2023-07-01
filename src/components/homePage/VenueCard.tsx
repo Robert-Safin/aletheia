@@ -2,8 +2,9 @@ import { FC } from "react";
 import styles from "./VenueCard.module.css";
 import { Venue } from "@prisma/client";
 import Image from "next/image";
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Link from "next/link";
+import { BiSolidStarHalf } from "react-icons/bi";
 
 interface Props {
   venue: Venue;
@@ -11,14 +12,29 @@ interface Props {
   userLongitude: number;
 }
 
-  export const getRating = (averageRating: number) => {
+export const getRating = (averageRating: number) => {
   let stars: any = [];
-  for (let i = 0; i < averageRating; i++) {
+  const roundedRating = Math.round(averageRating * 2) / 2;
+  const fullStars = Math.floor(roundedRating);
+  const halfStars = roundedRating % 1 ? 1 : 0;
+  const emptyStars = 5 - fullStars - halfStars;
+
+  for (let i = 0; i < fullStars; i++) {
     stars.push(<AiFillStar className={styles.starIcon}/>);
   }
+
+  for (let i = 0; i < halfStars; i++) {
+    stars.push(<BiSolidStarHalf className={styles.starIcon}/>);
+  }
+
+  for (let i = 0; i < emptyStars; i++) {
+    stars.push(<AiOutlineStar className={styles.starIcon}/>);
+  }
+
   if (stars.length === 0) {
     stars = "No reviews yet";
   }
+
   return stars;
 };
 

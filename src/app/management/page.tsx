@@ -40,7 +40,6 @@ const getCurrentUser = async (id: number) => {
 
 const ManagementPage = async () => {
   const session = await useCustomServerSession();
-  const user = await getCurrentUser(Number(session.user!.id));
 
   if (!session) {
     return (
@@ -51,6 +50,7 @@ const ManagementPage = async () => {
     );
   }
 
+  const user = await getCurrentUser(Number(session.user!.id));
   const venues = await getOwnersVenues(Number(session.user!.id));
 
   if (venues.length === 0) {
