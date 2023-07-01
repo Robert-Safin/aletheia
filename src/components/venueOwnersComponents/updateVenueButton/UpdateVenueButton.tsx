@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useState, useTransition } from "react";
 import styles from "./UpdateVenueButton.module.css";
 import { RxCross2 } from "react-icons/rx";
 import Modal from "react-modal";
@@ -7,9 +7,16 @@ import { BsTrash } from "react-icons/bs";
 
 Modal.setAppElement("#__next");
 
-const UpdateVenueButton: FC = () => {
+interface Props {
+  deleteVenueById: (venueId: number) => void;
+  id: number;
+}
+
+const UpdateVenueButton: FC<Props> = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [deleteIsPressed, setDeleteIsPressed] = useState(false);
+
+  let [isPending, startTransition] = useTransition()
 
   const openModal = () => {
     setIsOpen(true);
@@ -25,6 +32,7 @@ const UpdateVenueButton: FC = () => {
   const handleCancelPress = () => {
     setDeleteIsPressed(false);
   };
+
   return (
     <>
       <button className={styles.updateButton} onClick={openModal}>
@@ -52,7 +60,7 @@ const UpdateVenueButton: FC = () => {
         {deleteIsPressed && (
           <div className={styles.buttonContainer}>
             <h1 className={styles.confirm}>Are you sure? </h1>
-            <button className={styles.deleteButton}>DELETE VENUE</button>
+            <button className={styles.deleteButton} onClick={() => startTransition(() => props.deleteVenueById(props.id)) }>DELETE VENUE</button>
             <button className={styles.button} onClick={handleCancelPress}>
                 CANCEL
             </button>

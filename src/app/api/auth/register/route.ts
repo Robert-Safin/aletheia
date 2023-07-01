@@ -67,7 +67,7 @@ export async function POST(request: Request) {
     },
   });
   if (existingEmail) {
-    prisma.$disconnect();
+    await prisma.$disconnect();
     return new Response(
       JSON.stringify({ message: "email already exists", failure: 8 })
     );
@@ -80,7 +80,7 @@ export async function POST(request: Request) {
     },
   });
   if (existingUsername) {
-    prisma.$disconnect();
+    await prisma.$disconnect();
     return new Response(
       JSON.stringify({ message: "username taken", failure: 9 })
     );
@@ -93,7 +93,7 @@ export async function POST(request: Request) {
       password: await hash(String(password), 12),
     },
   });
-  prisma.$disconnect();
+  await prisma.$disconnect();
 
   // handle db failure
   if (!newUser) {

@@ -19,7 +19,7 @@ const userHasVenues = async (id:number) => {
     },
   });
 
-  prisma.$disconnect()
+  await prisma.$disconnect()
   if (venue) {
     return true
   } else {

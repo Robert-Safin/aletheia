@@ -27,7 +27,7 @@ export const getVenue = async (id: number) => {
       offers: true,
     },
   });
-  prisma.$disconnect();
+   await prisma.$disconnect();
   return venue;
 };
 

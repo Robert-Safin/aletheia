@@ -6,13 +6,12 @@ import { FC } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import MissingClientSession from "@/components/missingClientSession/MissingClientSession";
+import { redirect } from "next/navigation";
 
 const SettingsPage: FC = async (props) => {
   const session = await useCustomServerSession();
   if (!session) {
-    return (
-      <MissingClientSession/>
-    )
+    redirect("/");
   }
   return (
     <Container>

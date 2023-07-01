@@ -34,7 +34,7 @@
 }
 
 .categories {
-  @apply flex flex-wrap w-full justify-between
+  @apply flex flex-wrap w-full justify-evenly
 }
 
 .category {

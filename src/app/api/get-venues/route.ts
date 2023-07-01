@@ -9,7 +9,7 @@ export async function POST(request: Request) {
 
   //handle no body
   if (!body) {
-    prisma.$disconnect();
+    await prisma.$disconnect();
     return new Response(JSON.stringify({ message: "no body", failure: 1 }));
   }
   const latitude = body.latitude;
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
       isVerified: true
     }
   })
-  prisma.$disconnect();
+  await prisma.$disconnect();
 
 
   if (venuesNearUser.length === 0) {

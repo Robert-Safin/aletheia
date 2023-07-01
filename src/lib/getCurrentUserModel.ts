@@ -7,7 +7,7 @@ const getCurrentUserModel = async (id:number) => {
       id: id
     }
   })
-  prisma.$disconnect()
+  await prisma.$disconnect()
 return currentUser
 }
 

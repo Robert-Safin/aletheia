@@ -122,7 +122,7 @@ export async function POST(request: Request) {
 
 
 
-  prisma.$disconnect();
+  await prisma.$disconnect();
 
   if (!newVenue) {
     return new Response(JSON.stringify({ message: "Something went wrong :(", failure: 10 }));

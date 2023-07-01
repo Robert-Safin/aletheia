@@ -9,6 +9,7 @@ import { LuVerified } from "react-icons/lu";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import UnverifiedVenueManagementCard from "@/components/management/unverifiedVenueManagementCard/UnverifiedVenueManagementCard";
 import RegisterVenueButton from "@/components/venueOwnersComponents/buttons/RegisterVenueButton";
+import { redirect } from "next/navigation";
 const getOwnersVenues = async (id: number) => {
   const prisma = new PrismaClient();
   const venues = await prisma.venue.findMany({
@@ -22,7 +23,7 @@ const getOwnersVenues = async (id: number) => {
     }
   });
 
-  prisma.$disconnect();
+  await prisma.$disconnect();
   return venues;
 };
 
@@ -34,7 +35,7 @@ const getCurrentUser = async (id: number) => {
     },
   });
 
-  prisma.$disconnect();
+  await prisma.$disconnect();
   return user;
 };
 
@@ -42,12 +43,7 @@ const ManagementPage = async () => {
   const session = await useCustomServerSession();
 
   if (!session) {
-    return (
-      <Container>
-        <h1>Not logged in</h1>
-        <LoginButton />
-      </Container>
-    );
+    redirect('/')
   }
 
   const user = await getCurrentUser(Number(session.user!.id));

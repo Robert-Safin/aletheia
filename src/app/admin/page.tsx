@@ -5,6 +5,7 @@ import LoginButton from "@/components/authButtons/LogInButton";
 import MainHeader from "@/components/headers/MainHeader";
 import { PrismaClient } from "@prisma/client";
 import UnverifiedVenueCard from "@/components/admin/UnverifiedVenueCard";
+import { revalidatePath } from "next/cache";
 
 const getUser = async (id: number) => {
   const prisma = new PrismaClient();
@@ -13,7 +14,7 @@ const getUser = async (id: number) => {
       id: id,
     },
   });
-  prisma.$disconnect();
+  await prisma.$disconnect();
   return user;
 };
 
@@ -24,7 +25,7 @@ const getUnverifiedVenues = async () => {
       isVerified: false,
     },
   });
-  prisma.$disconnect();
+  await prisma.$disconnect();
   return unverifiedVenues;
 };
 
@@ -54,12 +55,29 @@ const AdminPage: React.FC = async () => {
 
       const handleVerify = async (id: number) => {
         "use server";
-        console.log(id);
+        const prisma = new PrismaClient();
+        await prisma.venue.update({
+          where: {
+            id: id,
+          },
+          data: {
+            isVerified: true,
+          },
+        });
+        await prisma.$disconnect();
+        revalidatePath('/admin')
       };
 
       const handleDecline = async (id: number) => {
         "use server";
-        console.log(id);
+        const prisma = new PrismaClient();
+        await prisma.venue.delete({
+          where: {
+            id: id,
+          },
+        });
+        await prisma.$disconnect();
+        revalidatePath('/admin')
       };
 
       return (

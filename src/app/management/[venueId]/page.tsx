@@ -13,6 +13,8 @@ import SubHeader from "@/components/headers/SubHeader";
 import Link from "next/link";
 import { GoLinkExternal } from "react-icons/go";
 import UpdateVenueButton from "@/components/venueOwnersComponents/updateVenueButton/UpdateVenueButton";
+import { redirect } from "next/navigation";
+import { revalidateTag } from "next/cache";
 
 interface Props {
   params: {
@@ -30,7 +32,7 @@ const isCurrentUserVenueOwner = async (userId: number) => {
       venues: true,
     },
   });
-  prisma.$disconnect();
+  await prisma.$disconnect();
 
   const isCurrentUserVenueOwner = userDoc?.venues.some(
     (venue) => venue.ownerId === userId
@@ -53,6 +55,18 @@ const MangementVenueShowPage: FC<Props> = async (props) => {
   const hasPhone = venue?.phoneNumber !== "";
   const hasWebsite = venue?.website !== "";
 
+  const deleteVenueById = async (venueId: number) => {
+    "use server";
+    const prisma = new PrismaClient();
+    const venueDoc = await prisma.venue.delete({
+      where: {
+        id: venueId,
+      },
+    });
+    await prisma.$disconnect();
+    revalidateTag('/management')
+    redirect("/management");
+  };
 
   return (
     <Container>
@@ -107,9 +121,15 @@ const MangementVenueShowPage: FC<Props> = async (props) => {
       )}
       <SubHeader title="Categories" />
       <div className={styles.categories}>
-        <p className={styles.category}>{venue?.category1}</p>
-        <p className={styles.category}>{venue?.category2}</p>
-        <p className={styles.category}>{venue?.category3}</p>
+        {venue?.category1.length! > 0 && (
+          <p className={styles.category}>{venue?.category1}</p>
+        )}
+        {venue?.category2.length! > 0 && (
+          <p className={styles.category}>{venue?.category2}</p>
+        )}
+        {venue?.category3.length! > 0 && (
+          <p className={styles.category}>{venue?.category3}</p>
+        )}
       </div>
 
       <div className={styles.newButtons}>
@@ -126,7 +146,7 @@ const MangementVenueShowPage: FC<Props> = async (props) => {
           NEW EVENT
         </Link>
       </div>
-      <UpdateVenueButton/>
+      <UpdateVenueButton deleteVenueById={deleteVenueById} id={venue!.id} />
     </Container>
   );
 };
