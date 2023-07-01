@@ -28,9 +28,8 @@ const HomePage:NextPage = async() => {
     <Link href={`/home`}>Home page</Link>
     <LoginButton/>
     <LogOutButton/>
-    <RegisterButton/> */}
+  <RegisterButton/> */}
     <LogInLanding/>
-
 
 
     </div>

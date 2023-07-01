@@ -12,7 +12,9 @@ import LoadingSession from "@/components/loading/LoadingSession";
 import FormSubmitButton from "@/components/forms/FormSubmitButton";
 import ErrorPopup from "@/components/popups/ErrorPopup";
 import { useRouter } from "next/navigation";
-
+import {ImUpload} from "react-icons/im";
+import SubHeader from "@/components/headers/SubHeader";
+import Image from "next/image";
 export interface VenueRegistrationForm {
   name: string;
   category1: string;
@@ -33,6 +35,13 @@ const RegisterVenueForm = () => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [popup, setPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
+  const [photoInputValue, setPhotoInputValue] = useState(
+     <div className={styles.photoLabelInnerDiv}>
+    <ImUpload className={styles.icon}/>
+    <p>Upload</p>
+  </div>
+  );
+
 
   const nameRef = useRef<HTMLInputElement>(null);
   const categoryRef1 = useRef<HTMLInputElement>(null);
@@ -42,7 +51,7 @@ const RegisterVenueForm = () => {
   const categoryRef5 = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const websiteRef = useRef<HTMLInputElement>(null);
-  const aboutRef = useRef<HTMLInputElement>(null);
+  const aboutRef = useRef<HTMLTextAreaElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
   const photoRef = useRef<HTMLInputElement>(null);
 
@@ -134,6 +143,13 @@ const RegisterVenueForm = () => {
       router.push("/management");
     }
   };
+  const handlePhotoChange = () => {
+    setPhotoInputValue(
+      <div className={styles.photoLabelInnerDiv}>
+      {photoRef.current!.files![0].name}
+      </div>
+    )
+  }
 
   return (
     <>
@@ -210,9 +226,10 @@ const RegisterVenueForm = () => {
         />
 
         <FormLabel title="About Venue" htmlFor="" />
-        <FormInput
+        <textarea
+          className={styles.textArea}
+          rows={5}
           name="about"
-          type="text"
           placeholder="About"
           ref={aboutRef}
           value={undefined}
@@ -227,14 +244,16 @@ const RegisterVenueForm = () => {
           value={undefined}
         />
 
+        <h1 className={styles.photoFakeLabel}>Photo</h1>
         <input
           type="file"
           id="file"
           className={styles.photoInput}
           ref={photoRef}
+          onChange={handlePhotoChange}
         />
         <label htmlFor="file" className={styles.photoLabel}>
-          Upload a photo
+          {photoInputValue}
         </label>
 
         <FormSubmitButton title="Register" isDisabled={isDisabled} />

@@ -12,6 +12,7 @@ import { AiOutlineCalendar, AiOutlineTag } from "react-icons/ai";
 import SubHeader from "@/components/headers/SubHeader";
 import Link from "next/link";
 import { GoLinkExternal } from "react-icons/go";
+import UpdateVenueButton from "@/components/venueOwnersComponents/updateVenueButton/UpdateVenueButton";
 
 interface Props {
   params: {
@@ -51,6 +52,8 @@ const MangementVenueShowPage: FC<Props> = async (props) => {
   const stars = getRating(venue!.averageRating);
   const hasPhone = venue?.phoneNumber !== "";
   const hasWebsite = venue?.website !== "";
+
+
   return (
     <Container>
       <Image
@@ -125,7 +128,7 @@ const MangementVenueShowPage: FC<Props> = async (props) => {
           NEW EVENT
         </Link>
       </div>
-      <button className={styles.updateButton}>UPDATE</button>
+      <UpdateVenueButton/>
     </Container>
   );
 };

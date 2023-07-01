@@ -48,7 +48,3 @@
 .newThingButton {
   @apply bg-action w-1/2 py-4 px-3 rounded-lg tracking-widest text-xs text-center
 }
-
-.updateButton {
-  @apply bg-gray w-full py-4 px-3 rounded-lg tracking-widest text-xs mt-2 text-black
-}

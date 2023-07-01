@@ -70,10 +70,11 @@ model Review {
 
 model Event {
   id Int @id @default(autoincrement())
+  name String
   start DateTime
   end DateTime
   description String
-  QRQuntity Int
+  QRQuntity Int @default(0)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
@@ -87,10 +88,11 @@ model Event {
 
 model Offer {
   id Int @id @default(autoincrement())
+  name String
   start DateTime
   end DateTime
   description String
-  QRQuntity Int
+  QRQuntity Int @default(0)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 

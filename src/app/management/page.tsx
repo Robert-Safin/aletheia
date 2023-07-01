@@ -3,12 +3,12 @@ import styles from "./page.module.css";
 import { PrismaClient } from "@prisma/client";
 import useCustomServerSession from "@/lib/useCustomServerSession";
 import LoginButton from "@/components/authButtons/LogInButton";
-import RegisterVenueButton from "@/components/venueOwnersComponents/RegisterVenueButton";
 import MainHeader from "@/components/headers/MainHeader";
 import VenueManagementCard from "@/components/management/venueManagementCard/VenueManagementCard";
 import { LuVerified } from "react-icons/lu";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import UnverifiedVenueManagementCard from "@/components/management/unverifiedVenueManagementCard/UnverifiedVenueManagementCard";
+import RegisterVenueButton from "@/components/venueOwnersComponents/buttons/RegisterVenueButton";
 const getOwnersVenues = async (id: number) => {
   const prisma = new PrismaClient();
   const venues = await prisma.venue.findMany({

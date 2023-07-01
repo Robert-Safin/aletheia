@@ -15,29 +15,28 @@ import { AiFillCalendar, AiOutlineCalendar } from "react-icons/ai";
 
 const HomePage: FC = (props) => {
 
-
   return (
     <Container>
       <MainHeader title="Welcome Home" />
       <SearchBar />
 
       <div className={styles.categoryHeader}>
-        <MdLocalOffer className={styles.categoryIcon} />
-        <SubHeader title="Offers happening now" />
+        <MdOutlineLocalOffer className={styles.categoryIcon} />
+        <SubHeader title="Offers Today" />
       </div>
 
       <div className={styles.categoryHeader}>
-        <MdOutlineLocalOffer className={styles.categoryIcon} />
+        <MdLocalOffer className={styles.categoryIcon} />
         <SubHeader title="Upcoming Offers" />
       </div>
 
       <div className={styles.categoryHeader}>
-        <AiFillCalendar className={styles.categoryIcon} />
-        <SubHeader title="Events happening now" />
+        <AiOutlineCalendar className={styles.categoryIcon} />
+        <SubHeader title="Events Today" />
       </div>
 
       <div className={styles.categoryHeader}>
-        <AiOutlineCalendar className={styles.categoryIcon} />
+        <AiFillCalendar className={styles.categoryIcon} />
         <SubHeader title="Upcoming Event" />
       </div>
 

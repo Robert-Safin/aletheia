@@ -17,6 +17,7 @@ module.exports = {
         action: "#F87171",
         gray: "#E5E5E5",
         midGray: "#6E6E6E",
+        danger: "#F33B3B"
       },
     },
   },

@@ -12,10 +12,23 @@
 }
 
 .photoLabel {
-  @apply mt-4
+  @apply border border-white w-full
+}
+
+.photoLabelInnerDiv {
+  @apply border border-white rounded-md p-2 my-8 flex items-center justify-center space-x-2 w-1/2 mx-auto
+}
+.icon {
+  @apply text-white
+}
+.photoFakeLabel {
+  @apply mt-4 mb-2
 }
 
 
 .photoInput {
   @apply hidden
+}
+.textArea {
+  @apply rounded-md p-2 text-black
 }

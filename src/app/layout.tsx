@@ -24,7 +24,7 @@ const RootLayout:FC<Props> = (props) => {
   return (
     <html lang="en">
       <Provider>
-        <body className={styles.layout}>
+        <body className={styles.layout} id="__next">
           {props.children}
           <Navbar />
         </body>
