@@ -3,12 +3,12 @@
 }
 
 .text {
-  @apply h-1/2
+  @apply mt-40
 }
 .title {
-  @apply text-white text-5xl text-center
+  @apply text-white text-6xl text-center
 }
 
 .goal {
-  @apply text-white text-2xl text-center
+  @apply text-white text-3xl text-center mt-8 w-80 mx-auto
 }

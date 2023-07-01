@@ -9,6 +9,7 @@ import { IoBusinessOutline } from "react-icons/io5";
 import useCustomServerSession from "@/lib/useCustomServerSession";
 import { PrismaClient } from "@prisma/client";
 
+
 const userHasVenues = async (id:number) => {
   const prisma = new PrismaClient();
 
@@ -27,7 +28,9 @@ const userHasVenues = async (id:number) => {
 
 }
 
-const Navbar: FC = async (props) => {
+const Navbar: FC = async () => {
+
+
 
   const session = await useCustomServerSession();
   let isOwner

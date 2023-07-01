@@ -4,13 +4,9 @@ import styles from "./LogInLanding.module.css";
 import { FormEvent, useRef } from "react";
 import FormInput from "../forms/FormInput";
 import FormLabel from "../forms/FormLabel";
-import MainHeader from "../headers/MainHeader";
 import Link from "next/link";
 
-interface Credentials {
-  username: string;
-  password: string;
-}
+
 
 const LogInLanding = () => {
   const emailRed = useRef<HTMLInputElement>(null);
@@ -49,7 +45,7 @@ const LogInLanding = () => {
         />
         <button type="submit" className={styles.loginButton}>Log in</button>
         <Link href={'/register'}>
-        <p className={styles.signupButton}>Sign in</p>
+        <p className={styles.signupButton}>Sign up</p>
         </Link>
       </form>
     </div>
