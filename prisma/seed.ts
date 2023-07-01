@@ -34,6 +34,9 @@ export const convertAddressToCoordinates = async (address: string): Promise<{lat
 async function main() {
   await prisma.venue.deleteMany()
   await prisma.user.deleteMany()
+  await prisma.review.deleteMany()
+  await prisma.event.deleteMany()
+  await prisma.offer.deleteMany()
 
 
   const Rob = await prisma.user.upsert({
@@ -82,6 +85,8 @@ async function main() {
       category3: "Surf Club",
       category4: "Beer Garden",
       category5: "Live Music",
+      phoneNumber: "",
+      website: "https://oldmans.net/",
       about: "Old Man's is a beer garden and surf club with sea views. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It’s a popular place for expats and tourists alike.",
       address : 'Jl. Pantai Batu Bolong No.117X, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80351',
       averageRating : 4.7,
@@ -114,6 +119,8 @@ async function main() {
       category3: "Surf Club",
       category4: "Beer Garden",
       category5: "Live Music",
+      phoneNumber: "+62 812-3831-2506",
+      website: "",
       about : "Warung Gouthe is a French restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
       address : 'Jl. Pantai Berawa No.7A, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
       averageRating : 3.3,
@@ -144,6 +151,8 @@ async function main() {
       category3: "Surf Club",
       category4: "Beer Garden",
       category5: "Live Music",
+      phoneNumber: "+62 812-3831-2506",
+      website: "www.lacalitabali.com",
       about: "La Calita is a Mexican restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
       address : 'Jl. Pantai Batu Bolong No.68, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
       averageRating : 2.4,
@@ -173,6 +182,8 @@ async function main() {
       category3: "Surf Club",
       category4: "Beer Garden",
       category5: "Live Music",
+      phoneNumber : "+62 812-3676-0000",
+      website: "www.kenjiramen.com",
       about:"Kenji is a Japanese restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
       address : 'Jl. Pantai Berawa No.13B, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
       averageRating : 0,
@@ -187,7 +198,7 @@ async function main() {
       longitude: (await convertAddressToCoordinates(Kenji.address)).longitude,
       formattedAddress: (await convertAddressToCoordinates(Kenji.address)).formattedAddress,
       city: (await convertAddressToCoordinates(Kenji.address)).city,
-      isVerified : false
+      isVerified : true
     },
   });
 
@@ -203,6 +214,7 @@ async function main() {
       category3: "Surf Club",
       category4: "Beer Garden",
       category5: "Live Music",
+      phoneNumber: "+62 812-3676-0000",
       about:"1918 Culinaria is a Georgian restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
       address : 'Jl. Canggu Padang Linjong No.38a, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80351',
       averageRating : 0,

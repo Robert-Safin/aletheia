@@ -15,11 +15,16 @@ interface Props {
   };
 }
 
-const getVenue = async (id: number) => {
+export const getVenue = async (id: number) => {
   const prisma = new PrismaClient();
   const venue = await prisma.venue.findUnique({
     where: {
       id: id,
+    },
+    include: {
+      reviews: true,
+      events: true,
+      offers: true,
     },
   });
   prisma.$disconnect();
@@ -59,7 +64,7 @@ const VenueShowPage: FC<Props> = async (props) => {
       />
       <div className={styles.startsAndReview}>
         <div className={styles.stars}>{stars}</div>
-        <p className={styles.reviews}>xyz reviews</p>
+        <p className={styles.reviews}>{venue?.reviews.length} Reviews</p>
       </div>
 
       <SubHeader title={`Aboout ${venue!.name}:`}/>

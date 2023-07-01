@@ -20,6 +20,8 @@ export interface VenueRegistrationForm {
   category3: string;
   category4: string;
   category5: string;
+  phone: string;
+  website: string;
   about: string;
   address: string;
   photo: File;
@@ -38,6 +40,8 @@ const RegisterVenueForm = () => {
   const categoryRef3 = useRef<HTMLInputElement>(null);
   const categoryRef4 = useRef<HTMLInputElement>(null);
   const categoryRef5 = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const websiteRef = useRef<HTMLInputElement>(null);
   const aboutRef = useRef<HTMLInputElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
   const photoRef = useRef<HTMLInputElement>(null);
@@ -100,6 +104,8 @@ const RegisterVenueForm = () => {
       category3: categoryRef3.current!.value.trim(),
       category4: categoryRef4.current!.value.trim(),
       category5: categoryRef5.current!.value.trim(),
+      phone: phoneRef.current!.value.trim(),
+      website: websiteRef.current!.value.trim(),
       about: aboutRef.current!.value.trim(),
       address: addressRef.current!.value.trim(),
       photo: secureUrl,
@@ -181,6 +187,25 @@ const RegisterVenueForm = () => {
           type="text"
           placeholder="Category 5"
           ref={categoryRef5}
+          value={undefined}
+        />
+
+        <FormLabel title="Contact Number" htmlFor="phone" />
+        <FormInput
+          name="phone"
+          type="text"
+          placeholder="Contact Number"
+          ref={phoneRef}
+          value={undefined}
+        />
+
+
+        <FormLabel title="Website URL" htmlFor="website" />
+        <FormInput
+          name="website"
+          type="text"
+          placeholder="Website URL"
+          ref={websiteRef}
           value={undefined}
         />
 

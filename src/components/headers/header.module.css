@@ -1,8 +1,8 @@
 
 .mainHeader {
-@apply text-xl my-4
+@apply text-xl mb-2 mt-4
 }
 
 .subHeader {
-@apply text-lg my-4
+@apply text-lg my-4;
 }

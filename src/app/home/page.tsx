@@ -6,9 +6,9 @@ import SearchBar from "../../components/searchBar/SearchBar";
 import styles from "./page.module.css";
 import { BiWalk } from "react-icons/bi";
 import { MdOutlineLocalOffer, MdLocalOffer } from "react-icons/md";
-import { BsCalendarEvent, BsCalendar2EventFill } from "react-icons/bs";
 import { FC} from "react";
 import VenueCardContainer from "../../components/homePage/CardContainer";
+import { AiFillCalendar, AiOutlineCalendar } from "react-icons/ai";
 
 
 
@@ -32,12 +32,12 @@ const HomePage: FC = (props) => {
       </div>
 
       <div className={styles.categoryHeader}>
-        <BsCalendar2EventFill className={styles.categoryIcon} />
+        <AiFillCalendar className={styles.categoryIcon} />
         <SubHeader title="Events happening now" />
       </div>
 
       <div className={styles.categoryHeader}>
-        <BsCalendarEvent className={styles.categoryIcon} />
+        <AiOutlineCalendar className={styles.categoryIcon} />
         <SubHeader title="Upcoming Event" />
       </div>
 

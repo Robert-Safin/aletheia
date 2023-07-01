@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { getRating } from '@/components/homePage/VenueCard'
 import { AiOutlineCalendar, AiOutlineTag } from 'react-icons/ai'
 import { MdOutlineDiscount } from 'react-icons/md'
+import Link from 'next/link'
 
 interface EventProps {
   events: Event[]
@@ -46,7 +47,9 @@ const VenueManagementCard:FC<Props> = (props) => {
           <p className={styles.length}>{props.venue.offers.length} Offers</p>
         </div>
       </div>
+      <Link href={`/management/${props.venue.id}`}>
       <button className={styles.viewButton}>VIEW VENUE INFORMATION</button>
+      </Link>
     </div>
     </>
   )

@@ -22,6 +22,8 @@ export async function POST(request: Request) {
   const category3 = body.category3;
   const category4 = body.category4;
   const category5 = body.category5;
+  const phone = body.phone;
+  const website = body.website;
   const about = body.about;
   const address = body.address;
   const photoUrl = body.photo as unknown as string
@@ -110,6 +112,8 @@ export async function POST(request: Request) {
       category3: category3,
       category4: category4,
       category5: category5,
+      phoneNumber: phone,
+      website: website,
       address: address,
       city: googleAddress.city,
       formattedAddress: googleAddress.formattedAddress,

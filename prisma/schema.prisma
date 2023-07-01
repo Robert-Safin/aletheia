@@ -22,7 +22,7 @@ model User {
   updateAt DateTime @updatedAt
 
 
-  venue Venue[]
+  venues Venue[]
 }
 
 model Venue {
@@ -34,6 +34,8 @@ model Venue {
   category3 String @default("")
   category4 String @default("")
   category5 String @default("")
+  phoneNumber String @default("")
+  website String @default("")
   address String
   formattedAddress String @default("")
   city String @default("")

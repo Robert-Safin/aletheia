@@ -1,0 +1,54 @@
+.mainPhoto {
+  @apply w-full h-72 rounded-lg object-cover;
+}
+
+.startsAndRating {
+  @apply flex space-x-2 items-center mb-2
+}
+.stars {
+  @apply flex;
+}
+
+.reviews {
+  @apply font-light;
+}
+
+.eventsAndOffers {
+  @apply flex items-center space-x-4
+}
+.iconAndCount {
+  @apply flex items-center space-x-2
+}
+.icon {
+  @apply text-base;
+}
+
+.length {
+  @apply text-sm
+}
+.infoText {
+  @apply text-sm
+}
+.iconAndWebLink {
+  @apply flex items-center space-x-2
+}
+
+.categories {
+  @apply flex flex-wrap w-full justify-between
+}
+
+.category {
+  @apply bg-midGray py-1 px-2 rounded-lg mb-2
+}
+
+
+.newButtons {
+  @apply w-full flex space-x-2 mt-4
+}
+.newThingButton {
+  @apply bg-action w-1/2 py-4 px-3 rounded-lg tracking-widest text-xs text-center
+}
+
+.updateButton {
+  @apply bg-gray w-full py-4 px-3 rounded-lg tracking-widest text-xs mt-2 text-black
+}
