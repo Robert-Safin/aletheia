@@ -1,4 +1,4 @@
-import { FC, forwardRef, Ref } from "react";
+import { forwardRef } from "react";
 import styles from './FormInput.module.css'
 
 interface Props {
@@ -6,6 +6,7 @@ type: string
 name: string
 placeholder: string | undefined
 value : string | Date | undefined
+
 }
 
 const FormInput = forwardRef<HTMLInputElement, Props>((props, ref) => {

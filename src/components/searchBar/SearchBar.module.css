@@ -4,7 +4,6 @@
 
 
 
-
 .container {
 @apply flex items-center bg-gray rounded-md p-1
 }
@@ -12,13 +11,33 @@
 @apply text-lg text-black mr-2
 }
 .input {
-@apply text-lg w-full bg-gray
+@apply text-lg w-full bg-gray text-black
 }
 
 .whenOption {
-  @apply flex justify-between items-start
+  @apply flex justify-start items-start space-x-3
 }
 
 .whenButton {
-  @apply py-1 px-3 bg-zinc-600 rounded-lg
+  @apply p-1 bg-zinc-600 rounded-lg
+}
+
+.whenButtonActive {
+  @apply p-1 bg-action rounded-lg
+}
+
+
+.dateIcon {
+  @apply bg-zinc-600 rounded-lg w-8 h-8 p-1
+}
+.dateIconActive {
+  @apply bg-action rounded-lg w-8 h-8 p-1
+}
+
+.distance {
+  @apply text-center
+}
+
+.submitButton {
+  @apply bg-action w-full py-2 px-3 rounded-lg tracking-widest my-4
 }

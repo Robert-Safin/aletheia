@@ -75,7 +75,7 @@ const VenueCardContainer:FC<Props> = (props) => {
 
   return (
     <div className={styles.container}>
-        { venuesOrderedByDistance.map(venue => (
+        { venuesOrderedByDistance.map((venue) => (
           <VenueCard key={venue.id} venue={venue} userLatitude={location.latitude} userLongitude={location.longitude}/>
         ))
         }
