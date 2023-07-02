@@ -10,6 +10,7 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import UnverifiedVenueManagementCard from "@/components/management/unverifiedVenueManagementCard/UnverifiedVenueManagementCard";
 import RegisterVenueButton from "@/components/venueOwnersComponents/buttons/RegisterVenueButton";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 const getOwnersVenues = async (id: number) => {
   const prisma = new PrismaClient();
   const venues = await prisma.venue.findMany({
@@ -66,6 +67,20 @@ const ManagementPage = async () => {
     (venue) => !venue.isVerified
   )
 
+  const handleDelete = async (id: number) => {
+    'use server'
+
+    const prisma = new PrismaClient();
+    await prisma.venue.delete({
+      where: {
+        id: id,
+      },
+    });
+    await prisma.$disconnect();
+    revalidatePath('/management')
+    redirect('/management')
+  }
+
   return (
     <Container>
       <div className={styles.welcomeContainer}>
@@ -97,7 +112,7 @@ const ManagementPage = async () => {
       <MainHeader title="Waiting Approval"/>
 
       {unverifiedVenues.map((venue) => (
-        <UnverifiedVenueManagementCard key={venue.id} venue={venue} />
+        <UnverifiedVenueManagementCard handleDelete={handleDelete} key={venue.id} venue={venue} />
       ))}
 
 

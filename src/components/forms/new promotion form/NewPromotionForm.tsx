@@ -1,31 +1,28 @@
-"use client";
-import { useState } from "react";
-import FormInput from "../FormInput";
-import FormLabel from "../FormLabel";
-import styles from "./NewPromotionForm.module.css";
-import MainHeader from "@/components/headers/MainHeader";
 
-const NewPromotionForm = () => {
-  const [form, setForm]= useState(0)
+import { FC,} from "react";
+
+import "react-datepicker/dist/react-datepicker.css";
+
+import FormSelection from "./FormSelection";
+import { OneTimeOfferForm } from "./one time type/OneTimeOffer";
+
+interface Props {
+  venueId: string;
+}
+const submitRecurringOfferForm = async (form:OneTimeOfferForm) => {
+  "use server"
+  console.log(form);
+
+
+}
+
+const NewPromotionForm:FC<Props> = async (props) => {
+
+
+
   return (
     <>
-      <div className={styles.formSelector}>
-        <MainHeader title="Event Type"/>
-        <button className={styles.formSelectorButton} onClick={() => setForm(1)}>One time event</button>
-        <button className={styles.formSelectorButton} onClick={() => setForm(2)}>Reocurring event</button>
-      </div>
-
-
-
-      {form === 1 && <div className={styles.form}>
-      <h1>One time event</h1>
-
-      </div>}
-
-      {form === 2 && <div className={styles.form}>
-      <h1>Reocurring event</h1>
-
-      </div>}
+      <FormSelection submitRecurringOfferForm={submitRecurringOfferForm}/>
     </>
   );
 };

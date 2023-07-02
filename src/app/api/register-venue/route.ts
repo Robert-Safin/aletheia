@@ -3,7 +3,6 @@ import useCustomServerSession from "@/lib/useCustomServerSession";
 import { createClient } from "@google/maps";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
 const googleMapsClient = createClient({
   key: process.env.GOOGLE_MAPS_API_KEY!,
 });
@@ -15,6 +14,7 @@ export async function POST(request: Request) {
   if (!body) {
     return new Response(JSON.stringify({ message: "no body", failure: 1 }));
   }
+  const prisma = new PrismaClient();
 
   const name = body.name;
   const category1 = body.category1;

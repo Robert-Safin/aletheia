@@ -1,4 +1,3 @@
-
 .formSelector {
   @apply flex items-baseline space-x-2
 }
@@ -8,11 +7,4 @@
 }
 .formTypeButtonInactive {
   @apply bg-midGray py-1 px-2 rounded-lg
-}
-.form {
-  @apply flex flex-col;
-}
-
-.textarea {
-  @apply rounded-md text-black p-1
 }

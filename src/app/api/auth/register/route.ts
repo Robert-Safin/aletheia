@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { hash } from "bcrypt";
 import { UserRegistrationForm } from "@/app/register/page";
-const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
+  const prisma = new PrismaClient();
   const body = (await request.json()) as UserRegistrationForm;
 
   const username = body.username;

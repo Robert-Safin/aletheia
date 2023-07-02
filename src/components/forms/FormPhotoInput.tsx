@@ -1,7 +1,7 @@
 'use client'
 
 import styles from './FormPhotoInput.module.css'
-import {  forwardRef, Ref } from "react";
+import {  forwardRef } from "react";
 
 interface Props {
   type: string

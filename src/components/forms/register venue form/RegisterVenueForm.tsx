@@ -99,7 +99,6 @@ const RegisterVenueForm = () => {
     );
 
     const cloudinaryResponseData = await responseCloudinary.json();
-    console.log(cloudinaryResponseData);
 
     const secureUrl = cloudinaryResponseData.secure_url;
 
