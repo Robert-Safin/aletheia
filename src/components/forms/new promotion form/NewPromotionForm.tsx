@@ -20,7 +20,7 @@ const NewPromotionForm:FC<Props> = async (props) => {
   const submitRecurringOfferForm = async (form:ReccuringOfferForm) => {
     "use server"
     const prisma = new PrismaClient()
-    const newOffer = await prisma.offer.create({
+    const newOffer = await prisma.event.create({
       data: {
         isRecurring: true,
         name: form.name,
@@ -54,10 +54,9 @@ const NewPromotionForm:FC<Props> = async (props) => {
   const submitOnceOfferForm = async (form:OnceOfferForm) => {
     "use server"
 
-    console.log(form);
 
     const prisma = new PrismaClient()
-    const newOffer = await prisma.offer.create({
+    const newOffer = await prisma.event.create({
       data: {
         isRecurring: false,
         name: form.name,
