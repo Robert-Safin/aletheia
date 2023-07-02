@@ -1,6 +1,9 @@
 .popup {
-@apply absolute bottom-16 right-0 m-8 bg-blue-400 h-12  border border-red-500
+@apply flex items-center bg-midGray p-2 space-x-2 fixed right-0 bottom-0 mb-16
+}
+.icon {
+  @apply text-action text-xl font-bold
 }
 .message {
-@apply text-white p-2
+@apply text-action font-bold
 }
