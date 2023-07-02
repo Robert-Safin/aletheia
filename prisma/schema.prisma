@@ -86,10 +86,21 @@ model Event {
 
 model Offer {
   id Int @id @default(autoincrement())
+  isRecurring Boolean
   name String
-  start DateTime
-  end DateTime
+  startDate DateTime
+  endDate DateTime?
+  startTime String
+  endTime String
+  onMonday Boolean @default(false)
+  onTuesday Boolean @default(false)
+  onWednesday Boolean @default(false)
+  onThursday Boolean @default(false)
+  onFriday Boolean @default(false)
+  onSaturday Boolean @default(false)
+  onSunday Boolean @default(false)
   description String
+  photo String
   QRQuntity Int @default(0)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt

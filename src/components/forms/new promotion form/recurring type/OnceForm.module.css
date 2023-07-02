@@ -1,0 +1,79 @@
+.form {
+  @apply flex flex-col
+}
+
+.textarea {
+  @apply rounded-md text-black p-1
+}
+
+
+.dayCheckboxes {
+  @apply flex flex-wrap
+}
+
+.dayCheckboxActive {
+@apply bg-action p-2 rounded-lg m-1 text-sm
+}
+
+.dayCheckboxInactive {
+@apply bg-midGray p-2 rounded-lg m-1 text-sm
+}
+
+.dates {
+  @apply flex justify-start space-x-20
+}
+
+
+.dateItem {
+  @apply flex flex-col items-start
+}
+
+.times{
+  @apply flex justify-start space-x-20
+}
+
+.timeItem {
+  @apply flex flex-col items-start
+}
+
+.timeInput {
+  @apply text-black rounded-md p-1 w-20
+}
+
+.qrHeader {
+  @apply flex items-center space-x-2 mt-2
+}
+
+
+.activeQR {
+  @apply bg-action py-2 px-3 rounded-lg m-1 text-sm
+
+}
+
+.inactiveQR {
+  @apply bg-midGray py-2 px-3 rounded-lg m-1 text-sm
+
+}
+
+.distance {
+  @apply text-center
+}
+
+.photoIconAndTextWrapper {
+  @apply border border-white rounded-sm mt-2
+}
+.photoIconAndText {
+@apply border border-white flex items-center justify-center  w-32  mx-auto py-2 px-4 rounded-lg my-8
+}
+
+.photoLabel {
+@apply mt-4
+}
+
+.photoInput {
+  @apply hidden
+}
+
+.submit {
+  @apply py-2 bg-action w-full rounded-md mx-auto tracking-widest mt-16
+}

@@ -1,17 +1,20 @@
 'use client'
 import MainHeader from '@/components/headers/MainHeader'
-import styles from './FormSelection.module.css'
+import styles from './formSelection.module.css'
 import { FC, useState } from 'react';
-import OnetimeOffer, { OneTimeOfferForm } from './one time type/OneTimeOffer';
+import { ReccuringOfferForm } from './one time type/ReccuringForm';
+
+import ReccuringForm from './one time type/ReccuringForm';
+import OnceForm, { OnceOfferForm } from './recurring type/OnceForm';
 
 interface Props {
-  submitRecurringOfferForm : (form:OneTimeOfferForm) => void
+  submitRecurringOfferForm : (form:ReccuringOfferForm) => void
+  submitOnceOfferForm: (form:OnceOfferForm) => void
 }
 
 const FormSelection:FC<Props>= (props) => {
 
   const [form, setForm]= useState("")
-  const [date, setDate] = useState(new Date());
 
 
 
@@ -23,8 +26,8 @@ const FormSelection:FC<Props>= (props) => {
         <button className={form === "one time" ? styles.formTypeButtonActive : styles.formTypeButtonInactive} onClick={() => setForm("one time")}>Yes</button>
         <button className={form === "recurring" ? styles.formTypeButtonActive : styles.formTypeButtonInactive} onClick={() => setForm("recurring")}>No</button>
       </div>
-      {form === "one time" && <OnetimeOffer submitRecurringOfferForm={props.submitRecurringOfferForm}/>}
-      {form === "recurring" && <h1>recur</h1> }
+      {form === "one time" && <ReccuringForm submitRecurringOfferForm={props.submitRecurringOfferForm}/>}
+      {form === "recurring" && <OnceForm submitOnceOfferForm={props.submitOnceOfferForm} /> }
     </>
   )
 }
