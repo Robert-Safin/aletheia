@@ -1,6 +1,6 @@
 'use client'
 import MainHeader from '@/components/headers/MainHeader'
-import styles from './formSelection.module.css'
+import styles from './FormSelection.module.css'
 import { FC, useState } from 'react';
 import { ReccuringOfferForm } from './one time type/ReccuringForm';
 
