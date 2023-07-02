@@ -9,7 +9,7 @@ import MainHeader from "@/components/headers/MainHeader";
 
 
 interface Props {
-  venues: Venue[];
+
   params: {
     venueId: string
   };
