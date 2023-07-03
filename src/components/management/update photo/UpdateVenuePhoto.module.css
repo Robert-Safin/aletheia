@@ -1,0 +1,20 @@
+
+
+.photoIconAndTextWrapper {
+  @apply border border-white rounded-sm mt-2
+}
+.photoIconAndText {
+@apply border border-white flex items-center justify-center  w-32  mx-auto py-2 px-4 rounded-lg my-8
+}
+
+.photoLabel {
+@apply mt-4
+}
+
+.photoInput {
+  @apply hidden
+}
+
+.submit {
+  @apply py-2 bg-action w-full rounded-md mx-auto tracking-widest mt-16
+}

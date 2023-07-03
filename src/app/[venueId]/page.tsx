@@ -9,6 +9,7 @@ import { AiFillStar } from "react-icons/ai";
 import SubHeader from "../../components/headers/SubHeader";
 import { BsCalendarEvent } from "react-icons/bs";
 import CardContainer from "../../components/homePage/CardContainer";
+import { getRating } from "@/components/homePage/VenueCard";
 interface Props {
   params: {
     venueId: string;
@@ -31,16 +32,7 @@ export const getVenue = async (id: number) => {
   return venue;
 };
 
-  const getRating = (averageRating: number) => {
-  let stars: any = [];
-  for (let i = 0; i < averageRating; i++) {
-    stars.push(<AiFillStar className={styles.starIcon} />);
-  }
-  if (stars.length === 0) {
-    stars = "No reviews yet";
-  }
-  return stars;
-};
+
 
 const VenueShowPage: FC<Props> = async (props) => {
   const venue = await getVenue(Number(props.params.venueId));

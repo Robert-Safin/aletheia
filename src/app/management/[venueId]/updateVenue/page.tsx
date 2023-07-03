@@ -1,6 +1,7 @@
 import Container from "@/components/containers/Container";
 import { FC } from "react";
 import styles from './page.module.css'
+import UpdateVenueInformation from "@/components/management/update venue information form/UpdateVenueInformation";
 interface Props {
   params: {
     venueId: string
@@ -8,9 +9,10 @@ interface Props {
 }
 
 const UpdateVenueInformationPage:FC<Props> = async (props) => {
+
   return (
     <Container>
-    <p>{props.params.venueId}</p>
+    <UpdateVenueInformation venueId={props.params.venueId}/>
     </Container>
   )
 }

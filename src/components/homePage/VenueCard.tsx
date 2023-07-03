@@ -20,15 +20,15 @@ export const getRating = (averageRating: number) => {
   const emptyStars = 5 - fullStars - halfStars;
 
   for (let i = 0; i < fullStars; i++) {
-    stars.push(<AiFillStar className={styles.starIcon}/>);
+    stars.push(<AiFillStar className={styles.starIcon} key={'a'+ i}/>);
   }
 
   for (let i = 0; i < halfStars; i++) {
-    stars.push(<BiSolidStarHalf className={styles.starIcon}/>);
+    stars.push(<BiSolidStarHalf className={styles.starIcon} key={'b'+ i}/>);
   }
 
   for (let i = 0; i < emptyStars; i++) {
-    stars.push(<AiOutlineStar className={styles.starIcon}/>);
+    stars.push(<AiOutlineStar className={styles.starIcon} key={'c'+ i}/>);
   }
 
   if (stars.length === 0) {
