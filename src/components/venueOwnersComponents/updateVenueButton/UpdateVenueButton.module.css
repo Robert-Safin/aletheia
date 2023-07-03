@@ -15,7 +15,7 @@
 }
 
 .button {
-@apply py-3 px-6 bg-gray rounded-sm text-xs my-1 text-black tracking-widest
+@apply py-3 px-6 bg-gray rounded-sm text-xs my-1 text-black tracking-widest text-center
 }
 
 

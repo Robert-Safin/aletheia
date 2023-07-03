@@ -1,9 +1,8 @@
 "use client";
 import { FC, useState, useTransition } from "react";
 import styles from "./UpdateVenueButton.module.css";
-import { RxCross2 } from "react-icons/rx";
 import Modal from "react-modal";
-import { BsTrash } from "react-icons/bs";
+import Link from "next/link";
 
 Modal.setAppElement("#__next");
 
@@ -16,7 +15,7 @@ const UpdateVenueButton: FC<Props> = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [deleteIsPressed, setDeleteIsPressed] = useState(false);
 
-  let [isPending, startTransition] = useTransition()
+  let [isPending, startTransition] = useTransition();
 
   const openModal = () => {
     setIsOpen(true);
@@ -48,9 +47,12 @@ const UpdateVenueButton: FC<Props> = (props) => {
       >
         {!deleteIsPressed && (
           <div className={styles.buttonContainer}>
-            <button className={styles.button}>UPDATE VENUE INFORMATION</button>
-            <button className={styles.button}>UPDATE MAIN PHOTO</button>
-            <button className={styles.button}>UPDATE PHOTOS</button>
+            <Link href={`/management/${props.id}/updateVenue`} className={styles.button}>
+              UPDATE VENUE INFORMATION
+            </Link>
+            <Link href={`/management/${props.id}/updatePhoto`} className={styles.button}>
+              UPDATE PHOTOS
+            </Link>
             <button className={styles.deleteButton} onClick={handleDeletePress}>
               DELETE VENUE
             </button>
@@ -60,9 +62,16 @@ const UpdateVenueButton: FC<Props> = (props) => {
         {deleteIsPressed && (
           <div className={styles.buttonContainer}>
             <h1 className={styles.confirm}>Are you sure? </h1>
-            <button className={styles.deleteButton} onClick={() => startTransition(() => props.deleteVenueById(props.id)) }>DELETE VENUE</button>
+            <button
+              className={styles.deleteButton}
+              onClick={() =>
+                startTransition(() => props.deleteVenueById(props.id))
+              }
+            >
+              DELETE VENUE
+            </button>
             <button className={styles.button} onClick={handleCancelPress}>
-                CANCEL
+              CANCEL
             </button>
           </div>
         )}

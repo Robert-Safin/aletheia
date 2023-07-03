@@ -8,7 +8,6 @@ import SubHeader from "@/components/headers/SubHeader";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import FormPhotoInput from "../../FormPhotoInput";
 import { PiUploadSimpleBold } from "react-icons/pi";
 import ErrorPopup from "@/components/popups/ErrorPopup";
 
