@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "./Map.module.css";
-import LoadingSession from "../loading/LoadingSession";
 import useCustomClientSession from "@/lib/useCustomClientSession";
 import { Venue } from "@prisma/client";
 import {
@@ -54,9 +53,9 @@ const Map = () => {
     fetchData();
   }, [location]);
 
-  if (session.status === "loading") {
-    return <LoadingSession />;
-  }
+  // if (session.status === "loading") {
+  //   return <LoadingSession />;
+  // }
 
   const containerStyle = {
     width: "100%",

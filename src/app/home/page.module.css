@@ -1,7 +1,12 @@
+
+.group {
+  @apply bg-midGray px-2 pb-2 rounded-md
+}
+
 .categoryHeader {
 @apply flex items-center
 }
 
 .categoryIcon {
-@apply text-xl mr-2
+@apply text-2xl mr-2 mt-4 mb-2
 }

@@ -8,7 +8,6 @@ import { FormEvent, useRef, useState } from "react";
 
 import useCustomClientSession from "@/lib/useCustomClientSession";
 import MissingClientSession from "@/components/missingClientSession/MissingClientSession";
-import LoadingSession from "@/components/loading/LoadingSession";
 import FormSubmitButton from "@/components/forms/FormSubmitButton";
 import ErrorPopup from "@/components/popups/ErrorPopup";
 import { useRouter } from "next/navigation";
@@ -52,9 +51,9 @@ const RegisterVenueForm = () => {
   const addressRef = useRef<HTMLInputElement>(null);
   const photoRef = useRef<HTMLInputElement>(null);
 
-  if (session.status === "loading") {
-    return <LoadingSession />;
-  }
+  // if (session.status === "loading") {
+  //   return <LoadingSession />;
+  // }
 
   if (session.status === "unauthenticated") {
     return <MissingClientSession />;

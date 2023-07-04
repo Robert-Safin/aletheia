@@ -1,12 +1,12 @@
 'use client'
 import { FC, useEffect, useState } from 'react'
-import styles from './CardContainer.module.css'
+import styles from './ClosestCardContainer.module.css'
 import { Venue } from '@prisma/client';
-import VenueCard from './VenueCard';
+import VenueCard from './ClosestVenueCard';
 interface Props {
 
 }
-const VenueCardContainer:FC<Props> = (props) => {
+const ClosestVenueCardContainer:FC<Props> = (props) => {
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
 
   const [venuesNearUser, setVenuesNearUser] = useState([] as Venue[]);
@@ -48,7 +48,7 @@ const VenueCardContainer:FC<Props> = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       if (location.latitude !== 0 && location.longitude !== 0) {
-        const response = await fetch("/api/get-venues", {
+        const response = await fetch("/api/home-page/get-closest-venues", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -77,11 +77,11 @@ const VenueCardContainer:FC<Props> = (props) => {
   return (
     <div className={styles.container}>
         { venuesOrderedByDistance.map((venue) => (
-          <VenueCard key={venue.id} venue={venue} userLatitude={location.latitude} userLongitude={location.longitude}/>
+            <VenueCard key={venue.id} venue={venue} userLatitude={location.latitude} userLongitude={location.longitude}/>
         ))
         }
     </div>
   )
 }
 
-export default VenueCardContainer
+export default ClosestVenueCardContainer

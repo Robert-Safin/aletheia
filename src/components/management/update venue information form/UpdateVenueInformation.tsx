@@ -8,7 +8,6 @@ import { FC, FormEvent, useRef, useState, useTransition } from "react";
 
 import useCustomClientSession from "@/lib/useCustomClientSession";
 import MissingClientSession from "@/components/missingClientSession/MissingClientSession";
-import LoadingSession from "@/components/loading/LoadingSession";
 import FormSubmitButton from "@/components/forms/FormSubmitButton";
 import ErrorPopup from "@/components/popups/ErrorPopup";
 import { useRouter } from 'next/navigation';
@@ -49,9 +48,9 @@ const UpdateVenueInformation:FC<Props>= (props) => {
   const aboutRef = useRef<HTMLTextAreaElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
 
-  if (session.status === "loading") {
-    return <LoadingSession />;
-  }
+  // if (session.status === "loading") {
+  //   return <LoadingSession />;
+  // }
 
   if (session.status === "unauthenticated") {
     return <MissingClientSession />;

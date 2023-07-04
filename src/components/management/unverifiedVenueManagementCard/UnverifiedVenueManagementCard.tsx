@@ -4,7 +4,7 @@ import styles from './UnverifiedVenueManagementCard.module.css'
 import { FC, useTransition } from 'react'
 import { Venue } from '@prisma/client'
 import Image from 'next/image'
-import { getRating } from '@/components/homePage/VenueCard'
+import { getRating } from '@/components/homePage/ClosestVenueCard'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 
 interface Props {

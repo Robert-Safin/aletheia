@@ -40,7 +40,6 @@ export async function POST(request: Request) {
     include: {
       events: true,
       offers: true,
-      reviews: true,
     }
   })
   await prisma.$disconnect();
@@ -50,7 +49,7 @@ export async function POST(request: Request) {
     return new Response(JSON.stringify({ message: "no venues found", failure: 2 }));
   }
 
-  ///descructure data blob
+
   const venuesNearUser = venueDocs
 
 

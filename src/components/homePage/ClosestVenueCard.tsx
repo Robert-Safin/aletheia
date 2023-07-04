@@ -1,5 +1,5 @@
 import { FC } from "react";
-import styles from "./VenueCard.module.css";
+import styles from './ClosestVenueCard.module.css'
 import { Venue } from "@prisma/client";
 import Image from "next/image";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
@@ -65,7 +65,7 @@ function toRadians(degrees:number) {
 
 
 
-const VenueCard: FC<Props> = (props) => {
+const ClosestVenueCard: FC<Props> = (props) => {
   const stars = getRating(props.venue.averageRating);
 
   const unformattedDistanceFromUser = calculateDistance(props.userLatitude, props.userLongitude, props.venue.latitude, props.venue.longitude);
@@ -96,4 +96,4 @@ const VenueCard: FC<Props> = (props) => {
   );
 };
 
-export default VenueCard;
+export default ClosestVenueCard;

@@ -5,11 +5,9 @@ import MainHeader from "../../components/headers/MainHeader";
 import { PrismaClient } from "@prisma/client";
 import { BiWalk } from "react-icons/bi";
 import Image from "next/image";
-import { AiFillStar } from "react-icons/ai";
 import SubHeader from "../../components/headers/SubHeader";
 import { BsCalendarEvent } from "react-icons/bs";
-import CardContainer from "../../components/homePage/CardContainer";
-import { getRating } from "@/components/homePage/VenueCard";
+import { getRating } from "@/components/homePage/ClosestVenueCard";
 interface Props {
   params: {
     venueId: string;
@@ -67,10 +65,7 @@ const VenueShowPage: FC<Props> = async (props) => {
         <MainHeader title="Upcoming Events" />
       </div>
 
-      <CardContainer>
-        {/* {"to do"} */}
 
-      </CardContainer>
 
     </Container>
   );

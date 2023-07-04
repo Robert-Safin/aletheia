@@ -7,7 +7,7 @@ import useCustomServerSession from "@/lib/useCustomServerSession";
 import MissingClientSession from "@/components/missingClientSession/MissingClientSession";
 import { PrismaClient } from "@prisma/client";
 import MainHeader from "@/components/headers/MainHeader";
-import { getRating } from "@/components/homePage/VenueCard";
+import { getRating } from "@/components/homePage/ClosestVenueCard";
 import { AiOutlineCalendar, AiOutlineTag } from "react-icons/ai";
 import SubHeader from "@/components/headers/SubHeader";
 import Link from "next/link";
