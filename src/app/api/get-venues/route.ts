@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Event, PrismaClient } from "@prisma/client";
 
 
 
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   const maxLongitude = longitude + radiusOfSearch
 
 
-  const venuesNearUser = await prisma.venue.findMany({
+  const venueDocs = await prisma.venue.findMany({
     where: {
 
       latitude: {
@@ -36,17 +36,34 @@ export async function POST(request: Request) {
         lte: maxLongitude
       },
       isVerified: true
+    },
+    include: {
+      events: true,
+      offers: true,
+      reviews: true,
     }
   })
   await prisma.$disconnect();
 
 
-  if (venuesNearUser.length === 0) {
+  if (venueDocs.length === 0) {
     return new Response(JSON.stringify({ message: "no venues found", failure: 2 }));
   }
 
+  ///descructure data blob
+  const venuesNearUser = venueDocs
 
-  return new Response(JSON.stringify({ venuesNearUser:venuesNearUser, failure: 0 }));
+
+
+
+
+
+
+  const data = {
+    venuesNearUser: venuesNearUser,
+  }
+
+  return new Response(JSON.stringify({ data:data, failure: 0 }));
 
 
 

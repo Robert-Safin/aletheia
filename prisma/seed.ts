@@ -222,7 +222,79 @@ async function main() {
   console.log('created venue:', Culinaria1918);
 
 
+  const BeerPong = await prisma.event.create({
+    data: {
+      isRecurring: true,
+      name: "Beer Pong",
+      description: "Beer Pong is a drinking game in which players throw a ping pong ball across a table with the intent of landing the ball in a cup of beer on the other end. The game typically consists of opposing teams of two or more players per side with 6 or 10 cups set up in a triangle formation on each side. Each team then takes turns attempting to shoot ping pong balls into the opponent's cups. If a ball lands in a cup (known as a 'make'), the contents of that cup are consumed by the other team and the cup is removed from the table. The first team to eliminate all of the opponent's cups is the winner.",
+      startDate: new Date(2023, 8, 3),
+      endDate: new Date(2024, 8, 11),
+      onMonday: false,
+      onTuesday: false,
+      onWednesday: true,
+      onThursday: false,
+      onFriday: false,
+      onSaturday: false,
+      onSunday: false,
+      startTime: "18:00",
+      endTime: "22:00",
+      QRQuntity: 0,
+      venueId: OldMans.id,
+      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688392878/Aletheia/event-old-mans-inernational-beerpong-competition_zjfspa.jpg",
+    }
+  })
 
+  console.log('created event:', BeerPong);
+
+
+  const Two4OneSkewers = await prisma.event.create({
+    data: {
+      isRecurring: true,
+      name: "2 for 1 Skewers",
+      description: "2 for 1 on all skewers offered at the venue",
+      startDate: new Date(2023, 8, 3),
+      endDate: new Date(2024, 8, 11),
+      onMonday: true,
+      onTuesday: false,
+      onWednesday: true,
+      onThursday: false,
+      onFriday: true,
+      onSaturday: false,
+      onSunday: true,
+      startTime: "08:00",
+      endTime: "22:00",
+      QRQuntity: 0,
+      venueId: WarungGouthe.id,
+      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688393262/Aletheia/Warung-Gouuthe_dt5v8j.jpg"
+
+    }
+  })
+
+  console.log('created event:', Two4OneSkewers);
+
+  const Two4OneCocktails = await prisma.event.create({
+    data: {
+      isRecurring: false,
+      name: "2 for 1 Cocktails",
+      description: "2 for 1 on all cocktails offered at the venue",
+      startDate: new Date(2023, 8, 3),
+
+      onMonday: false,
+      onTuesday: false,
+      onWednesday: false,
+      onThursday: false,
+      onFriday: true,
+      onSaturday: false,
+      onSunday: false,
+      startTime: "20:00",
+      endTime: "22:00",
+      QRQuntity: 100,
+      venueId: Kenji.id,
+      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688393434/Aletheia/e14835_i5978_s3_hl6yxm.jpg"
+    }
+  })
+
+  console.log('created event:', Two4OneCocktails);
 
 
 }

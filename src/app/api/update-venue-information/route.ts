@@ -120,6 +120,18 @@ export async function POST(request: Request) {
     return new Response(JSON.stringify({ message: "No user Id", failure: 8 }));
   }
 
+  //handle user is not venue owner
+  const venue = await prisma.venue.findUnique({
+    where: {
+      id: Number(venueId),
+    },
+  });
+  if (venue?.ownerId !== Number(userId)) {
+    return new Response(
+      JSON.stringify({ message: "You are not the owner", failure: 9 })
+    );
+  }
+
   const updatedVenue = await prisma.venue.update({
     where: {
       id: Number(venueId),

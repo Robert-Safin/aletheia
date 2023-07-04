@@ -58,8 +58,9 @@ const VenueCardContainer:FC<Props> = (props) => {
             longitude: location.longitude,
           }),
         });
+
         const data = await response.json();
-        setVenuesNearUser(data.venuesNearUser);
+        setVenuesNearUser(data.data.venuesNearUser);
       }
     };
 
