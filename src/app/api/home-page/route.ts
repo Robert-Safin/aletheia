@@ -1,3 +1,4 @@
+import { SearchQuery } from "@/app/home/page";
 import { Event, PrismaClient } from "@prisma/client";
 
 
@@ -5,7 +6,7 @@ import { Event, PrismaClient } from "@prisma/client";
 
 export async function POST(request: Request) {
   const prisma = new PrismaClient();
-  const body = await request.json();
+  const body = await request.json() as SearchQuery
 
   //handle no body
   if (!body) {
@@ -15,7 +16,10 @@ export async function POST(request: Request) {
   const latitude = body.latitude;
   const longitude = body.longitude;
 
-  const radiusOfSearch = 0.05;
+  const radiusOfSearch = body.distance
+  const date = body.date
+  const terms = body.searchTerm
+
 
   const minLatitude = latitude - radiusOfSearch
   const maxLatitude = latitude + radiusOfSearch

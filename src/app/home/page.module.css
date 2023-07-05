@@ -1,6 +1,6 @@
 
 .group {
-  @apply bg-main px-2 pb-2 rounded-md
+  @apply bg-main px-2 pb-2 rounded-md my-2
 }
 
 .categoryHeader {

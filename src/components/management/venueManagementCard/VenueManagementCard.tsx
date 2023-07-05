@@ -3,10 +3,10 @@ import { FC } from 'react'
 import styles from './VenueManagementCard.module.css'
 import { Review, Venue, Event, Offer } from '@prisma/client'
 import Image from 'next/image'
-import { getRating } from '@/components/homePage/ClosestVenueCard'
 import { AiOutlineCalendar, AiOutlineTag } from 'react-icons/ai'
 import { MdOutlineDiscount } from 'react-icons/md'
 import Link from 'next/link'
+import { getRating } from '@/components/home page/venue near user/ClosestVenueCard'
 
 interface EventProps {
   events: Event[]

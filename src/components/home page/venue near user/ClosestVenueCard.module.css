@@ -1,0 +1,39 @@
+.container {
+@apply flex flex-col justify-between flex-none
+}
+
+.photo {
+@apply object-cover w-36 h-36 rounded-lg
+}
+
+.name {
+@apply text-sm font-semibold w-36 line-clamp-1 mt-2
+}
+.distance {
+@apply text-xs my-1
+}
+.starIcon {
+@apply text-base
+}
+.rating {
+@apply flex text-xs
+}
+.distanceAndStars {
+  @apply flex items-center justify-between
+}
+
+.activities {
+  @apply  w-full h-8
+}
+
+.activityItem {
+  @apply flex items-center space-x-2
+}
+
+.icon {
+  @apply text-sm
+}
+
+.activityLength {
+  @apply text-xs
+}

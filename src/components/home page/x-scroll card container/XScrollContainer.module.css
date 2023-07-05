@@ -1,0 +1,3 @@
+.xContainer {
+  @apply flex overflow-scroll space-x-6
+}
