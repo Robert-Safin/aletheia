@@ -7,7 +7,7 @@ import { BiWalk } from "react-icons/bi";
 import Image from "next/image";
 import SubHeader from "../../components/headers/SubHeader";
 import { BsCalendarEvent } from "react-icons/bs";
-import { getRating } from "@/components/homePage/ClosestVenueCard";
+import { getRating } from "@/components/home page/venue near user/ClosestVenueCard";
 interface Props {
   params: {
     venueId: string;

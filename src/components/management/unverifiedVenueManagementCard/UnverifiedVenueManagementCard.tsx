@@ -5,7 +5,6 @@ import { FC, useTransition } from 'react'
 import { Venue } from '@prisma/client'
 import Image from 'next/image'
 import { AiOutlineClockCircle } from 'react-icons/ai'
-import { getRating } from '@/components/home page/venue near user/ClosestVenueCard'
 
 interface Props {
 venue : Venue
@@ -16,7 +15,6 @@ handleDelete : (id:number) => void
 
 const UnverifiedVenueManagementCard:FC<Props> = (props) => {
   const [transition, startTransition] = useTransition()
-  const rating = getRating(props.venue.averageRating)
 
 
   return (

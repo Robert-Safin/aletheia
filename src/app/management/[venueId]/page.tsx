@@ -7,7 +7,6 @@ import useCustomServerSession from "@/lib/useCustomServerSession";
 import MissingClientSession from "@/components/missingClientSession/MissingClientSession";
 import { PrismaClient } from "@prisma/client";
 import MainHeader from "@/components/headers/MainHeader";
-import { getRating } from "@/components/homePage/ClosestVenueCard";
 import { AiOutlineCalendar, AiOutlineTag } from "react-icons/ai";
 import SubHeader from "@/components/headers/SubHeader";
 import Link from "next/link";
@@ -15,6 +14,7 @@ import { GoLinkExternal } from "react-icons/go";
 import UpdateVenueButton from "@/components/venueOwnersComponents/updateVenueButton/UpdateVenueButton";
 import { redirect } from "next/navigation";
 import { revalidateTag } from "next/cache";
+import { getRating } from "@/components/home page/venue near user/ClosestVenueCard";
 
 interface Props {
   params: {
