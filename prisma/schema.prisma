@@ -81,7 +81,7 @@ model Event {
   onFriday Boolean @default(false)
   onSaturday Boolean @default(false)
   onSunday Boolean @default(false)
-  description String
+  description String @db.Text
   photo String
   QRQuntity Int @default(0)
   createAt DateTime @default(now())
@@ -110,7 +110,7 @@ model Offer {
   onFriday Boolean @default(false)
   onSaturday Boolean @default(false)
   onSunday Boolean @default(false)
-  description String
+  description String @db.Text
   photo String
   QRQuntity Int @default(0)
   createAt DateTime @default(now())

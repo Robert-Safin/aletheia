@@ -32,11 +32,11 @@ export const convertAddressToCoordinates = async (address: string): Promise<{lat
 
 
 async function main() {
-  await prisma.venue.deleteMany()
-  await prisma.user.deleteMany()
   await prisma.review.deleteMany()
   await prisma.event.deleteMany()
   await prisma.offer.deleteMany()
+  await prisma.venue.deleteMany()
+  await prisma.user.deleteMany()
 
 
   const Rob = await prisma.user.upsert({
@@ -226,9 +226,9 @@ async function main() {
     data: {
       isRecurring: true,
       name: "Beer Pong",
-      description: "Beer Pong is a drinking game in which players throw a ping pong ball across a table with the intent of landing the ball in a cup of beer on the other end. The game typically consists of opposing teams of two or more players per side with 6 or 10 cups set up in a triangle formation on each side. Each team then takes turns attempting to shoot ping pong balls into the opponent's cups. If a ball lands in a cup (known as a 'make'), the contents of that cup are consumed by the other team and the cup is removed from the table. The first team to eliminate all of the opponent's cups is the winner.",
-      startDate: new Date(2023, 8, 3),
-      endDate: new Date(2024, 8, 11),
+      description: "Beer Pong is a drinking game in which players throw a ping pong ball across a table with the intent of landing the ball in a cup of beer on the other end.",
+      startDate: new Date(),
+      endDate: new Date(2025, 11, 25),
       onMonday: false,
       onTuesday: false,
       onWednesday: true,
@@ -252,8 +252,8 @@ async function main() {
       isRecurring: true,
       name: "2 for 1 Skewers",
       description: "2 for 1 on all skewers offered at the venue",
-      startDate: new Date(2023, 8, 3),
-      endDate: new Date(2024, 8, 11),
+      startDate: new Date(),
+      endDate: new Date(2025, 11, 25),
       onMonday: true,
       onTuesday: false,
       onWednesday: true,
@@ -277,7 +277,7 @@ async function main() {
       isRecurring: false,
       name: "2 for 1 Cocktails",
       description: "2 for 1 on all cocktails offered at the venue",
-      startDate: new Date(2023, 8, 3),
+      startDate: new Date(2023, 7, 11),
 
       onMonday: false,
       onTuesday: false,
@@ -295,6 +295,110 @@ async function main() {
   })
 
   console.log('created event:', Two4OneCocktails);
+
+  const EveryDayBreafast = await prisma.event.create({
+    data: {
+      isRecurring: true,
+      name: "All day Breakfast",
+      description: "all day everyday",
+
+      startDate: new Date(),
+      endDate: new Date(2024, 4, 4),
+
+      onMonday: true,
+      onTuesday: true,
+      onWednesday: true,
+      onThursday: true,
+      onFriday: true,
+      onSaturday: true,
+      onSunday: true,
+      startTime: "10:00",
+      endTime: "22:00",
+      QRQuntity: 100,
+      venueId: Kenji.id,
+      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688644055/Aletheia/sepanjang-hari-sarapan-iklan-neon-desain-signage_cjsr5s.jpg"
+    }
+  })
+
+  console.log('created event:', EveryDayBreafast);
+
+
+  const ThursdayEvent = await prisma.event.create({
+    data: {
+      isRecurring: true,
+      name: "Thursday Event",
+      description: "I dont know shit about fuck",
+
+      startDate: new Date(),
+      endDate: new Date(2024, 6, 6),
+
+      onMonday: false,
+      onTuesday: false,
+      onWednesday: false,
+      onThursday: true,
+      onFriday: false,
+      onSaturday: false,
+      onSunday: false,
+      startTime: "10:00",
+      endTime: "22:00",
+      QRQuntity: 100,
+      venueId: OldMans.id,
+      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688644217/Aletheia/stock-photo-hello-thursday-weekend-almost-here-text-1930390652_rbwe7l.jpg"
+    }
+  })
+
+  console.log('created event:', ThursdayEvent);
+
+  const ThePastNonRecur = await prisma.event.create({
+    data: {
+      isRecurring: false,
+      name: "PastNonRecur",
+      description: "I am past event",
+      startDate: new Date(2022,5,5),
+
+      onMonday: true,
+      onTuesday: true,
+      onWednesday: true,
+      onThursday: true,
+      onFriday: true,
+      onSaturday: true,
+      onSunday: true,
+      startTime: "10:00",
+      endTime: "22:00",
+      QRQuntity: 100,
+      venueId: Culinaria1918.id,
+      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688645265/Aletheia/Were-Sorry_wat3vn.png"
+    }
+  })
+
+  console.log('created event:', ThePastNonRecur);
+
+
+  const ThePastRecur = await prisma.event.create({
+    data: {
+      isRecurring: true,
+      name: "PastRecur",
+      description: "I am past event",
+      startDate: new Date(2022,5,5),
+      endDate: new Date(2022,5,10),
+      onMonday: true,
+      onTuesday: true,
+      onWednesday: true,
+      onThursday: true,
+      onFriday: true,
+      onSaturday: true,
+      onSunday: true,
+      startTime: "10:00",
+      endTime: "22:00",
+      QRQuntity: 100,
+      venueId: WarungGouthe.id,
+      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688645350/Aletheia/images_ajitxr.jpg"
+    }
+  })
+
+  console.log('created event:', ThePastRecur);
+
+
 
 
 }

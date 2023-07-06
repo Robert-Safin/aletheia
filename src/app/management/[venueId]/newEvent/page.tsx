@@ -48,7 +48,7 @@ const NewEventPage: FC<Props> = async (props) => {
 
   return (
     <Container>
-      <NewPromotionForm venueId={props.params.venueId}/>
+      <NewPromotionForm formFor="event" venueId={props.params.venueId}/>
     </Container>
   );
 };

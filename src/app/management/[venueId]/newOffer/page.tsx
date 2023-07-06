@@ -47,7 +47,7 @@ const NewPromotionPage: FC<Props> = async (props) => {
   }
   return (
     <Container>
-      <NewPromotionForm venueId={props.params.venueId} />
+      <NewPromotionForm formFor="offer" venueId={props.params.venueId} />
     </Container>
   );
 };

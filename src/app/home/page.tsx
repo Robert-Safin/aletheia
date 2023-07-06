@@ -14,6 +14,8 @@ import ClosestVenueCard from "@/components/home page/venue near user/ClosestVenu
 import UpcomingEvent from "@/components/home page/upcoming events/UpcomingEvent";
 import EventToday from "@/components/home page/events today/EventToday";
 import LoadingSkeleton from "@/components/home page/loading skeleton/LoadingSkeleton";
+import OfferToday from "@/components/home page/offer today/OfferToday";
+import UpcomingOffer from "@/components/home page/upcoming offer/UpcomingOffer";
 
 export interface SearchQuery {
   latitude: number;
@@ -35,6 +37,7 @@ export interface PopulatedVenue extends Venue {
   events?: PopulatedEvent[];
   offers?: PopulatedOffer[];
   reviews?: Review[];
+
 }
 
 const HomePage: FC = (props) => {
@@ -128,44 +131,137 @@ const HomePage: FC = (props) => {
     (a, b) => a.distance - b.distance
   );
 
+
+
+
+
+
   //upcoming events
   const upcomingEvents = venuesNearUser.flatMap((venue) => {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // set the time to the start of the day
-    return venue.events!.filter((event) => {
-      const eventDate = new Date(event.startDate);
-      eventDate.setHours(0, 0, 0, 0); // set the time to the start of the day
-      return eventDate > today; // changed from >= to >
-    });
+    const days = ['onSunday', 'onMonday', 'onTuesday', 'onWednesday', 'onThursday', 'onFriday', 'onSaturday'];
+    const todayDayOfWeek = days[today.getDay()];
+     //@ts-ignore
+    return venue.events!.filter((event) => event[todayDayOfWeek] === false );
   });
 
-  //live events
+  //event today
   const todaysEvents = venuesNearUser.flatMap((venue) => {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // set the time to the start of the day
-    return venue.events!.filter((event) => {
-      const eventDate = new Date(event.startDate);
-      eventDate.setHours(0, 0, 0, 0); // set the time to the start of the day
-      return +eventDate === +today;
-    });
+    const days = ['onSunday', 'onMonday', 'onTuesday', 'onWednesday', 'onThursday', 'onFriday', 'onSaturday'];
+    const todayDayOfWeek = days[today.getDay()];
+    //@ts-ignore
+    return venue.events!.filter((event) => event[todayDayOfWeek] === true && new Date(event.endDate) > today);
   });
+
+
+
+
+
+
+
+
+  //upcoming offers
+  const upcomingOffers = venuesNearUser.flatMap((venue) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // set the time to the start of the day
+    return venue.offers!.filter((offer) => {
+      const offerDate = new Date(offer.startDate);
+      offerDate.setHours(0, 0, 0, 0); // set the time to the start of the day
+      return offerDate > today; // changed from >= to >
+    });
+  })
+
+  //offer today
+  const todaysOffers = venuesNearUser.flatMap((venue) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // set the time to the start of the day
+    return venue.offers!.filter((offer) => {
+      const offerDate = new Date(offer.startDate);
+      offerDate.setHours(0, 0, 0, 0); // set the time to the start of the day
+      return +offerDate === +today;
+    });
+  })
 
   return (
     <Container>
       <MainHeader title="Welcome Home" />
       <SearchBar />
+
+
+
+
+
+
+
+
+
       <div className={styles.group}>
         <div className={styles.categoryHeader}>
           <MdOutlineLocalOffer className={styles.categoryIcon} />
           <MainHeader title="Offers Today" />
         </div>
+        {venuesNearUser.length > 0 ? (
+          <XScrollContainer>
+            {todaysOffers.map((offer) => (
+              <UpcomingOffer key={offer.id} offer={offer} />
+            ))}
+          </XScrollContainer>
+        ) : (
+          <XScrollContainer>
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+          </XScrollContainer>
+        )}
+
       </div>
+
+
+
+
+
+
+
+
       <div className={styles.group}>
         <div className={styles.categoryHeader}>
           <MdLocalOffer className={styles.categoryIcon} />
           <MainHeader title="Upcoming Offers" />
         </div>
+        {venuesNearUser.length > 0 ? (
+          <XScrollContainer>
+            {upcomingOffers.map((offer) => (
+              <OfferToday key={offer.id} offer={offer} />
+            ))}
+          </XScrollContainer>
+        ) : (
+          <XScrollContainer>
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+          </XScrollContainer>
+        )}
+
       </div>
+
+
+
+
+
+
+
+
       <div className={styles.group}>
         <div className={styles.categoryHeader}>
           <AiOutlineCalendar className={styles.categoryIcon} />
@@ -190,6 +286,10 @@ const HomePage: FC = (props) => {
           </XScrollContainer>
         )}
       </div>
+
+
+
+
       <div className={styles.group}>
         <div className={styles.categoryHeader}>
           <AiFillCalendar className={styles.categoryIcon} />
@@ -215,12 +315,19 @@ const HomePage: FC = (props) => {
         )}
       </div>
 
+
+
+
+
+
+
+
+
       <div className={styles.group}>
         <div className={styles.categoryHeader}>
           <BiWalk className={styles.categoryIcon} />
           <MainHeader title="Places Near You" />
         </div>
-
         {venuesNearUser.length > 0 ? (
           <XScrollContainer>
             {sortedVenues.map((venue) => (
@@ -245,6 +352,12 @@ const HomePage: FC = (props) => {
           </XScrollContainer>
         )}
       </div>
+
+
+
+
+
+
     </Container>
   );
 };

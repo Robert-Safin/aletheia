@@ -12,17 +12,35 @@ interface Props {
 }
 
 const UpcomingEvent: FC<Props> = (props) => {
-  const date = new Date(props.event.startDate);
-  const formatDate = date.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-  });
+  let formatDate
 
-  const time = new Date(props.event.startDate);
-  const formatTime = time.toLocaleTimeString("en-GB", {
-    hour: "numeric",
-    minute: "numeric",
-  });
+  if (props.event.isRecurring === false) {
+    const oneTimeDate = new Date(props.event.startDate);
+      formatDate = oneTimeDate.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+    });
+  }
+
+
+  if (props.event.isRecurring === true) {
+    const weekdays = ["onSunday", "onMonday", "onTuesday", "onWednesday", "onThursday", "onFriday", "onSaturday"];
+    const startDate = new Date(props.event.startDate);
+    const endDate = new Date(String(props.event.endDate));
+    const currentDate = new Date();
+
+    for (let d = currentDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+      //@ts-ignore
+      if (props.event[weekdays[d.getDay()]]) {
+        formatDate = d.toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "short",
+        });
+        break;
+      }
+    }
+  }
+
 
   return (
     <div className={styles.container}>
@@ -40,7 +58,7 @@ const UpcomingEvent: FC<Props> = (props) => {
 
       <div className={styles.dateAndTime}>
         <p>{formatDate},</p>
-        <p>{formatTime}</p>
+        <p>{props.event.startTime}-{props.event.endTime} </p>
       </div>
     </div>
   );
