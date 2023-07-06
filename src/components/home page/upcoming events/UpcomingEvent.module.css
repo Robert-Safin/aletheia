@@ -1,0 +1,14 @@
+.photo {
+  @apply w-36 h-36 rounded-md
+}
+
+.dateAndTime {
+  @apply flex text-sm space-x-2
+}
+
+.venueName {
+  @apply line-clamp-1 overflow-hidden text-sm
+}
+.eventName {
+  @apply line-clamp-1 overflow-hidden text-xl mb-2
+}

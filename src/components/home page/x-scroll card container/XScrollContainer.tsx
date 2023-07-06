@@ -2,7 +2,7 @@ import { FC } from 'react'
 import styles from './XScrollContainer.module.css'
 
 interface Props {
-  children :JSX.Element[]
+  children :JSX.Element[] | JSX.Element
 
 }
 

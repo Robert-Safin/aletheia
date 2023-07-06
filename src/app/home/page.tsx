@@ -22,9 +22,17 @@ export interface SearchQuery {
   distance: number;
 }
 
+export interface PopulatedEvent extends Event {
+  venue: Venue;
+}
+
+export interface PopulatedOffer extends Offer {
+  venue: Venue;
+}
+
 export interface PopulatedVenue extends Venue {
-  events?: Event[];
-  offers?: Offer[];
+  events?: PopulatedEvent[];
+  offers?: PopulatedOffer[];
   reviews?: Review[];
 }
 
@@ -129,7 +137,7 @@ const HomePage: FC = (props) => {
 });
 
 
-  //upcoming events
+  //live events
   const todaysEvents = venuesNearUser.flatMap(venue => {
     const today = new Date();
     return venue.events!.filter((event) => {
@@ -172,7 +180,7 @@ const HomePage: FC = (props) => {
           <MainHeader title="Upcoming Event" />
         </div>
         <XScrollContainer>
-          {upcomingEvents.map((event) => <UpcomingEvent key={event.id}/>)}
+          {upcomingEvents.map((event) => <UpcomingEvent key={event.id} event={event}/>)}
         </XScrollContainer>
       </div>
 

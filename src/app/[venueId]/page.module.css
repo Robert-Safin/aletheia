@@ -18,9 +18,15 @@
 .stars {
   @apply flex
 }
-.starIcon {
-  @apply text-yellow-500 text-2xl
-}
+
 .reviews {
   @apply ml-4 font-thin
 }
+
+.starIcon {
+  @apply text-xl
+  }
+
+  .contentCard{
+    @apply p-2 bg-main rounded-xl my-2
+  }

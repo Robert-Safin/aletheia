@@ -30,7 +30,6 @@ export async function POST(request: Request) {
 
   const venueDocs = await prisma.venue.findMany({
     where: {
-
       latitude: {
         gte: minLatitude,
         lte: maxLatitude
@@ -42,8 +41,16 @@ export async function POST(request: Request) {
       isVerified: true
     },
     include: {
-      events: true,
-      offers: true,
+      events: {
+        include: {
+          venue: true,
+        }
+      },
+      offers: {
+        include: {
+          venue: true,
+        }
+      },
     }
   })
   await prisma.$disconnect();
