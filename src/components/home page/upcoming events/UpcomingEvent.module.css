@@ -7,8 +7,8 @@
 }
 
 .venueName {
-  @apply line-clamp-1 overflow-hidden text-sm
+  @apply line-clamp-1 overflow-hidden text-sm w-36
 }
 .eventName {
-  @apply line-clamp-1 overflow-hidden text-xl mb-2
+  @apply line-clamp-1 overflow-hidden text-xl mb-2 w-36
 }

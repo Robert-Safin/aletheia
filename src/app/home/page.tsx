@@ -13,6 +13,7 @@ import { Event, Offer, Review, Venue } from "@prisma/client";
 import ClosestVenueCard from "@/components/home page/venue near user/ClosestVenueCard";
 import UpcomingEvent from "@/components/home page/upcoming events/UpcomingEvent";
 import EventToday from "@/components/home page/events today/EventToday";
+import LoadingSkeleton from "@/components/home page/loading skeleton/LoadingSkeleton";
 
 export interface SearchQuery {
   latitude: number;
@@ -128,30 +129,26 @@ const HomePage: FC = (props) => {
   );
 
   //upcoming events
-  const upcomingEvents = venuesNearUser.flatMap(venue => {
+  const upcomingEvents = venuesNearUser.flatMap((venue) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // set the time to the start of the day
     return venue.events!.filter((event) => {
-        const eventDate = new Date(event.startDate);
-        eventDate.setHours(0, 0, 0, 0); // set the time to the start of the day
-        return eventDate > today; // changed from >= to >
+      const eventDate = new Date(event.startDate);
+      eventDate.setHours(0, 0, 0, 0); // set the time to the start of the day
+      return eventDate > today; // changed from >= to >
     });
-});
-
+  });
 
   //live events
-  const todaysEvents = venuesNearUser.flatMap(venue => {
+  const todaysEvents = venuesNearUser.flatMap((venue) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // set the time to the start of the day
     return venue.events!.filter((event) => {
-        const eventDate = new Date(event.startDate);
-        eventDate.setHours(0, 0, 0, 0); // set the time to the start of the day
-        return +eventDate === +today;
+      const eventDate = new Date(event.startDate);
+      eventDate.setHours(0, 0, 0, 0); // set the time to the start of the day
+      return +eventDate === +today;
     });
-});
-
-
-
+  });
 
   return (
     <Container>
@@ -174,18 +171,48 @@ const HomePage: FC = (props) => {
           <AiOutlineCalendar className={styles.categoryIcon} />
           <MainHeader title="Events Today" />
         </div>
-        <XScrollContainer>
-          {todaysEvents.map((event) => <EventToday key={event.id} event={event}/>)}
-        </XScrollContainer>
+        {venuesNearUser.length > 0 ? (
+          <XScrollContainer>
+            {todaysEvents.map((event) => (
+              <EventToday key={event.id} event={event} />
+            ))}
+          </XScrollContainer>
+        ) : (
+          <XScrollContainer>
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+          </XScrollContainer>
+        )}
       </div>
       <div className={styles.group}>
         <div className={styles.categoryHeader}>
           <AiFillCalendar className={styles.categoryIcon} />
           <MainHeader title="Upcoming Event" />
         </div>
-        <XScrollContainer>
-          {upcomingEvents.map((event) => <UpcomingEvent key={event.id} event={event}/>)}
-        </XScrollContainer>
+        {venuesNearUser.length > 0 ? (
+          <XScrollContainer>
+            {upcomingEvents.map((event) => (
+              <UpcomingEvent key={event.id} event={event} />
+            ))}
+          </XScrollContainer>
+        ) : (
+          <XScrollContainer>
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+          </XScrollContainer>
+        )}
       </div>
 
       <div className={styles.group}>
@@ -193,16 +220,30 @@ const HomePage: FC = (props) => {
           <BiWalk className={styles.categoryIcon} />
           <MainHeader title="Places Near You" />
         </div>
-        <XScrollContainer>
-          {sortedVenues.map((venue) => (
-            <ClosestVenueCard
-              key={venue.id}
-              venue={venue}
-              userLatitude={location.latitude}
-              userLongitude={location.longitude}
-            />
-          ))}
-        </XScrollContainer>
+
+        {venuesNearUser.length > 0 ? (
+          <XScrollContainer>
+            {sortedVenues.map((venue) => (
+              <ClosestVenueCard
+                key={venue.id}
+                venue={venue}
+                userLatitude={location.latitude}
+                userLongitude={location.longitude}
+              />
+            ))}
+          </XScrollContainer>
+        ) : (
+          <XScrollContainer>
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+          </XScrollContainer>
+        )}
       </div>
     </Container>
   );
