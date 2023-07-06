@@ -1,0 +1,15 @@
+.image {
+  @apply object-cover w-36 h-36 rounded-md
+}
+
+.eventName{
+  @apply line-clamp-1 overflow-hidden text-xl mb-1
+}
+
+.venueName {
+  @apply line-clamp-1 overflow-hidden text-sm
+}
+
+.times {
+  @apply flex text-sm
+}

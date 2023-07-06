@@ -1,5 +1,5 @@
 .photo {
-  @apply w-36 h-36 rounded-md
+  @apply w-36 h-36 rounded-md object-cover
 }
 
 .dateAndTime {

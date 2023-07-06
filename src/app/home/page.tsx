@@ -130,9 +130,11 @@ const HomePage: FC = (props) => {
   //upcoming events
   const upcomingEvents = venuesNearUser.flatMap(venue => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0); // set the time to the start of the day
     return venue.events!.filter((event) => {
-      const eventDate = new Date(event.startDate);
-      return eventDate > today || eventDate === today;
+        const eventDate = new Date(event.startDate);
+        eventDate.setHours(0, 0, 0, 0); // set the time to the start of the day
+        return eventDate > today; // changed from >= to >
     });
 });
 
@@ -140,9 +142,11 @@ const HomePage: FC = (props) => {
   //live events
   const todaysEvents = venuesNearUser.flatMap(venue => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0); // set the time to the start of the day
     return venue.events!.filter((event) => {
-      const eventDate = new Date(event.startDate);
-      return eventDate === today;
+        const eventDate = new Date(event.startDate);
+        eventDate.setHours(0, 0, 0, 0); // set the time to the start of the day
+        return +eventDate === +today;
     });
 });
 
@@ -171,7 +175,7 @@ const HomePage: FC = (props) => {
           <MainHeader title="Events Today" />
         </div>
         <XScrollContainer>
-          {todaysEvents.map((event) => <EventToday key={event.id}/>)}
+          {todaysEvents.map((event) => <EventToday key={event.id} event={event}/>)}
         </XScrollContainer>
       </div>
       <div className={styles.group}>
