@@ -1,34 +1,46 @@
+import { PrismaClient } from "@prisma/client";
 import { SearchQuery } from "@/app/home/page";
-import { Event, PrismaClient } from "@prisma/client";
-
-
-
 
 export async function POST(request: Request) {
   const prisma = new PrismaClient();
   const body = await request.json() as SearchQuery
 
-  //handle no body
+  // handle no body
   if (!body) {
     await prisma.$disconnect();
     return new Response(JSON.stringify({ message: "no body", failure: 1 }));
   }
-  const latitude = body.latitude;
-  const longitude = body.longitude;
+  const { latitude, longitude, distance, date, searchTerm } = body;
 
-  const radiusOfSearch = body.distance
-  const date = body.date
-  const terms = body.searchTerm
+  const minLatitude = latitude - distance;
+  const maxLatitude = latitude + distance;
 
+  const minLongitude = longitude - distance;
+  const maxLongitude = longitude + distance;
 
-  const minLatitude = latitude - radiusOfSearch
-  const maxLatitude = latitude + radiusOfSearch
+  // Clean the DB before querying
+  const currentDate = new Date();
 
-  const minLongitude = longitude - radiusOfSearch
-  const maxLongitude = longitude + radiusOfSearch
+  await prisma.event.deleteMany({
+    where: {
+      OR: [
+        {
+          isRecurring: false,
+          startDate: {
+            lt: currentDate
+          }
+        },
+        {
+          isRecurring: true,
+          endDate: {
+            lt: currentDate
+          }
+        }
+      ]
+    }
+  });
 
-
-  const venueDocs = await prisma.venue.findMany({
+  const venueDocsNearUser = await prisma.venue.findMany({
     where: {
       latitude: {
         gte: minLatitude,
@@ -42,6 +54,22 @@ export async function POST(request: Request) {
     },
     include: {
       events: {
+        where: {
+          OR: [
+            {
+              isRecurring: false,
+              startDate: {
+                gte: currentDate
+              }
+            },
+            {
+              isRecurring: true,
+              endDate: {
+                gte: currentDate
+              }
+            }
+          ]
+        },
         include: {
           venue: true,
         }
@@ -52,32 +80,17 @@ export async function POST(request: Request) {
         }
       },
     }
-  })
+  });
 
-
-
-  await prisma.$disconnect();
-
-
-  if (venueDocs.length === 0) {
+  if (venueDocsNearUser.length === 0) {
+    await prisma.$disconnect();
     return new Response(JSON.stringify({ message: "no venues found", failure: 2 }));
   }
 
-
-
-
-
-
-
-
-
   const data = {
-    venuesNearUser: venueDocs,
+    venuesNearUser: venueDocsNearUser,
   }
 
-  return new Response(JSON.stringify({ data:data, failure: 0 }));
-
-
-
-
+  await prisma.$disconnect();
+  return new Response(JSON.stringify({ data: data, failure: 0 }));
 }

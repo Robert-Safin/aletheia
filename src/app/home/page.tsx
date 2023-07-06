@@ -16,6 +16,8 @@ import EventToday from "@/components/home page/events today/EventToday";
 import LoadingSkeleton from "@/components/home page/loading skeleton/LoadingSkeleton";
 import OfferToday from "@/components/home page/offer today/OfferToday";
 import UpcomingOffer from "@/components/home page/upcoming offer/UpcomingOffer";
+import { getTodaysEvents, getUpcomingEvents } from "@/lib/filter functions/filterEventFunctions";
+import { getTodaysOffers, getUpcomingOffers } from "@/lib/filter functions/filterOfferFunctions";
 
 export interface SearchQuery {
   latitude: number;
@@ -136,65 +138,19 @@ const HomePage: FC = (props) => {
 
 
 
-// Current date
-const today = new Date();
-const days = ['onSunday', 'onMonday', 'onTuesday', 'onWednesday', 'onThursday', 'onFriday', 'onSaturday'];
-const todayDayOfWeek = days[today.getDay()];
 
-// Upcoming events (valid)
-const upcomingEvents = venuesNearUser.flatMap((venue) => {
-  return venue.events!.filter((event) => {
-    if(event.isRecurring) {
-      //@ts-ignore
-      return event[todayDayOfWeek] === false && new Date(event.endDate) > today;
-    } else {
-      //@ts-ignore
-      return event[todayDayOfWeek] === false && new Date(event.startDate) > today;
-    }
-  });
-});
+  // Upcoming events (valid)
+  const upcomingEvents = getUpcomingEvents(venuesNearUser)
 
-// Events today (valid)
-const todaysEvents = venuesNearUser.flatMap((venue) => {
-  return venue.events!.filter((event) => {
-    if(event.isRecurring) {
-      //@ts-ignore
-      return event[todayDayOfWeek] === true && new Date(event.endDate) > today;
-    } else {
-      //@ts-ignore
-      return event[todayDayOfWeek] === true && new Date(event.startDate).setHours(23, 59, 59, 999) >= today;
-    }
-  });
-});
-
-
-
-
-
-
+  // Events today (valid)
+  const todaysEvents = getTodaysEvents(venuesNearUser)
 
 
   //upcoming offers
-  const upcomingOffers = venuesNearUser.flatMap((venue) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // set the time to the start of the day
-    return venue.offers!.filter((offer) => {
-      const offerDate = new Date(offer.startDate);
-      offerDate.setHours(0, 0, 0, 0); // set the time to the start of the day
-      return offerDate > today; // changed from >= to >
-    });
-  })
+  const upcomingOffers = getUpcomingOffers(venuesNearUser)
 
   //offer today
-  const todaysOffers = venuesNearUser.flatMap((venue) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // set the time to the start of the day
-    return venue.offers!.filter((offer) => {
-      const offerDate = new Date(offer.startDate);
-      offerDate.setHours(0, 0, 0, 0); // set the time to the start of the day
-      return +offerDate === +today;
-    });
-  })
+  const todaysOffers = getTodaysOffers(venuesNearUser)
 
   return (
     <Container>
