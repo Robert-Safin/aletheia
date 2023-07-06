@@ -173,7 +173,7 @@ const HomePage: FC = (props) => {
         {venuesNearUser.length > 0 ? (
           <XScrollContainer>
             {todaysOffers.map((offer) => (
-              <UpcomingOffer key={offer.id} offer={offer} />
+              <OfferToday key={offer.id} offer={offer} />
             ))}
           </XScrollContainer>
         ) : (
@@ -206,7 +206,8 @@ const HomePage: FC = (props) => {
         {venuesNearUser.length > 0 ? (
           <XScrollContainer>
             {upcomingOffers.map((offer) => (
-              <OfferToday key={offer.id} offer={offer} />
+              <UpcomingOffer key={offer.id} offer={offer} />
+
             ))}
           </XScrollContainer>
         ) : (

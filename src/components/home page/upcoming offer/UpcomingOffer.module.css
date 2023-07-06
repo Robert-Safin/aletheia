@@ -1,0 +1,15 @@
+.photo {
+  @apply object-cover w-36 h-36 rounded-md
+}
+
+.offerName {
+  @apply text-xl overflow-hidden
+}
+
+.venueName {
+  @apply text-sm overflow-hidden
+}
+
+.dateAndTimes {
+  @apply flex text-sm justify-between
+}

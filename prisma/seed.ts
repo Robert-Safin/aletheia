@@ -222,7 +222,7 @@ async function main() {
   // console.log('created venue:', Culinaria1918);
 
 
-  const EventRecValid = await prisma.event.create({
+  const EventRecValid = await prisma.offer.create({
     data: {
       isRecurring: true,
       name: "Valid Recur",
@@ -247,7 +247,7 @@ async function main() {
   console.log('created event:', EventRecValid);
 
 
-  const EventNonRecValid = await prisma.event.create({
+  const EventNonRecValid = await prisma.offer.create({
     data: {
       isRecurring: false,
       name: "Valid One",
@@ -271,7 +271,7 @@ async function main() {
 
   console.log('created event:', EventNonRecValid);
 
-  const EventRecNonValid = await prisma.event.create({
+  const EventRecNonValid = await prisma.offer.create({
     data: {
       isRecurring: true,
       name: "Not Valid Rec",
@@ -295,7 +295,7 @@ async function main() {
 
   console.log('created event:', EventRecNonValid);
 
-  const EventNonRecNonValid = await prisma.event.create({
+  const EventNonRecNonValid = await prisma.offer.create({
     data: {
       isRecurring: false,
       name: "Not Valid One",

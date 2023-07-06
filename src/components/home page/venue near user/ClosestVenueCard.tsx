@@ -114,7 +114,7 @@ const ClosestVenueCard: FC<Props> = (props) => {
 
        {props.venue.offers!.length > 0 && <div className={styles.activityItem}>
         <AiTwotoneTag className={styles.icon}/>
-        <p className={styles.activityLength}>{} Offers available</p>
+        <p className={styles.activityLength}>{props.venue.offers!.length} Offers available</p>
         </div>}
 
       </div>

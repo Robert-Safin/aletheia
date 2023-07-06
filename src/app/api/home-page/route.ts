@@ -39,6 +39,24 @@ export async function POST(request: Request) {
       ]
     }
   });
+  // await prisma.offer.deleteMany({
+  //   where: {
+  //     OR: [
+  //       {
+  //         isRecurring: false,
+  //         startDate: {
+  //           lt: currentDate
+  //         }
+  //       },
+  //       {
+  //         isRecurring: true,
+  //         endDate: {
+  //           lt: currentDate
+  //         }
+  //       }
+  //     ]
+  //   }
+  // });
 
   const venueDocsNearUser = await prisma.venue.findMany({
     where: {
