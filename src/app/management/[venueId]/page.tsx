@@ -7,14 +7,14 @@ import useCustomServerSession from "@/lib/useCustomServerSession";
 import MissingClientSession from "@/components/missingClientSession/MissingClientSession";
 import { PrismaClient } from "@prisma/client";
 import MainHeader from "@/components/headers/MainHeader";
-import { AiOutlineCalendar, AiOutlineTag } from "react-icons/ai";
+import { AiFillStar, AiOutlineCalendar, AiOutlineStar, AiOutlineTag } from "react-icons/ai";
 import SubHeader from "@/components/headers/SubHeader";
 import Link from "next/link";
 import { GoLinkExternal } from "react-icons/go";
 import UpdateVenueButton from "@/components/venueOwnersComponents/updateVenueButton/UpdateVenueButton";
 import { redirect } from "next/navigation";
 import { revalidateTag } from "next/cache";
-import { getRating } from "@/components/home page/venue near user/ClosestVenueCard";
+import { BiSolidStarHalf } from "react-icons/bi";
 
 interface Props {
   params: {
@@ -40,6 +40,32 @@ const isCurrentUserVenueOwner = async (userId: number) => {
   return isCurrentUserVenueOwner;
 };
 
+const getRating = (averageRating: number) => {
+  let stars: any = [];
+  const roundedRating = Math.round(averageRating * 2) / 2;
+  const fullStars = Math.floor(roundedRating);
+  const halfStars = roundedRating % 1 ? 1 : 0;
+  const emptyStars = 5 - fullStars - halfStars;
+
+  for (let i = 0; i < fullStars; i++) {
+    stars.push(<AiFillStar className={styles.starIcon} key={"a" + i} />);
+  }
+
+  for (let i = 0; i < halfStars; i++) {
+    stars.push(<BiSolidStarHalf className={styles.starIcon} key={"b" + i} />);
+  }
+
+  for (let i = 0; i < emptyStars; i++) {
+    stars.push(<AiOutlineStar className={styles.starIcon} key={"c" + i} />);
+  }
+
+  if (stars.length === 0) {
+    stars = "No reviews yet";
+  }
+
+  return stars;
+};
+
 const MangementVenueShowPage: FC<Props> = async (props) => {
   const session = await useCustomServerSession();
   if (!session) {
@@ -51,7 +77,7 @@ const MangementVenueShowPage: FC<Props> = async (props) => {
   }
 
   const venue = await getVenue(Number(props.params.venueId));
-  const stars = getRating(venue!.averageRating);
+  const stars = await getRating(venue!.averageRating);
   const hasPhone = venue?.phoneNumber !== "";
   const hasWebsite = venue?.website !== "";
 

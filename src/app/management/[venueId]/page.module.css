@@ -48,3 +48,7 @@
 .newThingButton {
   @apply bg-action w-1/2 py-4 px-3 rounded-lg tracking-widest text-xs text-center
 }
+
+.starIcon {
+  @apply text-base
+  }
