@@ -136,23 +136,36 @@ const HomePage: FC = (props) => {
 
 
 
-  //upcoming events
-  const upcomingEvents = venuesNearUser.flatMap((venue) => {
-    const today = new Date();
-    const days = ['onSunday', 'onMonday', 'onTuesday', 'onWednesday', 'onThursday', 'onFriday', 'onSaturday'];
-    const todayDayOfWeek = days[today.getDay()];
-     //@ts-ignore
-    return venue.events!.filter((event) => event[todayDayOfWeek] === false );
-  });
+// Current date
+const today = new Date();
+const days = ['onSunday', 'onMonday', 'onTuesday', 'onWednesday', 'onThursday', 'onFriday', 'onSaturday'];
+const todayDayOfWeek = days[today.getDay()];
 
-  //event today
-  const todaysEvents = venuesNearUser.flatMap((venue) => {
-    const today = new Date();
-    const days = ['onSunday', 'onMonday', 'onTuesday', 'onWednesday', 'onThursday', 'onFriday', 'onSaturday'];
-    const todayDayOfWeek = days[today.getDay()];
-    //@ts-ignore
-    return venue.events!.filter((event) => event[todayDayOfWeek] === true && new Date(event.endDate) > today);
+// Upcoming events (valid)
+const upcomingEvents = venuesNearUser.flatMap((venue) => {
+  return venue.events!.filter((event) => {
+    if(event.isRecurring) {
+      //@ts-ignore
+      return event[todayDayOfWeek] === false && new Date(event.endDate) > today;
+    } else {
+      //@ts-ignore
+      return event[todayDayOfWeek] === false && new Date(event.startDate) > today;
+    }
   });
+});
+
+// Events today (valid)
+const todaysEvents = venuesNearUser.flatMap((venue) => {
+  return venue.events!.filter((event) => {
+    if(event.isRecurring) {
+      //@ts-ignore
+      return event[todayDayOfWeek] === true && new Date(event.endDate) > today;
+    } else {
+      //@ts-ignore
+      return event[todayDayOfWeek] === true && new Date(event.startDate).setHours(23, 59, 59, 999) >= today;
+    }
+  });
+});
 
 
 

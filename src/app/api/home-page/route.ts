@@ -53,6 +53,9 @@ export async function POST(request: Request) {
       },
     }
   })
+
+
+
   await prisma.$disconnect();
 
 
@@ -61,7 +64,6 @@ export async function POST(request: Request) {
   }
 
 
-  const venuesNearUser = venueDocs
 
 
 
@@ -70,7 +72,7 @@ export async function POST(request: Request) {
 
 
   const data = {
-    venuesNearUser: venuesNearUser,
+    venuesNearUser: venueDocs,
   }
 
   return new Response(JSON.stringify({ data:data, failure: 0 }));

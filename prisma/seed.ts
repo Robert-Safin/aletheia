@@ -39,30 +39,30 @@ async function main() {
   await prisma.user.deleteMany()
 
 
-  const Rob = await prisma.user.upsert({
-    where: {email: "rob@gmail.com"},
-    update:{},
-    create: {
-      email: "rob@gmail.com",
-      name: "robertsafin",
-      password : await hash('banana',12),
-      isAdmin : true,
-    }
-  })
-  console.log('created user:', Rob);
+  // const Rob = await prisma.user.upsert({
+  //   where: {email: "rob@gmail.com"},
+  //   update:{},
+  //   create: {
+  //     email: "rob@gmail.com",
+  //     name: "robertsafin",
+  //     password : await hash('banana',12),
+  //     isAdmin : true,
+  //   }
+  // })
+  // console.log('created user:', Rob);
 
 
 
 
-  const John = await prisma.user.create({
-    data: {
-      email: "john@gmail.com",
-      name: "bigjohn",
-      password : await hash('pineapple',12),
-      isAdmin : false,
-    }
-  })
-  console.log('created user:', John);
+  // const John = await prisma.user.create({
+  //   data: {
+  //     email: "john@gmail.com",
+  //     name: "bigjohn",
+  //     password : await hash('pineapple',12),
+  //     isAdmin : false,
+  //   }
+  // })
+  // console.log('created user:', John);
 
   const Alex = await prisma.user.create({
     data: {
@@ -108,127 +108,127 @@ async function main() {
 
 
 
-  let WarungGouthe = await prisma.venue.create({
-    data: {
-      name: "Warung Gouthe",
-      category1: "Bar",
-      category2: "Restaurant",
-      category3: "Surf Club",
-      phoneNumber: "+62 812-3831-2506",
-      website: "",
-      about : "Warung Gouthe is a French restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
-      address : 'Jl. Pantai Berawa No.7A, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
-      averageRating : 3.3,
-      ownerId: Alex.id,
-      mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687667181/Aletheia/bali-restaurant-must-visit-warung-gouthe-french-delicious-healthy-food-02_ghhjku.jpg'
-    }
-  })
-  WarungGouthe = await prisma.venue.update({
-    where: { id: WarungGouthe.id },
-    data: {
-      latitude: (await convertAddressToCoordinates(WarungGouthe.address)).latitude,
-      longitude: (await convertAddressToCoordinates(WarungGouthe.address)).longitude,
-      formattedAddress: (await convertAddressToCoordinates(WarungGouthe.address)).formattedAddress,
-      city: (await convertAddressToCoordinates(WarungGouthe.address)).city,
-      isVerified : true
-    },
-  });
+  // let WarungGouthe = await prisma.venue.create({
+  //   data: {
+  //     name: "Warung Gouthe",
+  //     category1: "Bar",
+  //     category2: "Restaurant",
+  //     category3: "Surf Club",
+  //     phoneNumber: "+62 812-3831-2506",
+  //     website: "",
+  //     about : "Warung Gouthe is a French restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
+  //     address : 'Jl. Pantai Berawa No.7A, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
+  //     averageRating : 3.3,
+  //     ownerId: Alex.id,
+  //     mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687667181/Aletheia/bali-restaurant-must-visit-warung-gouthe-french-delicious-healthy-food-02_ghhjku.jpg'
+  //   }
+  // })
+  // WarungGouthe = await prisma.venue.update({
+  //   where: { id: WarungGouthe.id },
+  //   data: {
+  //     latitude: (await convertAddressToCoordinates(WarungGouthe.address)).latitude,
+  //     longitude: (await convertAddressToCoordinates(WarungGouthe.address)).longitude,
+  //     formattedAddress: (await convertAddressToCoordinates(WarungGouthe.address)).formattedAddress,
+  //     city: (await convertAddressToCoordinates(WarungGouthe.address)).city,
+  //     isVerified : true
+  //   },
+  // });
 
-  console.log('created venue:', WarungGouthe);
-
-
-
-  let LaCalita = await prisma.venue.create({
-    data: {
-      name: "La Calita",
-      category1: "Bar",
-      category2: "Restaurant",
-      category3: "Surf Club",
-      phoneNumber: "+62 812-3831-2506",
-      website: "www.lacalitabali.com",
-      about: "La Calita is a Mexican restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
-      address : 'Jl. Pantai Batu Bolong No.68, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
-      averageRating : 2.4,
-      ownerId: Alex.id,
-      mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687715247/Aletheia/lacalita-mexican-bali-canggu_pelspr.jpg'
-    }
-  })
-  LaCalita = await prisma.venue.update({
-    where: { id: LaCalita.id },
-    data: {
-      latitude: (await convertAddressToCoordinates(LaCalita.address)).latitude,
-      longitude: (await convertAddressToCoordinates(LaCalita.address)).longitude,
-      formattedAddress: (await convertAddressToCoordinates(LaCalita.address)).formattedAddress,
-      city: (await convertAddressToCoordinates(LaCalita.address)).city,
-      isVerified : true
-    },
-  });
-
-  console.log('created venue:', LaCalita);
-
-
-  let Kenji = await prisma.venue.create({
-    data: {
-      name: "Kenji (Menya Kenji) Canggu",
-      category1: "Bar",
-      category2: "Restaurant",
-      phoneNumber : "+62 812-3676-0000",
-      website: "www.kenjiramen.com",
-      about:"Kenji is a Japanese restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
-      address : 'Jl. Pantai Berawa No.13B, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
-      averageRating : 0,
-      ownerId: Alex.id,
-      mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687963122/Aletheia/eqxonu6fl6eo2pipvbnp.png'
-    }
-  })
-  Kenji = await prisma.venue.update({
-    where: { id: Kenji.id },
-    data: {
-      latitude: (await convertAddressToCoordinates(Kenji.address)).latitude,
-      longitude: (await convertAddressToCoordinates(Kenji.address)).longitude,
-      formattedAddress: (await convertAddressToCoordinates(Kenji.address)).formattedAddress,
-      city: (await convertAddressToCoordinates(Kenji.address)).city,
-      isVerified : true
-    },
-  });
-
-  console.log('created venue:', Kenji);
+  // console.log('created venue:', WarungGouthe);
 
 
 
-  let Culinaria1918 = await prisma.venue.create({
-    data: {
-      name: "1918 Culinaria (Georgian Food)",
-      category1: "Bar",
-      phoneNumber: "+62 812-3676-0000",
-      about:"1918 Culinaria is a Georgian restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
-      address : 'Jl. Canggu Padang Linjong No.38a, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80351',
-      averageRating : 0,
-      ownerId: Alex.id,
-      mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1688012854/Aletheia/georgian-cuisine_slqsuh.jpg'
-    }
-  })
-  Culinaria1918 = await prisma.venue.update({
-    where: { id: Culinaria1918.id },
-    data: {
-      latitude: (await convertAddressToCoordinates(Culinaria1918.address)).latitude,
-      longitude: (await convertAddressToCoordinates(Culinaria1918.address)).longitude,
-      formattedAddress: (await convertAddressToCoordinates(Culinaria1918.address)).formattedAddress,
-      city: (await convertAddressToCoordinates(Culinaria1918.address)).city,
-      isVerified : false
-    },
-  });
+  // let LaCalita = await prisma.venue.create({
+  //   data: {
+  //     name: "La Calita",
+  //     category1: "Bar",
+  //     category2: "Restaurant",
+  //     category3: "Surf Club",
+  //     phoneNumber: "+62 812-3831-2506",
+  //     website: "www.lacalitabali.com",
+  //     about: "La Calita is a Mexican restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
+  //     address : 'Jl. Pantai Batu Bolong No.68, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
+  //     averageRating : 2.4,
+  //     ownerId: Alex.id,
+  //     mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687715247/Aletheia/lacalita-mexican-bali-canggu_pelspr.jpg'
+  //   }
+  // })
+  // LaCalita = await prisma.venue.update({
+  //   where: { id: LaCalita.id },
+  //   data: {
+  //     latitude: (await convertAddressToCoordinates(LaCalita.address)).latitude,
+  //     longitude: (await convertAddressToCoordinates(LaCalita.address)).longitude,
+  //     formattedAddress: (await convertAddressToCoordinates(LaCalita.address)).formattedAddress,
+  //     city: (await convertAddressToCoordinates(LaCalita.address)).city,
+  //     isVerified : true
+  //   },
+  // });
 
-  console.log('created venue:', Culinaria1918);
+  // console.log('created venue:', LaCalita);
 
 
-  const BeerPong = await prisma.event.create({
+  // let Kenji = await prisma.venue.create({
+  //   data: {
+  //     name: "Kenji (Menya Kenji) Canggu",
+  //     category1: "Bar",
+  //     category2: "Restaurant",
+  //     phoneNumber : "+62 812-3676-0000",
+  //     website: "www.kenjiramen.com",
+  //     about:"Kenji is a Japanese restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
+  //     address : 'Jl. Pantai Berawa No.13B, Tibubeneng, Kec. Kuta Utara, Kabupaten Badung, Bali 80361',
+  //     averageRating : 0,
+  //     ownerId: Alex.id,
+  //     mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1687963122/Aletheia/eqxonu6fl6eo2pipvbnp.png'
+  //   }
+  // })
+  // Kenji = await prisma.venue.update({
+  //   where: { id: Kenji.id },
+  //   data: {
+  //     latitude: (await convertAddressToCoordinates(Kenji.address)).latitude,
+  //     longitude: (await convertAddressToCoordinates(Kenji.address)).longitude,
+  //     formattedAddress: (await convertAddressToCoordinates(Kenji.address)).formattedAddress,
+  //     city: (await convertAddressToCoordinates(Kenji.address)).city,
+  //     isVerified : true
+  //   },
+  // });
+
+  // console.log('created venue:', Kenji);
+
+
+
+  // let Culinaria1918 = await prisma.venue.create({
+  //   data: {
+  //     name: "1918 Culinaria (Georgian Food)",
+  //     category1: "Bar",
+  //     phoneNumber: "+62 812-3676-0000",
+  //     about:"1918 Culinaria is a Georgian restaurant in Canggu. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
+  //     address : 'Jl. Canggu Padang Linjong No.38a, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80351',
+  //     averageRating : 0,
+  //     ownerId: Alex.id,
+  //     mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1688012854/Aletheia/georgian-cuisine_slqsuh.jpg'
+  //   }
+  // })
+  // Culinaria1918 = await prisma.venue.update({
+  //   where: { id: Culinaria1918.id },
+  //   data: {
+  //     latitude: (await convertAddressToCoordinates(Culinaria1918.address)).latitude,
+  //     longitude: (await convertAddressToCoordinates(Culinaria1918.address)).longitude,
+  //     formattedAddress: (await convertAddressToCoordinates(Culinaria1918.address)).formattedAddress,
+  //     city: (await convertAddressToCoordinates(Culinaria1918.address)).city,
+  //     isVerified : false
+  //   },
+  // });
+
+  // console.log('created venue:', Culinaria1918);
+
+
+  const EventRecValid = await prisma.event.create({
     data: {
       isRecurring: true,
-      name: "Beer Pong",
+      name: "Valid Recur",
       description: "Beer Pong is a drinking game in which players throw a ping pong ball across a table with the intent of landing the ball in a cup of beer on the other end.",
-      startDate: new Date(),
-      endDate: new Date(2025, 11, 25),
+      startDate: new Date(2022, 5, 5),
+      endDate: new Date(2025, 5, 5),
       onMonday: false,
       onTuesday: false,
       onWednesday: true,
@@ -244,94 +244,40 @@ async function main() {
     }
   })
 
-  console.log('created event:', BeerPong);
+  console.log('created event:', EventRecValid);
 
 
-  const Two4OneSkewers = await prisma.event.create({
+  const EventNonRecValid = await prisma.event.create({
     data: {
-      isRecurring: true,
-      name: "2 for 1 Skewers",
+      isRecurring: false,
+      name: "Valid One",
       description: "2 for 1 on all skewers offered at the venue",
-      startDate: new Date(),
-      endDate: new Date(2025, 11, 25),
-      onMonday: true,
+      startDate: new Date(2023,8,10),
+      onMonday: false,
       onTuesday: false,
-      onWednesday: true,
+      onWednesday: false,
       onThursday: false,
-      onFriday: true,
+      onFriday: false,
       onSaturday: false,
-      onSunday: true,
+      onSunday: false,
       startTime: "08:00",
       endTime: "22:00",
       QRQuntity: 0,
-      venueId: WarungGouthe.id,
+      venueId: OldMans.id,
       photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688393262/Aletheia/Warung-Gouuthe_dt5v8j.jpg"
 
     }
   })
 
-  console.log('created event:', Two4OneSkewers);
+  console.log('created event:', EventNonRecValid);
 
-  const Two4OneCocktails = await prisma.event.create({
+  const EventRecNonValid = await prisma.event.create({
     data: {
-      isRecurring: false,
-      name: "2 for 1 Cocktails",
+      isRecurring: true,
+      name: "Not Valid Rec",
       description: "2 for 1 on all cocktails offered at the venue",
-      startDate: new Date(2023, 7, 11),
-
-      onMonday: false,
-      onTuesday: false,
-      onWednesday: false,
-      onThursday: false,
-      onFriday: true,
-      onSaturday: false,
-      onSunday: false,
-      startTime: "20:00",
-      endTime: "22:00",
-      QRQuntity: 100,
-      venueId: Kenji.id,
-      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688393434/Aletheia/e14835_i5978_s3_hl6yxm.jpg"
-    }
-  })
-
-  console.log('created event:', Two4OneCocktails);
-
-  const EveryDayBreafast = await prisma.event.create({
-    data: {
-      isRecurring: true,
-      name: "All day Breakfast",
-      description: "all day everyday",
-
-      startDate: new Date(),
-      endDate: new Date(2024, 4, 4),
-
-      onMonday: true,
-      onTuesday: true,
-      onWednesday: true,
-      onThursday: true,
-      onFriday: true,
-      onSaturday: true,
-      onSunday: true,
-      startTime: "10:00",
-      endTime: "22:00",
-      QRQuntity: 100,
-      venueId: Kenji.id,
-      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688644055/Aletheia/sepanjang-hari-sarapan-iklan-neon-desain-signage_cjsr5s.jpg"
-    }
-  })
-
-  console.log('created event:', EveryDayBreafast);
-
-
-  const ThursdayEvent = await prisma.event.create({
-    data: {
-      isRecurring: true,
-      name: "Thursday Event",
-      description: "I dont know shit about fuck",
-
-      startDate: new Date(),
-      endDate: new Date(2024, 6, 6),
-
+      startDate: new Date(2022, 7, 11),
+      endDate: new Date(2022, 8, 10),
       onMonday: false,
       onTuesday: false,
       onWednesday: false,
@@ -339,64 +285,40 @@ async function main() {
       onFriday: false,
       onSaturday: false,
       onSunday: false,
+      startTime: "20:00",
+      endTime: "22:00",
+      QRQuntity: 100,
+      venueId: OldMans.id,
+      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688393434/Aletheia/e14835_i5978_s3_hl6yxm.jpg"
+    }
+  })
+
+  console.log('created event:', EventRecNonValid);
+
+  const EventNonRecNonValid = await prisma.event.create({
+    data: {
+      isRecurring: false,
+      name: "Not Valid One",
+      description: "all day everyday",
+
+      startDate: new Date(2023,1,5),
+
+      onMonday: false,
+      onTuesday: false,
+      onWednesday: false,
+      onThursday: false,
+      onFriday: false,
+      onSaturday: false,
+      onSunday: false,
       startTime: "10:00",
       endTime: "22:00",
       QRQuntity: 100,
       venueId: OldMans.id,
-      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688644217/Aletheia/stock-photo-hello-thursday-weekend-almost-here-text-1930390652_rbwe7l.jpg"
+      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688644055/Aletheia/sepanjang-hari-sarapan-iklan-neon-desain-signage_cjsr5s.jpg"
     }
   })
 
-  console.log('created event:', ThursdayEvent);
-
-  const ThePastNonRecur = await prisma.event.create({
-    data: {
-      isRecurring: false,
-      name: "PastNonRecur",
-      description: "I am past event",
-      startDate: new Date(2022,5,5),
-
-      onMonday: true,
-      onTuesday: true,
-      onWednesday: true,
-      onThursday: true,
-      onFriday: true,
-      onSaturday: true,
-      onSunday: true,
-      startTime: "10:00",
-      endTime: "22:00",
-      QRQuntity: 100,
-      venueId: Culinaria1918.id,
-      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688645265/Aletheia/Were-Sorry_wat3vn.png"
-    }
-  })
-
-  console.log('created event:', ThePastNonRecur);
-
-
-  const ThePastRecur = await prisma.event.create({
-    data: {
-      isRecurring: true,
-      name: "PastRecur",
-      description: "I am past event",
-      startDate: new Date(2022,5,5),
-      endDate: new Date(2022,5,10),
-      onMonday: true,
-      onTuesday: true,
-      onWednesday: true,
-      onThursday: true,
-      onFriday: true,
-      onSaturday: true,
-      onSunday: true,
-      startTime: "10:00",
-      endTime: "22:00",
-      QRQuntity: 100,
-      venueId: WarungGouthe.id,
-      photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1688645350/Aletheia/images_ajitxr.jpg"
-    }
-  })
-
-  console.log('created event:', ThePastRecur);
+  console.log('created event:', EventNonRecNonValid);
 
 
 
