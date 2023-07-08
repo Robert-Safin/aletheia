@@ -22,6 +22,7 @@ const Map = () => {
   const [popup, setPopup] = useState(false);
   const [popupContent, setPopupContent] = useState("");
   const [venuesNearUser, setVenuesNearUser] = useState([] as PopulatedVenue[]);
+
   const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null);
 
   useEffect(() => {
