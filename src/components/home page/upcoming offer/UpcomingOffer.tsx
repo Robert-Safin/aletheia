@@ -45,7 +45,7 @@ const UpcomingOffer:FC<Props> = (props) => {
       <p className={styles.venueName}>{props.offer.venue.name}</p>
 
       <div className={styles.dateAndTimes}>
-        <p>{formatDate}</p>
+        <p>{formatDate},</p>
         <p>{props.offer.startTime}-{props.offer.endTime}</p>
       </div>
 

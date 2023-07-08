@@ -3,13 +3,13 @@
 }
 
 .offerName {
-  @apply text-xl overflow-hidden
+  @apply text-xl overflow-hidden w-36 line-clamp-1 mb-1
 }
 
 .venueName {
-  @apply text-sm overflow-hidden
+  @apply text-sm overflow-hidden w-36 line-clamp-1
 }
 
 .dateAndTimes {
-  @apply flex text-sm justify-between
+  @apply flex text-sm space-x-2
 }
