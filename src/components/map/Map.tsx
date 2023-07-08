@@ -9,53 +9,59 @@ import {
   LoadScript,
   InfoWindow,
 } from "@react-google-maps/api";
+import { PopulatedVenue, SearchQuery } from "@/app/home/page";
+import ErrorPopup from "../popups/ErrorPopup";
 
 const Map = () => {
   const session = useCustomClientSession();
 
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
-
-  const [venuesNearUser, setVenuesNearUser] = useState([] as Venue[]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [date, setDate] = useState("");
+  const [distance, setDistance] = useState(0.05);
+  const [popup, setPopup] = useState(false);
+  const [popupContent, setPopupContent] = useState("");
+  const [venuesNearUser, setVenuesNearUser] = useState([] as PopulatedVenue[]);
   const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null);
-
-  useEffect(() => {
-    const getLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-        });
-      }
-    };
-    getLocation();
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       if (location.latitude !== 0 && location.longitude !== 0) {
-        const response = await fetch("/api/get-venues", {
+        const searchQuery: SearchQuery = {
+          latitude: location.latitude,
+          longitude: location.longitude,
+          searchTerm: searchTerm,
+          date: date,
+          distance: distance,
+        };
+        const response = await fetch("/api/home-page", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            latitude: location.latitude,
-            longitude: location.longitude,
-          }),
+          body: JSON.stringify(searchQuery),
         });
+
+
+
         const data = await response.json();
-        setVenuesNearUser(data.venuesNearUser);
+        if (data.failure > 0) {
+          setVenuesNearUser([]);
+          setPopupContent(data.message);
+          setPopup(true);
+          setTimeout(() => {
+            setPopup(false);
+          }, 5000);
+        } else {
+          setVenuesNearUser(data.data.venuesNearUser);
+        }
       }
     };
 
     fetchData();
-  }, [location]);
+  }, [location, searchTerm, date, distance]);
 
-  // if (session.status === "loading") {
-  //   return <LoadingSession />;
-  // }
+
 
   const containerStyle = {
     width: "100%",
@@ -299,6 +305,7 @@ const Map = () => {
           )}
         </GoogleMap>
       </LoadScript>
+      {popup &&<ErrorPopup message={popupContent}/>}
     </>
   );
 };

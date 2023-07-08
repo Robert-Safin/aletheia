@@ -63,10 +63,6 @@ const Navbar: FC = async () => {
               <IoBusinessOutline className={styles.icon} />
             </Link>
           )}
-
-          <Link href={"/"}>
-            <h1 className={styles.icon}>root</h1>
-          </Link>
         </div>
       </div>
     </>

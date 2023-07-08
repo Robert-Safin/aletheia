@@ -18,6 +18,7 @@ import OfferToday from "@/components/home page/offer today/OfferToday";
 import UpcomingOffer from "@/components/home page/upcoming offer/UpcomingOffer";
 import { getTodaysEvents, getUpcomingEvents } from "@/lib/filter functions/filterEventFunctions";
 import { getTodaysOffers, getUpcomingOffers } from "@/lib/filter functions/filterOfferFunctions";
+import ErrorPopup from "@/components/popups/ErrorPopup";
 
 export interface SearchQuery {
   latitude: number;
@@ -47,6 +48,8 @@ const HomePage: FC = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [date, setDate] = useState("");
   const [distance, setDistance] = useState(0.05);
+  const [popup, setPopup] = useState(false);
+  const [popupContent, setPopupContent] = useState("");
 
   const [venuesNearUser, setVenuesNearUser] = useState([] as PopulatedVenue[]);
 
@@ -110,8 +113,19 @@ const HomePage: FC = (props) => {
           body: JSON.stringify(searchQuery),
         });
 
+
+
         const data = await response.json();
-        setVenuesNearUser(data.data.venuesNearUser);
+        if (data.failure > 0) {
+          setVenuesNearUser([]);
+          setPopupContent(data.message);
+          setPopup(true);
+          setTimeout(() => {
+            setPopup(false);
+          }, 5000);
+        } else {
+          setVenuesNearUser(data.data.venuesNearUser);
+        }
       }
     };
 
@@ -153,6 +167,7 @@ const HomePage: FC = (props) => {
   const todaysOffers = getTodaysOffers(venuesNearUser)
 
   return (
+    <>
     <Container>
       <MainHeader title="Welcome Home" />
       <SearchBar />
@@ -323,12 +338,11 @@ const HomePage: FC = (props) => {
         )}
       </div>
 
-
-
-
-
-
     </Container>
+
+
+  {popup &&<ErrorPopup message={popupContent}/>}
+    </>
   );
 };
 
