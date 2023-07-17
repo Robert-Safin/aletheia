@@ -69,15 +69,13 @@ const getRating = (averageRating: number) => {
 const VenueShowPage: FC<Props> = async (props) => {
   const venue = await getVenue(Number(props.params.venueId));
   const stars = getRating(venue?.averageRating!);
-  console.log(venue?.events);
 
 
   return (
     <Container>
-      <div className={styles.headerWithIcon}>
-        <BiWalk className={styles.icon} />
-        <MainHeader title="Top Places Near You" />
-      </div>
+
+        <MainHeader title="Venue" />
+
 
       <div className={styles.contentCard}>
         <MainHeader title={venue!.name} />

@@ -1,0 +1,64 @@
+
+
+.card {
+  @apply bg-main rounded-md p-2
+}
+.photo {
+  @apply object-cover w-96 h-96 rounded-md mx-auto
+}
+
+
+
+
+.infoContainer {
+  @apply flex justify-start space-x-10 mt-2
+}
+
+.infoItem {
+  @apply w-36 line-clamp-1 mb-2 font-thin
+}
+
+
+
+
+.infoContainer {
+  @apply text-xs
+}
+
+.groupHeader {
+  @apply text-base
+}
+
+
+
+.buttonsContainer {
+  @apply flex w-full justify-between my-2 space-x-2
+}
+
+.shareButton {
+  @apply bg-gray w-1/2 py-2 rounded-lg text-base tracking-widest font-light text-black
+}
+.claimButton {
+  @apply bg-action w-1/2 py-2 rounded-lg text-base tracking-widest font-light
+}
+
+
+.stars {
+  @apply flex text-2xl
+}
+
+.starsAndRating {
+  @apply flex items-center mb-2
+}
+
+.reviews {
+  @apply text-xs ml-2 font-thin
+}
+
+
+.categories {
+  @apply flex flex-wrap space-x-2 mt-2
+}
+.category {
+  @apply bg-midGray p-1 rounded-xl px-3
+}

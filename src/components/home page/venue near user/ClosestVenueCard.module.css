@@ -13,7 +13,7 @@
 @apply text-xs my-1
 }
 .starIcon {
-@apply text-base
+@apply text-xs
 }
 .rating {
 @apply flex text-xs
@@ -23,7 +23,7 @@
 }
 
 .activities {
-  @apply  w-full h-8
+  @apply  w-full h-8 text-xs
 }
 
 .activityItem {

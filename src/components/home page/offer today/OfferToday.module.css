@@ -1,0 +1,16 @@
+.photo {
+  @apply w-36 h-36 rounded-md object-cover
+}
+
+.offerName {
+  @apply text-sm font-semibold w-36 line-clamp-1 my-1
+}
+
+
+.venueName {
+  @apply text-xs w-36 line-clamp-1
+}
+
+.times {
+  @apply text-xs w-36 line-clamp-1
+}

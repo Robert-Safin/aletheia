@@ -1,5 +1,5 @@
 .container {
-  @apply bg-main z-10 fixed bottom-0 w-full border-t border-white
+  @apply bg-main z-10 fixed bottom-0 w-full rounded-t-lg
 }
 
 .icons {

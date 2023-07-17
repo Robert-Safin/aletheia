@@ -47,7 +47,7 @@ const HomePage: FC = (props) => {
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
   const [searchTerm, setSearchTerm] = useState("");
   const [date, setDate] = useState("");
-  const [distance, setDistance] = useState(0.05);
+  const [distance, setDistance] = useState(10000.00);
   const [popup, setPopup] = useState(false);
   const [popupContent, setPopupContent] = useState("");
 

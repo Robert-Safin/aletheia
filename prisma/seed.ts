@@ -39,17 +39,17 @@ async function main() {
   await prisma.user.deleteMany()
 
 
-  // const Rob = await prisma.user.upsert({
-  //   where: {email: "rob@gmail.com"},
-  //   update:{},
-  //   create: {
-  //     email: "rob@gmail.com",
-  //     name: "robertsafin",
-  //     password : await hash('banana',12),
-  //     isAdmin : true,
-  //   }
-  // })
-  // console.log('created user:', Rob);
+  const Rob = await prisma.user.upsert({
+    where: {email: "rob@gmail.com"},
+    update:{},
+    create: {
+      email: "rob@gmail.com",
+      name: "robertsafin",
+      password : await hash('banana',12),
+      isAdmin : true,
+    }
+  })
+  console.log('created user:', Rob);
 
 
 
@@ -215,7 +215,7 @@ async function main() {
       longitude: (await convertAddressToCoordinates(Culinaria1918.address)).longitude,
       formattedAddress: (await convertAddressToCoordinates(Culinaria1918.address)).formattedAddress,
       city: (await convertAddressToCoordinates(Culinaria1918.address)).city,
-      isVerified : false
+      isVerified : true
     },
   });
 

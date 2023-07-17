@@ -2,13 +2,14 @@
   @apply w-36 h-36 rounded-md object-cover
 }
 
-.dateAndTime {
-  @apply flex text-sm space-x-2
+.eventName {
+  @apply text-sm w-36 line-clamp-1 font-semibold my-1
 }
 
 .venueName {
-  @apply line-clamp-1 overflow-hidden text-sm w-36
+  @apply text-xs line-clamp-1 overflow-hidden w-36
 }
-.eventName {
-  @apply line-clamp-1 overflow-hidden text-xl mb-2 w-36
+
+.dateAndTime {
+  @apply text-xs flex space-x-2
 }
