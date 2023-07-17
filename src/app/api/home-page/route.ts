@@ -71,6 +71,7 @@ export async function POST(request: Request) {
       isVerified: true
     },
     include: {
+      reviews: true,
       events: {
         where: {
           OR: [

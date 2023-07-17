@@ -12,18 +12,18 @@ import Link from "next/link";
 interface Props {
   params: {
     venueId: string;
-    eventId: string;
+    offerId: string;
   };
 }
 
-const getEvent = async (id: number) => {
+const getOffer = async (id: number) => {
   const prisma = new PrismaClient();
-  const event = await prisma.event.findUnique({
+  const offer = await prisma.offer.findUnique({
     where: {
       id: id,
     },
     include: {
-      QREvents: true,
+      QROffers: true,
       venue: {
         include: {
           reviews: true,
@@ -32,14 +32,14 @@ const getEvent = async (id: number) => {
     },
   });
   prisma.$disconnect();
-  return event;
+  return offer;
 };
 
-const EventShowPage: FC<Props> = async (props) => {
-  const { venueId, eventId } = props.params;
-  const event = await getEvent(Number(eventId));
+const OfferShowPage: FC<Props> = async (props) => {
+  const { venueId, offerId } = props.params;
+  const offer = await getOffer(Number(offerId));
 
-  const formatDate = event?.startDate?.toString().slice(0, 10);
+  const formatDate = offer?.startDate?.toString().slice(0, 10);
 
   const getRating = (averageRating: number) => {
     let stars: any = [];
@@ -67,15 +67,15 @@ const EventShowPage: FC<Props> = async (props) => {
     return stars;
   };
 
-  const stars = getRating(event!.venue.averageRating);
+  const stars = getRating(offer!.venue.averageRating);
   return (
     <Container>
       <div className={styles.card}>
-        <MainHeader title={"Event"} />
+        <MainHeader title={offer!.name} />
         <Image
           className={styles.photo}
-          src={event!.photo}
-          alt={event!.name}
+          src={offer!.photo}
+          alt={offer!.name}
           width={1000}
           height={1000}
         />
@@ -84,14 +84,14 @@ const EventShowPage: FC<Props> = async (props) => {
           <div className={styles.locationAndClaim}>
             <div className={styles.grouping}>
               <h1 className={styles.groupHeader}>Location:</h1>
-              <Link href={`/${event?.venue.id}`}>
-                <p className={styles.infoItem}>{event?.venue.name}</p>
+              <Link href={`/${offer?.venue.id}`}>
+                <p className={styles.infoItem}>{offer?.venue.name}</p>
               </Link>
             </div>
             <div className={styles.grouping}>
               <h1 className={styles.groupHeader}>Offers Claimed:</h1>
               <p className={styles.infoItem}>
-                {event?.QREvents.length}/{event?.QRQuntity}
+                {offer?.QROffers.length}/{offer?.QRQuntity}
               </p>
             </div>
           </div>
@@ -103,12 +103,12 @@ const EventShowPage: FC<Props> = async (props) => {
             </div>
             <div className={styles.grouping}>
               <h1 className={styles.groupHeader}>Time:</h1>
-              <p className={styles.infoItem}>{event?.startTime}</p>
+              <p className={styles.infoItem}>{offer?.startTime}</p>
             </div>
           </div>
         </div>
 
-        <p>{event?.description}</p>
+        <p>{offer?.description}</p>
       </div>
 
       <div className={styles.buttonsContainer}>
@@ -118,37 +118,37 @@ const EventShowPage: FC<Props> = async (props) => {
 
       <div className={styles.card}>
         <MainHeader title={"Venue"} />
-        <Link href={`/${event?.venue.id}`}>
-          <MainHeader title={event!.venue.name} />
+        <Link href={`/${offer?.venue.id}`}>
+          <MainHeader title={offer!.venue.name} />
         </Link>
 
         <div className={styles.starsAndRating}>
           <div className={styles.stars}>{stars}</div>
           <p className={styles.reviews}>
-            {event?.venue.reviews.length} reviews
+            {offer?.venue.reviews.length} reviews
           </p>
         </div>
 
         <Image
           className={styles.photo}
-          src={event!.venue.mainPhoto}
-          alt={event!.venue.name}
+          src={offer!.venue.mainPhoto}
+          alt={offer!.venue.name}
           height={1000}
           width={1000}
         />
 
         <SubHeader title={"About venue:"} />
-        <p className={styles.aboutVenue}>{event?.venue.about}</p>
+        <p className={styles.aboutVenue}>{offer?.venue.about}</p>
 
         <div className={styles.categories}>
-          {event?.venue.category1 && (
-            <p className={styles.category}>{event?.venue.category1}</p>
+          {offer?.venue.category1 && (
+            <p className={styles.category}>{offer?.venue.category1}</p>
           )}
-          {event?.venue.category2 && (
-            <p className={styles.category}>{event?.venue.category2}</p>
+          {offer?.venue.category2 && (
+            <p className={styles.category}>{offer?.venue.category2}</p>
           )}
-          {event?.venue.category3 && (
-            <p className={styles.category}>{event?.venue.category3}</p>
+          {offer?.venue.category3 && (
+            <p className={styles.category}>{offer?.venue.category3}</p>
           )}
         </div>
       </div>
@@ -156,4 +156,4 @@ const EventShowPage: FC<Props> = async (props) => {
   );
 };
 
-export default EventShowPage;
+export default OfferShowPage;

@@ -11,6 +11,8 @@ import {
 } from "@react-google-maps/api";
 import { PopulatedVenue, SearchQuery } from "@/app/home/page";
 import ErrorPopup from "../popups/ErrorPopup";
+import { getRating } from "../home page/venue near user/ClosestVenueCard";
+import Image from "next/image";
 
 const Map = () => {
   const session = useCustomClientSession();
@@ -18,12 +20,14 @@ const Map = () => {
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
   const [searchTerm, setSearchTerm] = useState("");
   const [date, setDate] = useState("");
-  const [distance, setDistance] = useState(10000.00);
+  const [distance, setDistance] = useState(10000.0);
   const [popup, setPopup] = useState(false);
   const [popupContent, setPopupContent] = useState("");
   const [venuesNearUser, setVenuesNearUser] = useState([] as PopulatedVenue[]);
 
-  const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null);
+  const [selectedVenue, setSelectedVenue] = useState<PopulatedVenue | null>(
+    null
+  );
 
   useEffect(() => {
     const getLocation = () => {
@@ -38,8 +42,6 @@ const Map = () => {
     };
     getLocation();
   }, []);
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,8 +61,6 @@ const Map = () => {
           body: JSON.stringify(searchQuery),
         });
 
-
-
         const data = await response.json();
         if (data.failure > 0) {
           setVenuesNearUser([]);
@@ -78,11 +78,9 @@ const Map = () => {
     fetchData();
   }, [location, searchTerm, date, distance]);
 
-
-
   const containerStyle = {
     width: "100%",
-    height: "750px",
+    height: "770px",
   };
 
   const center = {
@@ -91,8 +89,6 @@ const Map = () => {
   };
 
   const zoom = 12;
-
-
 
   return (
     <>
@@ -136,15 +132,45 @@ const Map = () => {
                 setSelectedVenue(null);
               }}
             >
-              <div>
-                <h2 className={styles.venueName}>{selectedVenue.name}</h2>
-                <p className={styles.venueAbout}>{selectedVenue.about}</p>
+              <div className={styles.popUpContainer}>
+                <h1 className={styles.venueName}>{selectedVenue.name}</h1>
+                <div className={styles.starsAndRating}>
+                  <div className={styles.stars}>
+                    {getRating(selectedVenue.averageRating)}
+                  </div>
+                  <p>{selectedVenue.reviews?.length} reviews</p>
+                </div>
+
+                <div className={styles.imageAndCategories}>
+                  <Image
+                    className={styles.photo}
+                    src={selectedVenue.mainPhoto}
+                    alt={selectedVenue.name}
+                    width={500}
+                    height={500}
+                  />
+
+                  <div>
+                    <h1>Categories:</h1>
+                    <div className={styles.categories}>
+                      {selectedVenue.category1 && (
+                        <p className={styles.category}>{selectedVenue.category1}</p>
+                      )}
+                      {selectedVenue.category2 && (
+                        <p className={styles.category}>{selectedVenue.category2}</p>
+                      )}
+                      {selectedVenue.category3 && (
+                        <p className={styles.category}>{selectedVenue.category3}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
             </InfoWindow>
           )}
         </GoogleMap>
       </LoadScript>
-      {popup &&<ErrorPopup message={popupContent}/>}
+      {popup && <ErrorPopup message={popupContent} />}
     </>
   );
 };

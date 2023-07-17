@@ -1,8 +1,29 @@
-
+.popUpContainer {
+  @apply bg-main p-2
+}
 .venueName {
- @apply text-black
+  @apply text-white
+
 }
 
-.venueAbout {
-   @apply text-black
+.starsAndRating {
+  @apply flex items-center space-x-2
+}
+
+.stars {
+  @apply flex
+}
+
+.imageAndCategories {
+  @apply flex space-x-2
+}
+
+.photo {
+  @apply w-16 h-16 object-cover
+}
+.categories {
+  @apply flex flex-wrap space-x-1
+}
+.category {
+  @apply bg-midGray p-1 rounded-md mt-1
 }

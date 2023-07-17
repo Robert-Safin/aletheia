@@ -7,9 +7,10 @@ import { BiSolidStarHalf, BiWalk } from "react-icons/bi";
 import Image from "next/image";
 import SubHeader from "../../components/headers/SubHeader";
 import { BsCalendarEvent } from "react-icons/bs";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineStar, AiOutlineTag } from "react-icons/ai";
 import XScrollContainer from "@/components/home page/x-scroll card container/XScrollContainer";
 import UpcomingEvent from "@/components/home page/upcoming events/UpcomingEvent";
+import UpcomingOffer from "@/components/home page/upcoming offer/UpcomingOffer";
 interface Props {
   params: {
     venueId: string;
@@ -74,9 +75,6 @@ const VenueShowPage: FC<Props> = async (props) => {
   return (
     <Container>
 
-        <MainHeader title="Venue" />
-
-
       <div className={styles.contentCard}>
         <MainHeader title={venue!.name} />
 
@@ -105,6 +103,17 @@ const VenueShowPage: FC<Props> = async (props) => {
           {venue!.events.map((event) => <UpcomingEvent key={event.id} event={event}/>)}
         </XScrollContainer>
       </div>
+
+      <div className={styles.contentCard}>
+        <div className={styles.headerWithIcon}>
+          <AiOutlineTag className={styles.icon} />
+          <MainHeader title="Upcoming Offers" />
+        </div>
+        <XScrollContainer>
+          {venue!.offers.map((offer) => <UpcomingOffer key={offer.id} offer={offer}/>)}
+        </XScrollContainer>
+      </div>
+
     </Container>
   );
 };
