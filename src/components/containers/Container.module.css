@@ -1,4 +1,4 @@
 .container {
   @apply w-full p-2 text-white mb-14
-  md:mx-auto md:w-[390px]
+  md:mx-auto md:w-3/4
 }

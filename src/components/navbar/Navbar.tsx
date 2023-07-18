@@ -28,7 +28,7 @@ const userHasVenues = async (id:number) => {
 
 }
 
-const Navbar: FC = async () => {
+const Navbar: FC = async (props) => {
 
 
 
@@ -39,8 +39,6 @@ const Navbar: FC = async () => {
   } else {
     isOwner = await userHasVenues(Number(session.user?.id));
   }
-
-
 
 
   return (

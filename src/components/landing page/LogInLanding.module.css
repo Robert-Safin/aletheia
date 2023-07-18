@@ -1,5 +1,5 @@
 .container {
-  @apply bg-action p-5 w-[374px] rounded-t-xl absolute bottom-0 z-20
+  @apply bg-action p-5 w-[374px] rounded-xl absolute bottom-16 z-20
 }
 
 .form {
