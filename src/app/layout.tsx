@@ -24,7 +24,6 @@ const RootLayout:FC<Props> = (props) => {
 
 
 
-console.log(props);
 
 
 

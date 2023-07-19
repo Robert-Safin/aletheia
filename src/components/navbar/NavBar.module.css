@@ -1,5 +1,5 @@
 .container {
-  @apply bg-main z-10 fixed bottom-0 w-full rounded-t-lg border-t-2 border-black
+  @apply bg-main z-10 fixed bottom-0 w-full rounded-t-lg border-t border-black
   md:left-0 md:right-0 md:mx-auto md:w-3/4
 
 }

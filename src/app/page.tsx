@@ -17,7 +17,7 @@ const HomePage: NextPage = async () => {
   }
 
   return (
-    <Container>
+    <Container bgcolor="#262626">
       <div className={styles.container}>
         <div className={styles.text}>
           <h1 className={styles.title}>Aletheia</h1>
