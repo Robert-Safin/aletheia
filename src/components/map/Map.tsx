@@ -1,8 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "./Map.module.css";
-import useCustomClientSession from "@/lib/useCustomClientSession";
-import { Venue } from "@prisma/client";
 import {
   GoogleMap,
   Marker,
@@ -13,9 +11,10 @@ import { PopulatedVenue, SearchQuery } from "@/app/home/page";
 import ErrorPopup from "../popups/ErrorPopup";
 import { getRating } from "../home page/venue near user/ClosestVenueCard";
 import Image from "next/image";
+import SearchBar from "../searchBar/SearchBar";
+import Link from "next/link";
 
 const Map = () => {
-  const session = useCustomClientSession();
 
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
   const [searchTerm, setSearchTerm] = useState("");
@@ -92,7 +91,7 @@ const Map = () => {
 
   return (
     <>
-      <LoadScript
+          <LoadScript
         googleMapsApiKey={process.env.GOOGLE_MAPS_API_KEY!}
         libraries={["places"]} // Add additional libraries as needed
       >
@@ -132,6 +131,7 @@ const Map = () => {
                 setSelectedVenue(null);
               }}
             >
+              <Link href={`/${selectedVenue.id}`}>
               <div className={styles.popUpContainer}>
                 <h1 className={styles.venueName}>{selectedVenue.name}</h1>
                 <div className={styles.starsAndRating}>
@@ -166,6 +166,7 @@ const Map = () => {
                   </div>
                 </div>
               </div>
+              </Link>
             </InfoWindow>
           )}
         </GoogleMap>

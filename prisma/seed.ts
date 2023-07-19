@@ -223,11 +223,61 @@ async function main() {
 
 
 
+////////////////////////////////////////////////////////////////////////////////////// spain
+let OceanClub = await prisma.venue.create({
+  data: {
+    name: "Ocean Club Marbella",
+    category1: "Beach Club",
+    phoneNumber: "+62 812-3676-0000",
+    about:"Ocean Club Marbella is a beach club in Marbella. It's a great place to chill out with a beer and watch the sunset. The food is good and the atmosphere is relaxed. It's a popular place for expats and tourists alike.",
+    address : 'Av. Lola Flores, s/n, 29660 Marbella, Málaga, Spain',
+    averageRating : 0,
+    ownerId: Alex.id,
+    mainPhoto: 'https://res.cloudinary.com/dxgkclowd/image/upload/v1689760006/breathtaking-views-and_odumwo.jpg'
+  }
+})
+OceanClub = await prisma.venue.update({
+  where: { id: OceanClub.id },
+  data: {
+    latitude: (await convertAddressToCoordinates(OceanClub.address)).latitude,
+    longitude: (await convertAddressToCoordinates(OceanClub.address)).longitude,
+    formattedAddress: (await convertAddressToCoordinates(OceanClub.address)).formattedAddress,
+    city: (await convertAddressToCoordinates(OceanClub.address)).city,
+    isVerified : true
+  },
+});
+
+console.log('created venue:', OceanClub);
 
 
 
+const BeachParty = await prisma.offer.create({
+  data: {
+    isRecurring: true,
+    name: "Beach Party",
+    description: "Join us for a beach party at Ocean Club Marbella. We will have live music, DJs, and a lot of fun. The party starts at 8pm and goes until 2am. We hope to see you there!",
+    startDate: new Date(2022, 5, 5),
+    endDate: new Date(2025, 5, 5),
+    onMonday: true,
+    onTuesday: true,
+    onWednesday: true,
+    onThursday: true,
+    onFriday: true,
+    onSaturday: true,
+    onSunday: true,
+    startTime: "10:00",
+    endTime: "22:00",
+    QRQuntity: 0,
+    venueId: OceanClub.id,
+    photo: "https://res.cloudinary.com/dxgkclowd/image/upload/v1689760141/Ocean-Club_Marbella-6_ozmlok.jpg",
+  }
+})
+
+console.log('created event:', BeachParty);
 
 
+
+//////////////////////////////////////////////////////////////////////////////////////spain
 
 
 

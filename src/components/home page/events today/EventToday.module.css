@@ -3,13 +3,13 @@
 }
 
 .eventName{
-  @apply line-clamp-1 overflow-hidden text-xl mb-1 w-36
+  @apply line-clamp-1 overflow-hidden text-sm mb-1 w-36
 }
 
 .venueName {
-  @apply line-clamp-1 overflow-hidden text-sm w-36
+  @apply line-clamp-1 overflow-hidden text-xs w-36
 }
 
 .times {
-  @apply flex text-sm
+  @apply flex text-xs
 }
