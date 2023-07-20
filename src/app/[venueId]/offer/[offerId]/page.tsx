@@ -24,9 +24,11 @@ const getOffer = async (id: number) => {
     },
     include: {
       QROffers: true,
+      photos: true,
       venue: {
         include: {
           reviews: true,
+          photos: true,
         },
       },
     },
@@ -74,7 +76,7 @@ const OfferShowPage: FC<Props> = async (props) => {
         <MainHeader title={offer!.name} />
         <Image
           className={styles.photo}
-          src={offer!.photo}
+          src={offer!.photos[0].url}
           alt={offer!.name}
           width={1000}
           height={1000}
@@ -131,7 +133,7 @@ const OfferShowPage: FC<Props> = async (props) => {
 
         <Image
           className={styles.photo}
-          src={offer!.venue.mainPhoto}
+          src={offer!.venue.photos[0].url}
           alt={offer!.venue.name}
           height={1000}
           width={1000}

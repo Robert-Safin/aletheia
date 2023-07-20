@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   const website = body.website;
   const about = body.about;
   const address = body.address;
-  const photoUrl = body.photo as unknown as string
+  const photos = body.photos
 
   const convertAddressToCoordinates = async (address: string): Promise<{latitude: number, longitude: number, formattedAddress:string, city:string}> => {
     return new Promise((resolve, reject) => {
@@ -84,10 +84,6 @@ export async function POST(request: Request) {
     return new Response(JSON.stringify({ message: "Venue about cant be empty", failure: 6 }))
   }
 
-  // handle no photo url
-  if (!photoUrl) {
-    return new Response(JSON.stringify({ message: "Something went wrong with photo :(", failure: 7 }))
-  }
 
   //handle no session
   if (!session) {
@@ -115,9 +111,15 @@ export async function POST(request: Request) {
       formattedAddress: googleAddress.formattedAddress,
       latitude: googleAddress.latitude,
       longitude: googleAddress.longitude,
-      mainPhoto: photoUrl,
       ownerId: Number(userId),
-    },
+      photos: {
+        create: photos.map((photo) => {
+          return {
+            url: photo.secure_url,
+            publicId: photo.public_id,
+          }
+        }),
+    },}
   });
 
 

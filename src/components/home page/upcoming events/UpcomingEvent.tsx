@@ -1,14 +1,16 @@
 "use client";
 import { FC } from "react";
 import styles from "./UpcomingEvent.module.css";
-import { Event, PrismaClient, Venue } from "@prisma/client";
+import { Event, Photo, PrismaClient, Venue } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
   event: Event & {
     venue: Venue;
-  };
+  } & {
+    photos: Photo[];
+  }
 }
 
 const UpcomingEvent: FC<Props> = (props) => {
@@ -47,7 +49,7 @@ const UpcomingEvent: FC<Props> = (props) => {
       <Link href={`/${props.event.venue.id}/event/${props.event.id}`}>
       <Image
         className={styles.photo}
-        src={props.event.photo}
+        src={props.event.photos[0].url}
         alt={props.event.name}
         width={1000}
         height={1000}

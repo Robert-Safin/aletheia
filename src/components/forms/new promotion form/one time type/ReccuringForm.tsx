@@ -26,6 +26,7 @@ export interface ReccuringOfferForm {
   saturday: boolean;
   sunday: boolean;
   photoURL: string;
+  publicId: string;
   startDate: Date;
   endDate: Date;
   startTime: string;
@@ -232,6 +233,7 @@ const ReccuringForm:FC<Props> = (props) => {
     const cloudinaryResponseData = await responseCloudinary.json();
 
     const secureUrl = cloudinaryResponseData.secure_url;
+    const publicId = cloudinaryResponseData.public_id;
 
 
 
@@ -246,6 +248,7 @@ const ReccuringForm:FC<Props> = (props) => {
       saturday: saturdayRefBool,
       sunday: sundayRefBool,
       photoURL: secureUrl,
+      publicId: publicId,
       startDate: startDateRefObj,
       endDate: endDateRefObj,
       startTime: startTimeRef.current?.value!,

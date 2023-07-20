@@ -21,6 +21,7 @@ const getOwnersVenues = async (id: number) => {
       reviews: true,
       offers: true,
       events: true,
+      photos: true,
     }
   });
 

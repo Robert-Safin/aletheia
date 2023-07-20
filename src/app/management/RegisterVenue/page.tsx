@@ -5,7 +5,7 @@ import Container from '@/components/containers/Container'
 const RegisterVenuePage = async() => {
   return (
 
-    <Container>
+    <Container bgcolor='#262626'>
     <RegisterVenueForm />
     </Container>
 

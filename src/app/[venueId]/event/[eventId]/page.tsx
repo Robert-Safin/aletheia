@@ -24,9 +24,11 @@ const getEvent = async (id: number) => {
     },
     include: {
       QREvents: true,
+      photos: true,
       venue: {
         include: {
           reviews: true,
+          photos: true,
         },
       },
     },
@@ -74,7 +76,7 @@ const EventShowPage: FC<Props> = async (props) => {
         <MainHeader title={"Event"} />
         <Image
           className={styles.photo}
-          src={event!.photo}
+          src={event!.photos[0].url}
           alt={event!.name}
           width={1000}
           height={1000}
@@ -131,7 +133,7 @@ const EventShowPage: FC<Props> = async (props) => {
 
         <Image
           className={styles.photo}
-          src={event!.venue.mainPhoto}
+          src={event!.venue.photos[0].url}
           alt={event!.venue.name}
           height={1000}
           width={1000}

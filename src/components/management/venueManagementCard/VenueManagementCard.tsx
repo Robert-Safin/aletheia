@@ -1,12 +1,12 @@
 'use client'
 import { FC } from 'react'
 import styles from './VenueManagementCard.module.css'
-import { Review, Venue, Event, Offer } from '@prisma/client'
+import { Review, Venue, Event, Offer, Photo } from '@prisma/client'
 import Image from 'next/image'
 import { AiOutlineCalendar, AiOutlineTag } from 'react-icons/ai'
-import { MdOutlineDiscount } from 'react-icons/md'
 import Link from 'next/link'
 import { getRating } from '@/components/home page/venue near user/ClosestVenueCard'
+import ImageCarousel from '@/components/image carousel/Carousel'
 
 interface EventProps {
   events: Event[]
@@ -18,8 +18,11 @@ interface OfferProps {
 interface ReviewProps {
   reviews: Review[];
 }
+interface PhotoProps {
+  photos: Photo[]
+}
 interface Props {
-  venue: Venue & ReviewProps & EventProps & OfferProps;
+  venue: Venue & ReviewProps & EventProps & OfferProps & PhotoProps
 }
 
 
@@ -30,8 +33,8 @@ const VenueManagementCard:FC<Props> = (props) => {
   return (
     <>
     <div className={styles.container}>
-      <Image className={styles.photo} src={props.venue.mainPhoto} alt={props.venue.name} width={1000} height={1000}/>
-      <h1 className={styles.name}>{props.venue.name}</h1>
+     <ImageCarousel photos={props.venue.photos}/>
+    <h1 className={styles.name}>{props.venue.name}</h1>
 
       <div className={styles.ratingAndReviews}>
         <div className={styles.rating}>{rating}</div>

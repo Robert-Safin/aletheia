@@ -20,6 +20,7 @@ export interface OnceOfferForm {
   name: string;
   details: string
   photoURL: string;
+  publicId: string;
   startDate: Date;
   startTime: string;
   endTime: string;
@@ -191,6 +192,7 @@ const OnceForm:FC<Props> = (props) => {
     const cloudinaryResponseData = await responseCloudinary.json();
 
     const secureUrl = cloudinaryResponseData.secure_url;
+    const publicId = cloudinaryResponseData.public_id;
 
 
 
@@ -198,6 +200,7 @@ const OnceForm:FC<Props> = (props) => {
       name: nameRef.current!.value,
       details: detailsRef.current!.value,
       photoURL: secureUrl,
+      publicId: publicId,
       startDate: startDateRefObj,
       startTime: startTimeRef.current?.value!,
       endTime: endTimeRef.current?.value!,

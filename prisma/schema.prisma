@@ -12,6 +12,29 @@ datasource db {
   relationMode = "prisma"
 }
 
+model Photo {
+  id       Int       @id @default(autoincrement())
+  url      String
+  publicId String
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
+
+  venue    Venue?    @relation(fields: [venueId], references: [id])
+  venueId  Int?
+
+  event    Event?    @relation(fields: [eventId], references: [id])
+  eventId  Int?
+
+  offer    Offer?    @relation(fields: [offerId], references: [id])
+  offerId  Int?
+
+  qrEvent  QREvent?  @relation(fields: [qrEventId], references: [id])
+  qrEventId Int?
+
+  qrOffer  QROffer?  @relation(fields: [qrOfferId], references: [id])
+  qrOfferId Int?
+}
+
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
@@ -38,7 +61,7 @@ model Venue {
   formattedAddress String @default("")
   city String @default("")
   averageRating Float @default(0)
-  mainPhoto String
+  photos   Photo[]
   longitude Float @default(0)
   latitude Float @default(0)
   isVerified Boolean @default(false)
@@ -82,7 +105,7 @@ model Event {
   onSaturday Boolean @default(false)
   onSunday Boolean @default(false)
   description String @db.Text
-  photo String
+  photos   Photo[]
   QRQuntity Int @default(0)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
@@ -111,7 +134,7 @@ model Offer {
   onSaturday Boolean @default(false)
   onSunday Boolean @default(false)
   description String @db.Text
-  photo String
+  photos   Photo[]
   QRQuntity Int @default(0)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
@@ -127,7 +150,7 @@ model Offer {
 
 model QREvent {
   id Int @id @default(autoincrement())
-  image String
+  photos   Photo[]
   isRedeemed Boolean @default(false)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
@@ -140,7 +163,7 @@ model QREvent {
 
 model QROffer {
   id Int @id @default(autoincrement())
-  image String
+  photos   Photo[]
   isRedeemed Boolean @default(false)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt

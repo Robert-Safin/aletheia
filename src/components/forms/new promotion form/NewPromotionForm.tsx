@@ -1,5 +1,4 @@
-
-import { FC,} from "react";
+import { FC } from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -12,17 +11,15 @@ import { OnceOfferForm } from "./recurring type/OnceForm";
 
 interface Props {
   venueId: string;
-  formFor: 'offer' | 'event'
+  formFor: "offer" | "event";
 }
 
-const NewPromotionForm:FC<Props> = async (props) => {
-
-
-  const submitRecurringOfferForm = async (form:ReccuringOfferForm) => {
-    "use server"
-    const prisma = new PrismaClient()
-    const type = props.formFor
-    if (type === 'offer') {
+const NewPromotionForm: FC<Props> = async (props) => {
+  const submitRecurringOfferForm = async (form: ReccuringOfferForm) => {
+    "use server";
+    const prisma = new PrismaClient();
+    const type = props.formFor;
+    if (type === "offer") {
       const newOffer = await prisma.offer.create({
         data: {
           isRecurring: true,
@@ -41,19 +38,24 @@ const NewPromotionForm:FC<Props> = async (props) => {
           description: form.details,
           QRQuntity: form.quantity,
           venueId: Number(props.venueId),
-          photo: form.photoURL
-        }
-      })
+          photos: {
+            create: [{
+              publicId: form.photoURL,
+              url: form.photoURL
+            }]
+          }
+        },
+      });
 
-      await prisma.$disconnect()
+      await prisma.$disconnect();
 
       if (!newOffer) {
-        console.log('error creating offer');
+        console.log("error creating offer");
       }
-      revalidatePath('/management')
-      redirect('/management')
+      revalidatePath("/management");
+      redirect("/management");
     }
-    if (type === 'event') {
+    if (type === "event") {
       const newEvent = await prisma.event.create({
         data: {
           isRecurring: true,
@@ -72,25 +74,31 @@ const NewPromotionForm:FC<Props> = async (props) => {
           description: form.details,
           QRQuntity: form.quantity,
           venueId: Number(props.venueId),
-          photo: form.photoURL
-        }
-      })
+          photos: {
+            create: [
+              {
+                publicId: form.photoURL,
+                url: form.photoURL,
+              },
+            ],
+          },
+        },
+      });
 
-      await prisma.$disconnect()
+      await prisma.$disconnect();
 
       if (!newEvent) {
-        console.log('error creating event');
+        console.log("error creating event");
       }
-      revalidatePath('/management')
-      redirect('/management')
+      revalidatePath("/management");
+      redirect("/management");
     }
-  }
+  };
 
-  const submitOnceOfferForm = async (form:OnceOfferForm) => {
-    "use server"
+  const submitOnceOfferForm = async (form: OnceOfferForm) => {
+    "use server";
 
-
-    const prisma = new PrismaClient()
+    const prisma = new PrismaClient();
     const newOffer = await prisma.offer.create({
       data: {
         isRecurring: false,
@@ -101,22 +109,32 @@ const NewPromotionForm:FC<Props> = async (props) => {
         description: form.details,
         QRQuntity: form.quantity,
         venueId: Number(props.venueId),
-        photo: form.photoURL
-      }
-    })
+        photos: {
+          create: [
+            {
+              url: form.photoURL,
+              publicId: form.photoURL,
+            },
+          ],
+        },
+      },
+    });
 
-    await prisma.$disconnect()
+    await prisma.$disconnect();
 
     if (!newOffer) {
-      console.log('error creating offer');
+      console.log("error creating offer");
     }
-    revalidatePath('/management')
-    redirect('/management')
-  }
+    revalidatePath("/management");
+    redirect("/management");
+  };
 
   return (
     <>
-      <FormSelection submitRecurringOfferForm={submitRecurringOfferForm} submitOnceOfferForm={submitOnceOfferForm}/>
+      <FormSelection
+        submitRecurringOfferForm={submitRecurringOfferForm}
+        submitOnceOfferForm={submitOnceOfferForm}
+      />
     </>
   );
 };

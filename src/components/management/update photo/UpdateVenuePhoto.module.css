@@ -1,4 +1,6 @@
-
+.form {
+  @apply h-screen
+}
 
 .photoIconAndTextWrapper {
   @apply border border-white rounded-sm mt-2
@@ -17,4 +19,19 @@
 
 .submit {
   @apply py-2 bg-action w-full rounded-md mx-auto tracking-widest mt-16
+}
+
+
+.thumbsContainer {
+  @apply flex flex-wrap my-4
+}
+
+
+.thumbImage {
+  @apply w-24 h-24 object-cover rounded-md m-3
+}
+
+
+.thumbDelete {
+  @apply relative left-24 bottom-[120px] z-20 text-2xl
 }

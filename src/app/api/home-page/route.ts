@@ -39,24 +39,6 @@ export async function POST(request: Request) {
       ]
     }
   });
-  // await prisma.offer.deleteMany({
-  //   where: {
-  //     OR: [
-  //       {
-  //         isRecurring: false,
-  //         startDate: {
-  //           lt: currentDate
-  //         }
-  //       },
-  //       {
-  //         isRecurring: true,
-  //         endDate: {
-  //           lt: currentDate
-  //         }
-  //       }
-  //     ]
-  //   }
-  // });
 
   const venueDocsNearUser = await prisma.venue.findMany({
     where: {
@@ -72,6 +54,7 @@ export async function POST(request: Request) {
     },
     include: {
       reviews: true,
+      photos: true,
       events: {
         where: {
           OR: [
@@ -91,11 +74,13 @@ export async function POST(request: Request) {
         },
         include: {
           venue: true,
+          photos: true,
         }
       },
       offers: {
         include: {
           venue: true,
+          photos: true,
         }
       },
     }

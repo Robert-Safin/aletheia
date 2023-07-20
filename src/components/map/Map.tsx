@@ -144,7 +144,7 @@ const Map = () => {
                 <div className={styles.imageAndCategories}>
                   <Image
                     className={styles.photo}
-                    src={selectedVenue.mainPhoto}
+                    src={selectedVenue.photos[0].url}
                     alt={selectedVenue.name}
                     width={500}
                     height={500}
