@@ -1,0 +1,7 @@
+.carousel {
+  @apply w-full
+}
+
+.photo {
+  @apply w-96 h-96 object-cover rounded-md
+}

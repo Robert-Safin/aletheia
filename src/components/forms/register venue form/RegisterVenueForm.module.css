@@ -1,34 +1,42 @@
 .form {
-  @apply flex flex-col;
-}
-.quill {
-  @apply bg-white text-black
-}
-
-
-
-.quill svg {
-  @apply text-red-600
+  @apply flex flex-col mb-4
 }
 
 .photoLabel {
-  @apply border border-white w-full
+  @apply border border-white w-full;
 }
 
 .photoLabelInnerDiv {
-  @apply border border-white rounded-md p-2 my-8 flex items-center justify-center space-x-2 w-1/2 mx-auto
+  @apply border border-white rounded-md p-2 my-8 flex items-center justify-center space-x-2 w-1/2 mx-auto;
 }
 .icon {
-  @apply text-white
+  @apply text-white;
 }
 .photoFakeLabel {
-  @apply mt-4 mb-2
+  @apply mt-4 mb-2;
 }
-
 
 .photoInput {
-  @apply hidden
+  @apply hidden;
 }
 .textArea {
-  @apply rounded-md p-2 text-black
+  @apply rounded-md p-2 text-black;
+}
+
+
+
+
+
+.thumbsContainer {
+  @apply flex flex-wrap my-4
+}
+
+
+.thumbImage {
+  @apply w-24 h-24 object-cover rounded-md m-3
+}
+
+
+.thumbDelete {
+  @apply relative left-24 bottom-[120px] z-20 text-2xl
 }

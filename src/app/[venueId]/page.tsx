@@ -11,6 +11,8 @@ import { AiFillStar, AiOutlineStar, AiOutlineTag } from "react-icons/ai";
 import XScrollContainer from "@/components/home page/x-scroll card container/XScrollContainer";
 import UpcomingEvent from "@/components/home page/upcoming events/UpcomingEvent";
 import UpcomingOffer from "@/components/home page/upcoming offer/UpcomingOffer";
+import ImageCarousel from "@/components/image carousel/Carousel";
+
 interface Props {
   params: {
     venueId: string;
@@ -24,15 +26,18 @@ export const getVenue = async (id: number) => {
       id: id,
     },
     include: {
+      photos: true,
       reviews: true,
       events: {
         include: {
           venue: true,
+          photos: true,
         },
       },
       offers: {
         include: {
           venue: true,
+          photos: true,
         },
       },
     },
@@ -78,13 +83,7 @@ const VenueShowPage: FC<Props> = async (props) => {
       <div className={styles.contentCard}>
         <MainHeader title={venue!.name} />
 
-        <Image
-          className={styles.photo}
-          src={venue!.mainPhoto}
-          alt={venue!.name}
-          width={1000}
-          height={1000}
-        />
+        <ImageCarousel photos={venue!.photos}/>
         <div className={styles.startsAndReview}>
           <div className={styles.stars}>{stars}</div>
           <p className={styles.reviews}>{venue?.reviews.length} Reviews</p>

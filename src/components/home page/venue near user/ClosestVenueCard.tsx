@@ -1,15 +1,15 @@
 "use client";
 import { FC } from "react";
 import styles from "./ClosestVenueCard.module.css";
-import { Event, Offer, Venue } from "@prisma/client";
 import Image from "next/image";
 import { AiFillCalendar, AiFillStar, AiOutlineStar, AiTwotoneTag } from "react-icons/ai";
 import Link from "next/link";
 import { BiSolidStarHalf } from "react-icons/bi";
 import { PopulatedVenue } from "@/app/home/page";
+import { Photo } from "@prisma/client";
 
 interface Props {
-  venue: PopulatedVenue;
+  venue: PopulatedVenue & { photos: Photo[]}
   userLatitude: number;
   userLongitude: number;
 }
@@ -93,11 +93,12 @@ const ClosestVenueCard: FC<Props> = (props) => {
       <Link href={`/${props.venue.id}`}>
         <Image
           className={styles.photo}
-          src={props.venue.mainPhoto}
+          src={props.venue.photos[0].url}
           alt={`photo of ${props.venue.name}`}
           width={1000}
           height={1000}
         />
+
       </Link>
       <h1 className={styles.name}>{props.venue.name}</h1>
       <div className={styles.distanceAndStars}>

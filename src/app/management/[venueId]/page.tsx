@@ -15,6 +15,7 @@ import UpdateVenueButton from "@/components/venueOwnersComponents/updateVenueBut
 import { redirect } from "next/navigation";
 import { revalidateTag } from "next/cache";
 import { BiSolidStarHalf } from "react-icons/bi";
+import ImageCarousel from "@/components/image carousel/Carousel";
 
 interface Props {
   params: {
@@ -96,13 +97,7 @@ const MangementVenueShowPage: FC<Props> = async (props) => {
 
   return (
     <Container>
-      <Image
-        className={styles.mainPhoto}
-        src={venue!.mainPhoto}
-        alt={venue!.name}
-        width={2000}
-        height={2000}
-      />
+      <ImageCarousel photos={venue!.photos}/>
       <MainHeader title={venue!.name} />
 
       <div className={styles.startsAndRating}>

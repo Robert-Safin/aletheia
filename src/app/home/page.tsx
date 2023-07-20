@@ -1,7 +1,6 @@
 "use client";
 import Container from "../../components/containers/Container";
 import MainHeader from "../../components/headers/MainHeader";
-import SubHeader from "../../components/headers/SubHeader";
 import SearchBar from "../../components/searchBar/SearchBar";
 import styles from "./page.module.css";
 import { BiWalk } from "react-icons/bi";
@@ -9,7 +8,7 @@ import { MdOutlineLocalOffer, MdLocalOffer } from "react-icons/md";
 import { FC, useEffect, useState } from "react";
 import { AiFillCalendar, AiOutlineCalendar } from "react-icons/ai";
 import XScrollContainer from "@/components/home page/x-scroll card container/XScrollContainer";
-import { Event, Offer, Review, Venue } from "@prisma/client";
+import { Event, Offer, Photo, Review, Venue } from "@prisma/client";
 import ClosestVenueCard from "@/components/home page/venue near user/ClosestVenueCard";
 import UpcomingEvent from "@/components/home page/upcoming events/UpcomingEvent";
 import EventToday from "@/components/home page/events today/EventToday";
@@ -29,17 +28,20 @@ export interface SearchQuery {
 }
 
 export interface PopulatedEvent extends Event {
-  venue: Venue;
+  venue: Venue
+  photos: Photo[];
 }
 
 export interface PopulatedOffer extends Offer {
-  venue: Venue;
+  venue: Venue
+  photos: Photo[];
 }
 
 export interface PopulatedVenue extends Venue {
-  events?: PopulatedEvent[];
+  events?: PopulatedEvent[]
   offers?: PopulatedOffer[];
   reviews?: Review[];
+  photos: Photo[]
 
 }
 

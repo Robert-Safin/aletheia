@@ -24,6 +24,9 @@ const getUnverifiedVenues = async () => {
     where: {
       isVerified: false,
     },
+    include: {
+      photos: true,
+    }
   });
   await prisma.$disconnect();
   return unverifiedVenues;

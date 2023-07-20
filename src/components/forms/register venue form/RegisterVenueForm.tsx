@@ -12,8 +12,12 @@ import FormSubmitButton from "@/components/forms/FormSubmitButton";
 import ErrorPopup from "@/components/popups/ErrorPopup";
 import { useRouter } from "next/navigation";
 import { ImUpload } from "react-icons/im";
-import SubHeader from "@/components/headers/SubHeader";
+import { useDropzone } from "react-dropzone";
 import Image from "next/image";
+
+import { IoCloseCircleSharp } from "react-icons/io5";
+type MyFile = File & { preview?: string };
+
 export interface VenueRegistrationForm {
   name: string;
   category1: string;
@@ -23,7 +27,7 @@ export interface VenueRegistrationForm {
   website: string;
   about: string;
   address: string;
-  photo: File;
+  photos: { secure_url: string; public_id: string }[];
 }
 
 const RegisterVenueForm = () => {
@@ -32,28 +36,74 @@ const RegisterVenueForm = () => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [popup, setPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
-  const [photoInputValue, setPhotoInputValue] = useState(
-    <div className={styles.photoLabelInnerDiv}>
-      <ImUpload className={styles.icon} />
-      <p>Upload</p>
+
+  const [uploadedImages, setUploadedImages] = useState<
+    { secure_url: string; public_id: string }[]
+  >([]);
+
+  const [files, setFiles] = useState<MyFile[]>([]);
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/png": [".png", ".webp", ".jpeg"],
+    },
+    maxFiles: 6,
+    onDrop: (acceptedFiles) => {
+      const remainingSlots = 6 - files.length;
+      const filesToBeAdded = acceptedFiles.slice(0, remainingSlots);
+
+      if (remainingSlots <= 0) {
+        setPopupMessage("You can only upload 6 photos");
+        setPopup(true);
+        setTimeout(() => {
+          setPopup(false);
+        }, 2000);
+        return;
+      }
+
+      setFiles((prevFiles) => [
+        ...prevFiles,
+        ...filesToBeAdded.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        ),
+      ]);
+    },
+  });
+
+  const handleRemoveFile = (index: number) => {
+    const newFiles = [...files];
+    URL.revokeObjectURL(newFiles[index].preview!);
+    newFiles.splice(index, 1);
+    setFiles(newFiles);
+  };
+
+  const thumbs = files.map((file: MyFile, index: number) => (
+    <div key={file.name}>
+      <Image
+        src={file.preview!}
+        alt="preview"
+        width={500}
+        height={500}
+        className={styles.thumbImage}
+      />
+      <IoCloseCircleSharp
+        className={styles.thumbDelete}
+        onClick={() => handleRemoveFile(index)}
+      >
+        Delete
+      </IoCloseCircleSharp>
     </div>
-  );
+  ));
 
   const nameRef = useRef<HTMLInputElement>(null);
   const categoryRef1 = useRef<HTMLInputElement>(null);
   const categoryRef2 = useRef<HTMLInputElement>(null);
   const categoryRef3 = useRef<HTMLInputElement>(null);
-  const categoryRef4 = useRef<HTMLInputElement>(null);
-  const categoryRef5 = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const websiteRef = useRef<HTMLInputElement>(null);
   const aboutRef = useRef<HTMLTextAreaElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
-  const photoRef = useRef<HTMLInputElement>(null);
-
-  // if (session.status === "loading") {
-  //   return <LoadingSession />;
-  // }
 
   if (session.status === "unauthenticated") {
     return <MissingClientSession />;
@@ -63,20 +113,8 @@ const RegisterVenueForm = () => {
     event.preventDefault();
     setIsDisabled(true);
 
-    const file = photoRef.current!.files![0];
-    const validImageTypes = ["image/jpeg", "image/png", "image/webp"];
-
-    if (!file) {
-      setPopupMessage("Please attach a photo");
-      setPopup(true);
-      setTimeout(() => {
-        setPopup(false);
-      }, 2000);
-      setIsDisabled(false);
-      return;
-    }
-    if (!validImageTypes.includes(file.type)) {
-      setPopupMessage("Please upload .jpeg/.png/.webp files only");
+    if (files.length === 0) {
+      setPopupMessage("Please attach at least one photo");
       setPopup(true);
       setTimeout(() => {
         setPopup(false);
@@ -85,21 +123,35 @@ const RegisterVenueForm = () => {
       return;
     }
 
-    const formDataCloudinary = new FormData();
-    formDataCloudinary.append("file", file);
-    formDataCloudinary.append("upload_preset", "aletheia");
+    let tempUploadedImages: { secure_url: string; public_id: string }[] = [];
 
-    const responseCloudinary = await fetch(
-      `https://api.cloudinary.com/v1_1/dxgkclowd/upload`,
-      {
-        method: "POST",
-        body: formDataCloudinary,
+    for (const file of files) {
+      const formDataCloudinary = new FormData();
+      formDataCloudinary.append("file", file);
+      formDataCloudinary.append("upload_preset", "aletheia");
+
+      const responseCloudinary = await fetch(
+        `https://api.cloudinary.com/v1_1/dxgkclowd/upload`,
+        {
+          method: "POST",
+          body: formDataCloudinary,
+        }
+      );
+
+      const cloudinaryResponseData = await responseCloudinary.json();
+
+      if (
+        cloudinaryResponseData.secure_url &&
+        cloudinaryResponseData.public_id
+      ) {
+        tempUploadedImages.push({
+          secure_url: cloudinaryResponseData.secure_url,
+          public_id: cloudinaryResponseData.public_id,
+        });
       }
-    );
+    }
 
-    const cloudinaryResponseData = await responseCloudinary.json();
-
-    const secureUrl = cloudinaryResponseData.secure_url;
+    setUploadedImages(tempUploadedImages);
 
     const formData: VenueRegistrationForm = {
       name: nameRef.current!.value.trim(),
@@ -110,7 +162,7 @@ const RegisterVenueForm = () => {
       website: websiteRef.current!.value.trim(),
       about: aboutRef.current!.value.trim(),
       address: addressRef.current!.value.trim(),
-      photo: secureUrl,
+      photos: tempUploadedImages,
     };
 
     const response = await fetch("/api/register-venue", {
@@ -135,23 +187,6 @@ const RegisterVenueForm = () => {
     } else {
       router.push("/management");
     }
-  };
-  const handlePhotoChange = () => {
-    const validImageTypes = ["image/jpeg", "image/png", "image/webp"];
-    const file = photoRef.current!.files![0];
-
-    if (!validImageTypes.includes(file.type)) {
-      setPopupMessage("Please upload .jpeg/.png/.webp files only");
-      setPopup(true);
-      setTimeout(() => {
-        setPopup(false);
-      }, 2000);
-      return;
-    }
-
-    setPhotoInputValue(
-      <div className={styles.photoLabelInnerDiv}>{file.name}</div>
-    );
   };
 
   return (
@@ -230,18 +265,28 @@ const RegisterVenueForm = () => {
         />
 
         <h1 className={styles.photoFakeLabel}>Photo</h1>
-        <input
-          type="file"
-          id="file"
-          className={styles.photoInput}
-          ref={photoRef}
-          onChange={handlePhotoChange}
-        />
-        <label htmlFor="file" className={styles.photoLabel}>
-          {photoInputValue}
-        </label>
+        <section>
+          <div
+            {...getRootProps({
+              className: "dropzone",
+              style: {
+                border: "1px dashed black",
+                padding: "20px",
+                textAlign: "center",
+              },
+            })}
+          >
+            <input {...getInputProps()} />
+            <p>Tap to select images</p>
+          </div>
+          <aside
+            style={{ display: "flex", flexDirection: "row", overflowX: "auto" }}
+          >
+            <div className={styles.thumbsContainer}>{thumbs}</div>
+          </aside>
+        </section>
 
-        <FormSubmitButton title="Register" isDisabled={isDisabled} />
+        <FormSubmitButton title="SUBMIT" isDisabled={isDisabled} />
       </form>
       {popup && <ErrorPopup message={popupMessage} />}
     </>
